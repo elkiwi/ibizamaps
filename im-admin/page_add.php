@@ -1,7 +1,7 @@
-<?php require_once('../Connections/ibzm.php'); 
+<?php require_once('../Connections/ibzm.php');
 session_cache_expire(180);
 $cache_expire = session_cache_expire();
-session_start(); 
+session_start();
 
 if(!isset($_SESSION['user'])){
 header("Location: index.php");
@@ -9,18 +9,18 @@ header("Location: index.php");
 ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "")
 {
   if (PHP_VERSION < 6) {
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
       $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
+      break;
     case "long":
     case "int":
       $theValue = ($theValue != "") ? intval($theValue) : "NULL";
@@ -45,20 +45,20 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
-	
+
 	$insertSQL = sprintf("INSERT INTO pages (title, menu_name, metadesc, html) VALUES (%s, %s, %s, %s)",
                        GetSQLValueString($_POST['title'], "text"),
 					    GetSQLValueString($_POST['menu_name'], "text"),
                        GetSQLValueString($_POST['metadesc'], "text"),
                        GetSQLValueString($_POST['html'], "text"));
 
-  mysql_select_db($database_ibzm, $ibzm);
-  $Result1 = mysql_query($insertSQL, $ibzm) or die(mysql_error());
-  
-	
- 
-  
- 
+  mysqli_select_db($database_ibzm, $ibzm);
+  $Result1 = mysqli_query($insertSQL, $ibzm);
+
+
+
+
+
 
   $updateGoTo = "main.php";
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -157,7 +157,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 		document_base_url : "http://www.ibizatophouse.com/",
 
 
-		
+
 		plugins : "media,style,advhr,advimage,imagemanager,advlink,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,inlinepopups",
 
 		// Theme options
@@ -185,7 +185,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 			staffid : ""
 		}
 	});
-	
+
 </script>
 <!-- /TinyMCE -->
 
@@ -200,22 +200,22 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 	<ul id="headernav">
 				<li><ul>
 					<li><a href="javascript:history.back()">Back</a><span><</span></li>
-					
-					
-					
-					
-					
+
+
+
+
+
 				</ul></li>
 			</ul>
 
-		
+
 	</div>
 </header>
 
 <nav>
 	<ul id="nav">
 		<?php include('mainnav.php');?>
-		
+
 	</ul>
 </nav>
 <!--<div id="pageoptions">
@@ -288,7 +288,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 </fieldset>
 <input type="hidden" name="MM_update" value="form1" />
 </form>
-	   
+
 
       </div>
 	</div>

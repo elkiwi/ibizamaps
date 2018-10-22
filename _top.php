@@ -11,29 +11,29 @@
 		'scheme'        => 'bright',
 		'cookie_prefix' => 'websiteVk3q-'
 	);
-	
+
 	require ('Connections/ibzm.php');
 	require ('includes/functions.php');
 	require ('includes/lang.php');
-	
-	mysql_select_db($database_ibzm, $ibzm);
+
+	mysqli_connect($database_ibzm, $ibzm);
 	$query_menu = "SELECT idinfo_$lang, title_$lang, infourl_$lang, menuname_$lang FROM infopages_$lang WHERE menuname_$lang <> ''" ;
-	$menu = mysql_query($query_menu, $ibzm) or die(mysql_error());
-	$row_menu = mysql_fetch_assoc($menu);
-	$totalRows_menu = mysql_num_rows($menu);
-	
+	$menu = mysqli_query($query_menu, $ibzm);
+	$row_menu = mysqli_fetch_assoc($menu);
+	$totalRows_menu = mysqli_num_rows($menu);
+
 	//echo $muni;
-	
+
 	switch ($thepage){
-		
+
 		case 'list':
 		require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/functions_details.php');
 		require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/details_lib.php');
-		
+
 		$colname_detail = "-1";
 		if (isset($_GET['muni'])) {
 		  $muni = $_GET['muni'];
-				
+
 		} else {
 			unset($muni);
 		}
@@ -42,23 +42,23 @@
 		if (isset($_GET['id'])) {
 		  $colname_location = $_GET['id'];
 		}
-		
-		
-		
+
+
+
 		$colname_infopages = "-1";
 		if (isset($_GET['type'])) {
 		  $colname_infopages = $_GET['type'];
 		}
-		
-		
-		
-		
-		mysql_select_db($database_ibzm, $ibzm);
+
+
+
+
+		mysqli_select_db($database_ibzm, $ibzm);
 		$query_infopages = sprintf("SELECT * FROM infopages_$lang WHERE infourl_$lang = %s", GetSQLValueString($colname_infopages, "text"));
-		$infopages = mysql_query($query_infopages, $ibzm) or die(mysql_error());
-		$row_infopages = mysql_fetch_assoc($infopages);
-		$totalRows_infopages = mysql_num_rows($infopages);
-		
+		$infopages = mysqli_query($query_infopages, $ibzm);
+		$row_infopages = mysqli_fetch_assoc($infopages);
+		$totalRows_infopages = mysqli_num_rows($infopages);
+
 		$colname_List = "-1";
 		if (isset($_GET['type'])) {
 		  $colname_List = $_GET['type'];
@@ -66,8 +66,8 @@
 		// exit ($query_infopages);
 		// Min(image_order.id),
 
-		mysql_select_db($database_ibzm, $ibzm);
-		$query_List = "SELECT 
+		mysqli_select_db($database_ibzm, $ibzm);
+		$query_List = "SELECT
 		markers.name_$lang AS title_$lang,
 		markers.id,
 		markers.online,
@@ -96,7 +96,7 @@
 		accom.pricehigh,
 		accom.affspot,
 		accom.affurl4
-		
+
 		FROM
 		markers
 		Left Join `type` ON `type`.idtype = markers.`type`
@@ -105,31 +105,31 @@
 		Left Join area ON area.idarea = contact.area
 		Left Join municipal ON municipal.idmunicipal = contact.municipal
 		Left Join accom ON accom.idaccom = markers.id
-		
+
 		Left Join image_order ON image_order.marker_id = markers.id";
 		switch ($colname_List) {
-	 case "accommodation": 
+	 case "accommodation":
 		   $query_List .= " WHERE `type`.idtype IN (1,2,3,4,5,23) AND markers.online = 1 GROUP BY markers.id ORDER BY municipal.name_ca ASC";
-				
+
 		break;
-		
-		case "hotels": 
+
+		case "hotels":
 		if (isset($muni)) {
 				$query_List .= " WHERE `type`.idtype IN (1) AND muniurl = '$muni' AND markers.online = 1 GROUP BY markers.id ORDER BY municipal.name_ca ASC";
 				} else {
-				$query_List .= " WHERE `type`.idtype IN (1) AND markers.online = 1 GROUP BY markers.id ORDER BY municipal.name_ca ASC";	
+				$query_List .= " WHERE `type`.idtype IN (1) AND markers.online = 1 GROUP BY markers.id ORDER BY municipal.name_ca ASC";
 				}
-					
+
 		break;
-		
-		case "activities": 
+
+		case "activities":
 				$query_List .= " WHERE `type`.idtype IN (12,28) AND markers.online = 1  GROUP BY markers.id ORDER BY municipal.name_ca ASC";
 		break;
-		
+
 		case "nightlife":
 				$query_List .= " WHERE `type`.idtype IN (15,19) AND markers.online = 1  GROUP BY markers.id ORDER BY municipal.name_ca ASC";
 		break;
-		
+
 		case "restaurants":
 		if (isset($muni)) {
 				$query_List .= " WHERE `type`.idtype IN (16,21) AND muniurl = '$muni' AND markers.online = 1 GROUP BY markers.id ORDER BY municipal.name_ca ASC";
@@ -137,28 +137,28 @@
 					$query_List .= " WHERE `type`.idtype IN (16,21) AND markers.online = 1  GROUP BY markers.id ORDER BY municipal.name_ca ASC";
 				}
 		break;
-		
+
 		default:
 				$query_List .= "
 		WHERE
 		`type`.typeurl =  '$colname_List' AND markers.online = 1 GROUP BY markers.id ORDER BY municipal.name_ca ASC";
 		break;
 		}
- 
-		$List = mysql_query($query_List, $ibzm) or die(mysql_error());
-		$row_List = mysql_fetch_assoc($List);
-		$totalRows_List = mysql_num_rows($List);
-		
-		
+
+		$List = mysqli_query($query_List, $ibzm);
+		$row_List = mysqli_fetch_assoc($List);
+		$totalRows_List = mysqli_num_rows($List);
+
+
 		$pageTitle = $row_infopages['title_' . $lang . ''];
-		
+
 		//exit ($query_List);
 		$html = new details();
 
 
 
 
-		
+
 		$avPriceTrans = $translate['Average price'][''.$lang.''];
 		$weekTrans = $translate['Night'][''.$lang.''];
 		$nightTrans = $translate['Week'][''.$lang.''];
@@ -166,30 +166,30 @@
 		$priceHigh = $row_List['pricehigh'];
 		$affSpot = $row_List['affspot'];
 		$affUrl4 = $row_List['affurl4'];
-		
-		$infoForTrans = $translate['Distances'][''.$lang.'']; 
+
+		$infoForTrans = $translate['Distances'][''.$lang.''];
 		$detailTrans = $translate['Detail map'][''.$lang.''];
 		$distancesTrans = $translate['Distances'][''.$lang.''];
 		$accomWithinTrans = $translate['Accomm within'][''.$lang.''];
-		
+
 		// nested loop vars reset
 		$lastTFM_nest = "";
 		$lastTFM2_nest = "";
-		
-		
+
+
 		break;
-		
-		
+
+
 		case 'detail':
 		require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/functions_details.php');
 		require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/details_lib.php');
 		// Calls commax class
 		// require_once ($_SERVER['DOCUMENT_ROOT'] . '/includes/Commax/include/commax.class.php');
 		// $Ccommax = new Ccommax();
-		
 
 
-		mysql_select_db($database_ibzm, $ibzm);
+
+		mysqli_select_db($database_ibzm, $ibzm);
 		$query_detailpage = sprintf("SELECT
 		markers.id,
 		markers.name_$lang AS title,
@@ -226,11 +226,11 @@
 		Inner Join `type` ON `type`.idtype = markers.`type`
 		WHERE
 		markers.id = %s", GetSQLValueString($id, "int"));
-		$detailpage = mysql_query($query_detailpage, $ibzm) or die(mysql_error());
-		$row_detailpage = mysql_fetch_assoc($detailpage);
-		$totalRows_detailpage = mysql_num_rows($detailpage);
-		
-		mysql_select_db($database_ibzm, $ibzm);
+		$detailpage = mysqli_query($query_detailpage, $ibzm);
+		$row_detailpage = mysqli_fetch_assoc($detailpage);
+		$totalRows_detailpage = mysqli_num_rows($detailpage);
+
+		mysqli_select_db($database_ibzm, $ibzm);
 		$query_munilinks = "SELECT
 		markers.id,
 		contact.idcontact,
@@ -243,21 +243,21 @@
 		Inner Join contact ON contact.idcontact = markers.id
 		Inner Join municipal ON municipal.idmunicipal = contact.idcontact
 		Inner Join `type` ON `type`.idtype = markers.`type`";
-		$munilinks = mysql_query($query_munilinks, $ibzm) or die(mysql_error());
-		$row_munilinks = mysql_fetch_assoc($munilinks);
-		$totalRows_munilinks = mysql_num_rows($munilinks);
-		
+		$munilinks = mysqli_query($query_munilinks, $ibzm);
+		$row_munilinks = mysqli_fetch_assoc($munilinks);
+		$totalRows_munilinks = mysqli_num_rows($munilinks);
+
 		$lat = $row_detailpage['lat'];
 		$lng = $row_detailpage['lng'];
-		
+
 		$query_hotels = sprintf("SELECT markers.id, markers.name_$lang,
 		markers.`type`,
 		markers.lat,
-		markers.lng, ( 6371 * acos( cos( radians('%s') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( lat ) ) ) ) AS distance, 
+		markers.lng, ( 6371 * acos( cos( radians('%s') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( lat ) ) ) ) AS distance,
 		contact.http, contact.address, contact.email, contact.telephone, contact.impage,
 		type.idtype, type.typeurl,
 		municipal.muniurl
-		FROM markers 
+		FROM markers
 		Left Join contact ON contact.idcontact = markers.id
 		Left Join `type` ON `type`.idtype = markers.`type`
 		Left Join municipal ON municipal.idmunicipal = contact.municipal
@@ -265,21 +265,21 @@
 		markers.`type` IN  (1,2,3,4,5,23)
 		AND markers.id <> '$id'
 		ORDER BY distance LIMIT 0 , 10",
-		  mysql_real_escape_string($lat),
-		  mysql_real_escape_string($lng),
-		  mysql_real_escape_string($lat));
-		$hotels = mysql_query($query_hotels, $ibzm) or die(mysql_error());
-		$row_hotels = mysql_fetch_assoc($hotels);
-		$totalRows_hotels = mysql_num_rows($hotels);
-		
+		  mysqli_real_escape_string($lat),
+		  mysqli_real_escape_string($lng),
+		  mysqli_real_escape_string($lat));
+		$hotels = mysqli_query($query_hotels, $ibzm);
+		$row_hotels = mysqli_fetch_assoc($hotels);
+		$totalRows_hotels = mysqli_num_rows($hotels);
+
 		$query_restaurants = sprintf("SELECT markers.id, markers.name_$lang,
 		markers.`type`,
 		markers.lat,
-		markers.lng, ( 6371 * acos( cos( radians('%s') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( lat ) ) ) ) AS distance, 
+		markers.lng, ( 6371 * acos( cos( radians('%s') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( lat ) ) ) ) AS distance,
 		contact.http, contact.address, contact.email, contact.telephone, contact.impage,
 		type.idtype, type.typeurl,
 		municipal.muniurl
-		FROM markers 
+		FROM markers
 		Left Join contact ON contact.idcontact = markers.id
 		Left Join `type` ON `type`.idtype = markers.`type`
 		Left Join municipal ON municipal.idmunicipal = contact.municipal
@@ -287,26 +287,26 @@
 		markers.`type` IN  (15,16,17,19)
 		AND markers.id <> '$id'
 		ORDER BY distance LIMIT 0 , 5",
-		  mysql_real_escape_string($lat),
-		  mysql_real_escape_string($lng),
-		  mysql_real_escape_string($lat));
-		
-		$restaurants = mysql_query($query_restaurants, $ibzm) or die(mysql_error());
-		$row_restaurants = mysql_fetch_assoc($restaurants);
-		$totalRows_restaurants = mysql_num_rows($restaurants);
-		
-		
-		
-		
+		  mysqli_real_escape_string($lat),
+		  mysqli_real_escape_string($lng),
+		  mysqli_real_escape_string($lat));
+
+		$restaurants = mysqli_query($query_restaurants, $ibzm);
+		$row_restaurants = mysqli_fetch_assoc($restaurants);
+		$totalRows_restaurants = mysqli_num_rows($restaurants);
+
+
+
+
 		if ($row_detailpage['type'] == 22) {
 		$query_businesses = sprintf("SELECT markers.id, markers.name_$lang,
 		markers.`type`,
 		markers.lat,
-		markers.lng, ( 6371 * acos( cos( radians('%s') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( lat ) ) ) ) AS distance, 
+		markers.lng, ( 6371 * acos( cos( radians('%s') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( lat ) ) ) ) AS distance,
 		contact.http, contact.address, contact.email, contact.telephone, contact.impage,
 		type.idtype, type.typeurl,
 		municipal.muniurl
-		FROM markers 
+		FROM markers
 		Left Join contact ON contact.idcontact = markers.id
 		Left Join `type` ON `type`.idtype = markers.`type`
 		Left Join municipal ON municipal.idmunicipal = contact.municipal
@@ -314,25 +314,25 @@
 		markers.`type` IN  (7,8,9,18,25,26)
 		AND markers.id <> '$id'
 		ORDER BY distance LIMIT 0 , 5",
-		  mysql_real_escape_string($lat),
-		  mysql_real_escape_string($lng),
-		  mysql_real_escape_string($lat),
-		  mysql_real_escape_string($radius));
-		$businesses = mysql_query($query_businesses, $ibzm) or die(mysql_error());
-		$row_businesses = mysql_fetch_assoc($businesses);
-		$totalRows_businesses = mysql_num_rows($businesses);
-		
-		
+		  mysqli_real_escape_string($lat),
+		  mysqli_real_escape_string($lng),
+		  mysqli_real_escape_string($lat),
+		  mysqli_real_escape_string($radius));
+		$businesses = mysqli_query($query_businesses, $ibzm);
+		$row_businesses = mysqli_fetch_assoc($businesses);
+		$totalRows_businesses = mysqli_num_rows($businesses);
+
+
 		}
-		
-		
-		
-		
+
+
+
+
 		// distances to places
-		mysql_select_db($database_ibzm, $ibzm);
+		mysqli_select_db($database_ibzm, $ibzm);
 		$query_Distances = sprintf("SELECT DISTINCT
 		markers.id,
-		( 6371 * acos( cos( radians('%s') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( lat ) ) ) ) AS distance, 
+		( 6371 * acos( cos( radians('%s') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( lat ) ) ) ) AS distance,
 		markers.name_$lang,
 		markers.`type`,
 		`type`.typeurl,
@@ -348,18 +348,18 @@
 		WHERE
 		markers.`type` IN  (13,18,22,14,25,7,9,24,26,27)
 		AND markers.id <> '$id'
-		
+
 		ORDER BY distance LIMIT 0,5",
-		 mysql_real_escape_string($lat),
-		  mysql_real_escape_string($lng),
-		  mysql_real_escape_string($lat),
-		  mysql_real_escape_string($radius));
-		$Distances = mysql_query($query_Distances, $ibzm) or die(mysql_error());
-		$row_Distances = mysql_fetch_assoc($Distances);
-		$totalRows_Distances = mysql_num_rows($Distances);
-		
-		mysql_select_db($database_ibzm, $ibzm);
-		$query_places = "SELECT 
+		 mysqli_real_escape_string($lat),
+		  mysqli_real_escape_string($lng),
+		  mysqli_real_escape_string($lat),
+		  mysqli_real_escape_string($radius));
+		$Distances = mysqli_query($query_Distances, $ibzm);
+		$row_Distances = mysqli_fetch_assoc($Distances);
+		$totalRows_Distances = mysqli_num_rows($Distances);
+
+		mysqli_select_db($database_ibzm, $ibzm);
+		$query_places = "SELECT
 		`markers`.`name_$lang` AS place_name,
 		`municipal`.`muniurl`,
 		`type`.`typeurl`,
@@ -372,13 +372,13 @@
 		WHERE
 		`markers`.`type` =  '22'
 		AND `markers`.`id` <> $id";
-		$places = mysql_query($query_places, $ibzm) or die(mysql_error());
-		$row_places = mysql_fetch_assoc($places);
-		$totalRows_places = mysql_num_rows($places);
-		
+		$places = mysqli_query($query_places, $ibzm);
+		$row_places = mysqli_fetch_assoc($places);
+		$totalRows_places = mysqli_num_rows($places);
+
 		$html = new details();
 		$title =  $row_detailpage['title'];
-		$areaTitle = $row_detailpage['area_'.$lang.'']; 
+		$areaTitle = $row_detailpage['area_'.$lang.''];
 		$muniTitle = $row_detailpage['name_'.$lang.''];
 		$muniUrl = $row_detailpage['muniurl'];
 		$site = 'Ibiza';
@@ -400,27 +400,27 @@
 		$affUrl4 = $row_Accom['affurl4'];
 		$affUrl3 = $row_Accom['affurl3'];
 		$affUrl2 = $row_Accom['affurl2'];
-		$infoForTrans = $translate['Distances'][''.$lang.'']; 
+		$infoForTrans = $translate['Distances'][''.$lang.''];
 		$detailTrans = $translate['Detail map'][''.$lang.''];
 		$distancesTrans = $translate['Distances'][''.$lang.''];
 		$accomWithinTrans = $translate['Accomm within'][''.$lang.''];
-		
+
 		$sql_image_gallery = "SELECT * FROM image_order WHERE marker_id = $id ORDER BY position ASC ;";
-		$image_gallery = mysql_query($sql_image_gallery, $ibzm) or die(mysql_error());
-		$row_image_gallery = mysql_fetch_assoc($image_gallery);
-		$totalRows_image_gallery = mysql_num_rows($image_gallery);
-			
-		
-		
+		$image_gallery = mysqli_query($sql_image_gallery, $ibzm);
+		$row_image_gallery = mysqli_fetch_assoc($image_gallery);
+		$totalRows_image_gallery = mysqli_num_rows($image_gallery);
+
+
+
 		$sql_image_order = "SELECT * FROM image_order WHERE marker_id = $id ORDER BY position ASC LIMIT 0,3;";
-		$image_order = mysql_query($sql_image_order, $ibzm) or die(mysql_error());
-		$row_image_order = mysql_fetch_assoc($image_order);
-		$totalRows_image_order = mysql_num_rows($image_order);
+		$image_order = mysqli_query($sql_image_order, $ibzm);
+		$row_image_order = mysqli_fetch_assoc($image_order);
+		$totalRows_image_order = mysqli_num_rows($image_order);
 
 		// $comments = $Ccommax->build_comment_system($row_detailpage['id']);
-		$pageTitle = $row_detailpage['title'] .' '.  utf8_encode($row_detailpage['name_'.$lang.'']) ; 
-		
-		mysql_select_db($database_ibzm, $ibzm);
+		$pageTitle = $row_detailpage['title'] .' '.  utf8_encode($row_detailpage['name_'.$lang.'']) ;
+
+		mysqli_select_db($database_ibzm, $ibzm);
 		$query_directions = "SELECT
 		markers.name_en,
 		markers.lat,
@@ -431,67 +431,67 @@
 		markers.type IN (10,13,22)
 		ORDER BY
 		markers.name_en ASC";
-		$directions = mysql_query($query_directions, $ibzm) or die(mysql_error());
-		$row_directions = mysql_fetch_assoc($directions);
-		$totalRows_directions = mysql_num_rows($directions);
-		
-		
-		
+		$directions = mysqli_query($query_directions, $ibzm);
+		$row_directions = mysqli_fetch_assoc($directions);
+		$totalRows_directions = mysqli_num_rows($directions);
+
+
+
 		break;
-		
+
 		case 'home':
-		
+
 		$colname_infopages = "-1";
 		if (isset($_GET['type'])) {
 		  $colname_infopages = $_GET['type'];
 		}
-		
-		
-		
-		mysql_select_db($database_ibzm, $ibzm);
+
+
+
+		mysqli_select_db($database_ibzm, $ibzm);
 		$query_infopages = sprintf("SELECT * FROM infopages_en WHERE infourl_en = %s", GetSQLValueString($colname_infopages, "text"));
-		$infopages = mysql_query($query_infopages, $ibzm) or die(mysql_error());
-		$row_infopages = mysql_fetch_assoc($infopages);
-		$totalRows_infopages = mysql_num_rows($infopages);
-		
-		
-		
-		
-		
-		
-		
-		
+		$infopages = mysqli_query($query_infopages, $ibzm);
+		$row_infopages = mysqli_fetch_assoc($infopages);
+		$totalRows_infopages = mysqli_num_rows($infopages);
+
+
+
+
+
+
+
+
 		$pageTitle = 'Ibiza Maps | Ibiza Hotels, Beaches & Restaurants';
-		
-		
+
+
 		break;
-		
+
 		case 'pages':
-		
-		mysql_select_db($database_ibzm, $ibzm);
+
+		mysqli_select_db($database_ibzm, $ibzm);
 		$query_pages = "SELECT * FROM infopages_$lang WHERE infourl_$lang = '$page'";
-		$pages = mysql_query($query_pages, $ibzm) or die(mysql_error());
-		$row_pages = mysql_fetch_assoc($pages);
-		$totalRows_pages = mysql_num_rows($pages);
-		
+		$pages = mysqli_query($query_pages, $ibzm);
+		$row_pages = mysqli_fetch_assoc($pages);
+		$totalRows_pages = mysqli_num_rows($pages);
+
 		$pageTitle = $row_pages['title'];
 		// exit($query_pages);
 		break;
-		
+
 		case 'islandmap':
 		require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/functions_details.php');
 		require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/details_lib.php');
-		
-		
-		
+
+
+
 		break;
-		
+
 		case 'locations':
-		
+
 		$colname_detail = "-1";
 		if (isset($_GET['muni'])) {
 		  $muni = $_GET['muni'];
-				
+
 		} else {
 			unset($muni);
 		}
@@ -500,17 +500,17 @@
 		if (isset($_GET['id'])) {
 		  $colname_location = $_GET['id'];
 		}
-		
-		
-		
+
+
+
 		$colname_infopages = "-1";
 		if (isset($_GET['type'])) {
 		  $colname_infopages = $_GET['type'];
 		}
 			require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/functions_details.php');
 		require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/details_lib.php');
-		
-									mysql_select_db($database_ibzm, $ibzm);
+
+									mysqli_select_db($database_ibzm, $ibzm);
 							$query_location = sprintf("SELECT
 							markers.id,
 							markers.name_$lang,
@@ -526,101 +526,101 @@
 							markers
 							Inner Join pages_$lang ON pages_$lang.idpage_$lang = markers.id
 							WHERE markers.id = %s", GetSQLValueString($colname_location, "int"));
-							$location = mysql_query($query_location, $ibzm) or die(mysql_error());
-							$row_location = mysql_fetch_assoc($location);
-							$totalRows_location = mysql_num_rows($location);
+							$location = mysqli_query($query_location, $ibzm);
+							$row_location = mysqli_fetch_assoc($location);
+							$totalRows_location = mysqli_num_rows($location);
 							//exit ($query_location);
 							$lat = $row_location['lat'];
 							$lng = $row_location['lng'];
-							
+
 							$pageTitle = $row_location['name_'.$lang.''];
 							$metaDesc = $row_location['metadesc_'.$lang.''];
-							
+
 							$query_hotels = sprintf("SELECT markers.id, markers.name_$lang,
 							markers.`type`,
 							markers.lat,
-							markers.lng, ( 6371 * acos( cos( radians('%s') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( lat ) ) ) ) AS distance, 
+							markers.lng, ( 6371 * acos( cos( radians('%s') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( lat ) ) ) ) AS distance,
 							contact.http, contact.address, contact.email, contact.telephone, contact.impage,
 							type.idtype, type.typeurl,
 							municipal.muniurl
-							FROM markers 
+							FROM markers
 							Left Join contact ON contact.idcontact = markers.id
 							Left Join `type` ON `type`.idtype = markers.`type`
 							Left Join municipal ON municipal.idmunicipal = contact.municipal
 							WHERE
 							markers.`type` IN  (1,2,3,4,5,23)
-							
+
 							HAVING distance < '%s' ORDER BY distance LIMIT 0 , 20",
-									mysql_real_escape_string($lat),
-									mysql_real_escape_string($lng),
-									mysql_real_escape_string($lat),
-									mysql_real_escape_string($radius));
-							$hotels = mysql_query($query_hotels, $ibzm) or die(mysql_error());
-							$row_hotels = mysql_fetch_assoc($hotels);
-							$totalRows_hotels = mysql_num_rows($hotels);
-							
+									mysqli_real_escape_string($lat),
+									mysqli_real_escape_string($lng),
+									mysqli_real_escape_string($lat),
+									mysqli_real_escape_string($radius));
+							$hotels = mysqli_query($query_hotels, $ibzm);
+							$row_hotels = mysqli_fetch_assoc($hotels);
+							$totalRows_hotels = mysqli_num_rows($hotels);
+
 							$query_restaurants = sprintf("SELECT markers.id, markers.name_$lang,
 							markers.`type`,
 							markers.lat,
-							markers.lng, ( 6371 * acos( cos( radians('%s') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( lat ) ) ) ) AS distance, 
+							markers.lng, ( 6371 * acos( cos( radians('%s') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( lat ) ) ) ) AS distance,
 							contact.http, contact.address, contact.email, contact.telephone, contact.impage,
 							type.idtype, type.typeurl,
 							municipal.muniurl
-							FROM markers 
+							FROM markers
 							Left Join contact ON contact.idcontact = markers.id
 							Left Join `type` ON `type`.idtype = markers.`type`
 							Left Join municipal ON municipal.idmunicipal = contact.municipal
 							WHERE
 							markers.`type` IN  (15,16,17)
-							
+
 							HAVING distance < 4 ORDER BY distance LIMIT 0 , 20",
-									mysql_real_escape_string($lat),
-									mysql_real_escape_string($lng),
-									mysql_real_escape_string($lat));
-							
-							$restaurants = mysql_query($query_restaurants, $ibzm) or die(mysql_error());
-							$row_restaurants = mysql_fetch_assoc($restaurants);
-							$totalRows_restaurants = mysql_num_rows($restaurants);
-							
-							
-							$result = mysql_query($query_restaurants);
+									mysqli_real_escape_string($lat),
+									mysqli_real_escape_string($lng),
+									mysqli_real_escape_string($lat));
+
+							$restaurants = mysqli_query($query_restaurants, $ibzm);
+							$row_restaurants = mysqli_fetch_assoc($restaurants);
+							$totalRows_restaurants = mysqli_num_rows($restaurants);
+
+
+							$result = mysqli_query($query_restaurants);
 							if (!$result) {
-									die("Invalid query: " . mysql_error());
+									die("Invalid query: " . mysqli_error());
 							}
-							
-							
+
+
 							$query_businesses = sprintf("SELECT markers.id, markers.name_$lang,
 							markers.`type`,
 							markers.lat,
-							markers.lng, ( 6371 * acos( cos( radians('%s') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( lat ) ) ) ) AS distance, 
+							markers.lng, ( 6371 * acos( cos( radians('%s') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( lat ) ) ) ) AS distance,
 							contact.http, contact.address, contact.email, contact.telephone, contact.impage,
 							type.idtype, type.typeurl,
 							municipal.muniurl
-							FROM markers 
+							FROM markers
 							Left Join contact ON contact.idcontact = markers.id
 							Left Join `type` ON `type`.idtype = markers.`type`
 							Left Join municipal ON municipal.idmunicipal = contact.municipal
 							WHERE
 							markers.`type` IN  (7,8,9,18)
 							HAVING distance < '%s' ORDER BY distance LIMIT 0 , 20",
-									mysql_real_escape_string($lat),
-									mysql_real_escape_string($lng),
-									mysql_real_escape_string($lat),
-									mysql_real_escape_string($radius));
-							$businesses = mysql_query($query_businesses, $ibzm) or die(mysql_error());
-							$row_businesses = mysql_fetch_assoc($businesses);
-							$totalRows_businesses = mysql_num_rows($businesses);
-							
-							$result = mysql_query($query_businesses);
+									mysqli_real_escape_string($lat),
+									mysqli_real_escape_string($lng),
+									mysqli_real_escape_string($lat),
+									mysqli_real_escape_string($radius));
+							$businesses = mysqli_query($query_businesses, $ibzm);
+							$row_businesses = mysqli_fetch_assoc($businesses);
+							$totalRows_businesses = mysqli_num_rows($businesses);
+
+							$result = mysqli_query($query_businesses);
 							if (!$result) {
-									die("Invalid query: " . mysql_error());
+									die("Invalid query: " . mysqli_error());
 							}
-							
+
 							// distances to places
-							mysql_select_db($database_ibzm, $ibzm);
+							mysqli_select_db($database_ibzm, $ibzm);
 							$query_Distances = sprintf("SELECT DISTINCT
 							markers.id,
-							( 6371 * acos( cos( radians('%s') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( lat ) ) ) ) AS distance, 
+							( 6371 * acos( cos( radians('%s') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( lat ) ) ) ) AS distance,
 							markers.name_$lang,
 							markers.`type`,
 							`type`.typeurl,
@@ -638,19 +638,19 @@
 							AND markers.id <> '$colname_location'
 							HAVING distance < '5'
 							ORDER BY distance",
-								mysql_real_escape_string($lat),
-									mysql_real_escape_string($lng),
-									mysql_real_escape_string($lat),
-									mysql_real_escape_string($radius));
-							$Distances = mysql_query($query_Distances, $ibzm) or die(mysql_error());
-							$row_Distances = mysql_fetch_assoc($Distances);
-							$totalRows_Distances = mysql_num_rows($Distances);
-							
-							
-							
-							
-							
-							mysql_select_db($database_ibzm, $ibzm);
+								mysqli_real_escape_string($lat),
+									mysqli_real_escape_string($lng),
+									mysqli_real_escape_string($lat),
+									mysqli_real_escape_string($radius));
+							$Distances = mysqli_query($query_Distances, $ibzm);
+							$row_Distances = mysqli_fetch_assoc($Distances);
+							$totalRows_Distances = mysqli_num_rows($Distances);
+
+
+
+
+
+							mysqli_select_db($database_ibzm, $ibzm);
 							$query_munilinks = "SELECT
 							municipal.idmunicipal,
 							municipal.name_ca,
@@ -663,12 +663,12 @@
 							Inner Join contact ON contact.idcontact = markers.id
 							Inner Join municipal ON municipal.idmunicipal = contact.idcontact
 							Inner Join `type` ON `type`.idtype = markers.`type`";
-							$munilinks = mysql_query($query_munilinks, $ibzm) or die(mysql_error());
-							$row_munilinks = mysql_fetch_assoc($munilinks);
-							$totalRows_munilinks = mysql_num_rows($munilinks);
-							
-							mysql_select_db($database_ibzm, $ibzm);
-							$query_places = "SELECT 
+							$munilinks = mysqli_query($query_munilinks, $ibzm);
+							$row_munilinks = mysqli_fetch_assoc($munilinks);
+							$totalRows_munilinks = mysqli_num_rows($munilinks);
+
+							mysqli_select_db($database_ibzm, $ibzm);
+							$query_places = "SELECT
 							`markers`.`name_$lang`,
 							`municipal`.`muniurl`,
 							`type`.`typeurl`,
@@ -680,27 +680,27 @@
 							Inner Join `type` ON `type`.`idtype` = `markers`.`type`
 							WHERE
 							`markers`.`type` =  '22'";
-							$places = mysql_query($query_places, $ibzm) or die(mysql_error());
-							$row_places = mysql_fetch_assoc($places);
-							$totalRows_places = mysql_num_rows($places);
+							$places = mysqli_query($query_places, $ibzm);
+							$row_places = mysqli_fetch_assoc($places);
+							$totalRows_places = mysqli_num_rows($places);
 							$html = new details();
 		break;
-		
+
 		case 'islandmap':
 		require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/functions_details.php');
 		require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/details_lib.php');
-		
-		
-		
+
+
+
 		break;
-		
-		
-		
-		
+
+
+
+
 		}
-		
-		mysql_select_db($database_ibzm, $ibzm);
-		$query_places = "SELECT 
+
+		mysqli_select_db($database_ibzm, $ibzm);
+		$query_places = "SELECT
 		`markers`.`name_en` AS place_name,
 		`municipal`.`muniurl`,
 		`type`.`typeurl`,
@@ -712,12 +712,12 @@
 		Inner Join `type` ON `type`.`idtype` = `markers`.`type`
 		WHERE
 		`markers`.`type` =  '22'";
-		$places = mysql_query($query_places, $ibzm) or die(mysql_error());
-		$row_places = mysql_fetch_assoc($places);
-		$totalRows_places = mysql_num_rows($places);
-		
-		
-		mysql_select_db($database_ibzm, $ibzm);
+		$places = mysqli_query($query_places, $ibzm);
+		$row_places = mysqli_fetch_assoc($places);
+		$totalRows_places = mysqli_num_rows($places);
+
+
+		mysqli_select_db($database_ibzm, $ibzm);
 		$query_munilinks = "SELECT
 		municipal.idmunicipal,
 		municipal.name_ca,
@@ -730,11 +730,11 @@
 		Inner Join contact ON contact.idcontact = markers.id
 		Inner Join municipal ON municipal.idmunicipal = contact.idcontact
 		Inner Join `type` ON `type`.idtype = markers.`type`";
-		$munilinks = mysql_query($query_munilinks, $ibzm) or die(mysql_error());
-		$row_munilinks = mysql_fetch_assoc($munilinks);
-		$totalRows_munilinks = mysql_num_rows($munilinks);
-		
-		mysql_select_db($database_ibzm, $ibzm);
+		$munilinks = mysqli_query($query_munilinks, $ibzm);
+		$row_munilinks = mysqli_fetch_assoc($munilinks);
+		$totalRows_munilinks = mysqli_num_rows($munilinks);
+
+		mysqli_select_db($database_ibzm, $ibzm);
 		$query_newpages = "SELECT
 		markers.name_en,
 		municipal.muniurl,
@@ -742,21 +742,21 @@
 		`type`.typeurl,
 		markers.id,
 		contact.impage
-		FROM 
-		`markers` 
+		FROM
+		`markers`
 		Inner Join
-		`contact` ON idcontact = `markers`.`id` 
+		`contact` ON idcontact = `markers`.`id`
 		Inner Join
 		municipal ON contact.municipal = municipal.idmunicipal
 		Inner Join
-		`type` ON `type`.`idtype` = `markers`.`type`  
+		`type` ON `type`.`idtype` = `markers`.`type`
 		WHERE
 		markers.`type` <>  24
 		ORDER BY `markers`.`id` DESC
 		LIMIT 0, 5";
-		$newpages = mysql_query($query_newpages, $ibzm) or die(mysql_error());
-		$row_newpages = mysql_fetch_assoc($newpages);
-		$totalRows_newpages = mysql_num_rows($newpages);
+		$newpages = mysqli_query($query_newpages, $ibzm);
+		$row_newpages = mysqli_fetch_assoc($newpages);
+		$totalRows_newpages = mysqli_num_rows($newpages);
 
 ?>
 <!DOCTYPE html>
@@ -775,43 +775,43 @@
         <link href='http://fonts.googleapis.com/css?family=Advent+Pro:400,700' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="/data/php/attach.php?f=fancybox.css,flexslider.css,base.css,structure.css,parts.css,widgets.css,<?php echo $website_config['scheme']; ?>.css,color.css" />
         <link rel="stylesheet" type="text/css" href="/includes/Commax/assets/css/skin1.css" />
-		
 
-        
+
+
         <?php if ($thepage == 'detail') { ?>
-        
+
         <link rel="stylesheet" type="text/css" href="/quform/css/standard.css" /><!-- Standard form layout -->
     <script type="text/javascript">
             //<![CDATA[
-			
-			
+
+
 			//on the server
 			var latitude = <?php echo $lat;?>;
 			var longitude = <?php echo $lng;?>;
 			var lang = '<?php echo $lang;?>';
 			var radius = 5;
 			var detailtype = '<?php echo $row_detailpage['type'];?>';
-			
+
 			//]]>
 		</script>
 
 <script src="http://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAfUinhMrZXJwn5qi-KdXIdwfIWgFpL1IY&sensor=true" type="text/javascript"></script>
         <script type="text/javascript" src="/includes/detail.js"></script>
         <script type="text/javascript" src="/data/js/jquery-1.8.1.min.js"></script>
-             
-        
+
+
         <script type="text/javascript" src="/quform/js/plugins.js"></script>
         <script type="text/javascript" src="/quform/js/scripts.js"></script>
-		
-        
+
+
       	<?php } ?>
-        
+
          <?php if ($thepage == 'list') { ;?>
 
         <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAfUinhMrZXJwn5qi-KdXIdwfIWgFpL1IY&sensor=true&libraries=weather" type="text/javascript"></script>
         <script type="text/javascript">
             //<![CDATA[
-			            
+
             //on the server
             var latitude = 38.961929;
             var longitude = 1.398375;
@@ -821,73 +821,73 @@
             //]]>
             </script>
         <script type="text/javascript" src="/includes/info.googlemap.js" ></script>
-    
-    
+
+
 
 
 
     				<?php } ?>
-        
+
          <?php if ($thepage == 'locations') { ;?>
 
         <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAfUinhMrZXJwn5qi-KdXIdwfIWgFpL1IY&sensor=true&libraries=weather" type="text/javascript"></script>
         <script type="text/javascript">
             //<![CDATA[
-			            
+
             //on the server
             var latitude = <?php echo $row_location['lat'];?>;
             var longitude = <?php echo $row_location['lng'];?>;
             var lang = '<?php echo $lang; ?>';
 												var radius = 5;
-												
+
             //]]>
             </script>
         <script type="text/javascript" src="/includes/location.googlemap.js" ></script>
-    
-    
+
+
 
 
 
     				<?php } ?>
-        
+
         <?php if ($thepage == 'islandmap') { ;?>
 
        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAfUinhMrZXJwn5qi-KdXIdwfIWgFpL1IY&sensor=true&libraries=weather" type="text/javascript"></script>
        <script type="text/javascript">
             //<![CDATA[
-			            
+
             //on the server
             var latitude = 38.961929;
             var longitude = 1.398375;
             var lang = '<?php echo $lang; ?>';
-												
+
             //]]>
             </script>
         <script type="text/javascript" src="/includes/island.googlemap.js" ></script>
-    
-    
+
+
 
 
 
     				<?php } ?>
-        
+
          <?php if ($thepage == 'contact') { ;?>
 
-      
+
            <link rel="stylesheet" type="text/css" href="/quform/css/standard.css" /><!-- Standard form layout -->
             <script type="text/javascript" src="/data/js/jquery-1.8.1.min.js"></script>
             <script type="text/javascript" src="/quform/js/plugins.js"></script>
             <script type="text/javascript" src="/quform/js/scripts.js"></script>
-    
+
 
 
 
     				<?php } ?>
-    
-    
-		
+
+
+
 		<script src="/data/php/attach.php?f=jquery-1.8.1.min.js,jquery.cookie.min.js,jquery.fancybox.min.js,jquery.flexslider.min.js,jquery.jflickrfeed.min.js,jquery.masonry.min.js,jquery.tweet.min.js,jquery.yaselect.min.js,prefixfree.min.js,website.config.js,website.min.js"></script>
-		
+
 
 		<script src="http://platform.twitter.com/widgets.js"></script>
 		<script src="https://apis.google.com/js/plusone.js"></script>
@@ -910,7 +910,7 @@
 			})});
 		</script>
 
-		
+
 	</head>
 	<!-- // Head section -->
 
@@ -934,14 +934,14 @@
 		</div>
 		<!-- // Browser notification -->
 
-		
+
 
 		<!-- Main section -->
 		<div id="main" class="clear">
 			<div class="container">
 
 				<!-- Header -->
-				<header id="header" class="clear"> 
+				<header id="header" class="clear">
                 <hgroup class="alpha">
 						<h1 class="alpha">
 							<a href="/" title="Ibiza Maps"><img src="/content/top.png" alt="" class="logo" /></a>
@@ -960,16 +960,16 @@
               </script>
 						</div>
 					</div>
-             
-          
-                       
-						
-					
-                   
-					
-							
+
+
+
+
+
+
+
+
 							 <?php echo langFlags($thepage);?>
-						
-						
+
+
 				</header>
 				<!-- // Header -->

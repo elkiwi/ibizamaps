@@ -11,28 +11,28 @@ $price = $_GET['price'];
 		case 0:
 		unset ($price); // if price is 0 unset it so as not to be used in query
 		break;
-		
+
 		case 1:
 		$priceClause = '0 AND 500000 ';
 		break;
-		
+
 		case 2:
 		$priceClause = '500000 AND 1000000 ';
 		break;
-		
+
 		case 3:
 		$priceClause = '1000000 AND 3000000 ';
 		break;
-		
+
 		case 4:
 		$priceClause = '3000000 AND 100000000 ';
 		break;
-		
-		
+
+
 		default:
 		unset ($price); // if price is 0 unset it so as not to be used in query
-		
-	
+
+
 	}
 }
 
@@ -43,29 +43,29 @@ $rooms = $_GET['rooms'];
 		case 0:
 		unset ($rooms); // if price is 0 unset it so as not to be used in query
 		break;
-		
+
 		case 1:
 		$roomsClause = '1 AND 2 ';
 		break;
-		
+
 		case 2:
 		$roomsClause = '2 AND 3 ';
 		break;
-		
+
 		case 3:
 		$roomsClause = '3 AND 4 ';
 		break;
-		
+
 		case 4:
 		$roomsClause = '5 AND 50 ';
 		break;
-		
-		
-		
+
+
+
 		default:
 		unset ($rooms); // if price is 0 unset it so as not to be used in query
-		
-	
+
+
 	}
 }
 
@@ -87,7 +87,7 @@ if (isset($_GET['salerent'])){
 $salerent = $_GET['salerent'];
 
 if ($salerent == 'forsale') {
-mysql_select_db($database_ith, $ith);
+mysqli_select_db($database_ith, $ith);
 $query_list = "SELECT
 details.propid,
 details.reccommended,
@@ -116,15 +116,15 @@ zone.zonename,
 area.area_es
 FROM
 details
-Inner Join 
+Inner Join
 zone ON zone.zoneid = details.zone
-Inner Join 
-detaildesc_$lang ON detaildesc_$lang.detaildescid = details.detailid 
-Inner Join 
+Inner Join
+detaildesc_$lang ON detaildesc_$lang.detaildescid = details.detailid
+Inner Join
 `type` ON `type`.typeid = details.`type`
-Inner Join 
+Inner Join
 details ON details.detailid = detaildesc_$lang.detaildescid
-Inner Join 
+Inner Join
 area ON area.idarea = details.area
 
 WHERE
@@ -132,10 +132,10 @@ WHERE
 
 if (isset($type))
 {
-	if ($type == 1) 
+	if ($type == 1)
 	{ // mix villas and houses together
-		$query_list .= "AND `type`.typeid IN  (1,8) ";	
-	}	
+		$query_list .= "AND `type`.typeid IN  (1,8) ";
+	}
 	else // just show the normal type
 	{
         $query_list .= "AND `type`.typeid =  '$type' ";
@@ -145,31 +145,31 @@ if (isset($type))
 if (isset($zone))
 {
 $query_list .= "AND
-zone.zoneid =  '$zone' ";	
+zone.zoneid =  '$zone' ";
 }
 
 if (isset($price))
 {
 $query_list .= "AND
-price BETWEEN $priceClause";	
+price BETWEEN $priceClause";
 }
 
 if (isset($rooms))
 {
 $query_list .= "AND
-bedrooms BETWEEN $roomsClause";	
+bedrooms BETWEEN $roomsClause";
 }
 
 $query_list .= "ORDER BY reccommended DESC, price ASC";
 
 switch ($salerent) {
-	
+
 	case $translate['forsaleurl'][''.$lang.'']:
 	$query_list .= "AND	`details`.`forsale` =  '1'";
 	$titlesalerent = 'forsale';
 	break;
-	
-    case $translate['forrenturl'][''.$lang.'']:	
+
+    case $translate['forrenturl'][''.$lang.'']:
 	$query_list .= "AND	`details`.`forsale` =  '2'";
 	$titlesalerent = 'forrent';
 	break;
@@ -178,8 +178,8 @@ switch ($salerent) {
 }
 
 else {
-	
-mysql_select_db($database_ith, $ith);
+
+mysqli_select_db($database_ith, $ith);
 $query_list = "SELECT
 details.propid,
 details.reccommended,
@@ -208,15 +208,15 @@ zone.zonename,
 area.area_es
 FROM
 details
-Inner Join 
+Inner Join
 zone ON zone.zoneid = details.zone
-Inner Join 
-detaildesc_$lang ON detaildesc_$lang.detaildescid = details.detailid 
-Inner Join 
+Inner Join
+detaildesc_$lang ON detaildesc_$lang.detaildescid = details.detailid
+Inner Join
 `type` ON `type`.typeid = details.`type`
-Inner Join 
+Inner Join
 details ON details.detailid = detaildesc_$lang.detaildescid
-Inner Join 
+Inner Join
 area ON area.idarea = details.area
 
 WHERE
@@ -224,10 +224,10 @@ WHERE
 
 if (isset($type))
 {
-	if ($type == 1) 
+	if ($type == 1)
 	{ // mix villas and houses together
-		$query_list .= "AND `type`.typeid IN  (1,8) ";	
-	}	
+		$query_list .= "AND `type`.typeid IN  (1,8) ";
+	}
 	else // just show the normal type
 	{
         $query_list .= "AND `type`.typeid =  '$type' ";
@@ -237,27 +237,27 @@ if (isset($type))
 if (isset($zone))
 {
 $query_list .= "AND
-zone.zoneid =  '$zone' ";	
+zone.zoneid =  '$zone' ";
 }
 
 
 if (isset($rooms))
 {
 $query_list .= "AND
-bedrooms BETWEEN $roomsClause";	
+bedrooms BETWEEN $roomsClause";
 }
 
 $query_list .= "AND	`details`.`forsale` =  '2' ORDER BY reccommended DESC, price ASC";
 
 
-	
-}
 
 }
 
-$list = mysql_query($query_list, $ith) or die(mysql_error());
-$row_list = mysql_fetch_assoc($list);
-$totalRows_list = mysql_num_rows($list);
+}
+
+$list = mysqli_query($query_list, $ith);
+$row_list = mysqli_fetch_assoc($list);
+$totalRows_list = mysqli_num_rows($list);
 
 //$trans = new Latin1UTF8();
 
@@ -265,7 +265,7 @@ if ($totalRows_list == 0) {
 $error = 1;
 
 $updateGoTo = '/search.php?lang='.$lang.'&error='.$error.'';
- 	
+
   header("Location: $updateGoTo");
 
 }
@@ -275,18 +275,18 @@ $updateGoTo = '/search.php?lang='.$lang.'&error='.$error.'';
 
 
 if (isset($zone)) {
-	
-mysql_select_db($database_ith, $ith);
+
+mysqli_select_db($database_ith, $ith);
 $query_zonename = sprintf("SELECT * FROM `zone` WHERE zoneurl = %s", GetSQLValueString($zone, "text"));
-$zonename = mysql_query($query_zonename, $ith) or die(mysql_error());
-$row_zonename = mysql_fetch_assoc($zonename);
-$totalRows_zonename = mysql_num_rows($zonename);  
+$zonename = mysqli_query($query_zonename, $ith);
+$row_zonename = mysqli_fetch_assoc($zonename);
+$totalRows_zonename = mysqli_num_rows($zonename);
 
 $zoneTitle = $row_zonename['zonename'];
 
 }
 
-if ($type == 'nuove-costruzioni' | $type == 'offplan' | $type == 'neubau' | $type == 'proyectos' ) 
+if ($type == 'nuove-costruzioni' | $type == 'offplan' | $type == 'neubau' | $type == 'proyectos' )
 	  {
 	  $titletype = 'offplan';
 	  }
@@ -337,25 +337,25 @@ include('includes/navleft.php');?>
 <td valign="top"><?php echo $translate['reference'][''.$lang.''];?></td>
 <td valign="top"><?php echo $translate['price'][''.$lang.''];?></td>
 </tr>
-<?php 
+<?php
 
-do { 
+do {
 
-?>  
-<?php 
+?>
+<?php
 
 if ($row_list['forsale']==1)
-	 
+
 	  {
-		   
+
 	  $salerent = $translate['forsaleurl'][''.$lang.''];
-		   
+
 	  }
 
 else  {
-	
+
 	  $salerent = $translate['forrenturl'][''.$lang.''];
-	
+
 	  }
 
 $type = $row_list['typeurl_'.$lang.''];
@@ -410,30 +410,30 @@ $id = $row_list['propid'];?>
 </td>
 <td width="86" valign="middle">
 
-<?php 
+<?php
 
 echo $langphrase['Price']['.$lang.'];
 $onrequest = $row_list['onrequest'];
 $number = $row_list['price'];
 
 if($onrequest == 1){
-		
+
 		echo 'a consultar';
 
 } else {
-	
-		$english_format_number = number_format($number, 0, '', '.') ;
-		echo $english_format_number; echo "&nbsp;&euro;&nbsp;"; 
 
-} 
+		$english_format_number = number_format($number, 0, '', '.') ;
+		echo $english_format_number; echo "&nbsp;&euro;&nbsp;";
+
+}
 
 ?>
 
 </td>
-     
+
 </tr>
 
-<?php } while ($row_list = mysql_fetch_assoc($list)); ?>
+<?php } while ($row_list = mysqli_fetch_assoc($list)); ?>
 
 
 </table>
@@ -467,5 +467,5 @@ urchinTracker();
 <?php
 
 
-mysql_free_result($list);
+mysqli_free_result($list);
 ?>

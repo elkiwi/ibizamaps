@@ -2,18 +2,18 @@
 <?php
 
 if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "")
 {
   if (PHP_VERSION < 6) {
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
       $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
+      break;
     case "long":
     case "int":
       $theValue = ($theValue != "") ? intval($theValue) : "NULL";
@@ -37,11 +37,11 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 $colname_delete = "";
 if (isset($_GET['id'])) {
   $colname_delete = $_GET['id'];
- 
+
 }
 
 if (!isset($colname_delete)){
-die('No ID set!'); 
+die('No ID set!');
 }
 
 
@@ -98,36 +98,36 @@ rmdirr($dirremove);
 
 
 
-mysql_select_db($database_ibzm, $ibzm);
+mysqli_select_db($database_ibzm, $ibzm);
 $query_delete = sprintf("DELETE FROM markers WHERE id = %s", GetSQLValueString($colname_delete, "int"));
-$delete = mysql_query($query_delete, $ibzm) or die(mysql_error());
+$delete = mysqli_query($query_delete, $ibzm);
 
 $query_delete = sprintf("DELETE FROM beaches WHERE idbeach = %s", GetSQLValueString($colname_delete, "int"));
-$delete = mysql_query($query_delete, $ibzm) or die(mysql_error());
+$delete = mysqli_query($query_delete, $ibzm);
 
 $query_delete = sprintf("DELETE FROM contact WHERE idcontact = %s", GetSQLValueString($colname_delete, "int"));
-$delete = mysql_query($query_delete, $ibzm) or die(mysql_error());
+$delete = mysqli_query($query_delete, $ibzm);
 
 $query_delete = sprintf("DELETE FROM accom WHERE idaccom = %s", GetSQLValueString($colname_delete, "int"));
 
-$delete = mysql_query($query_delete, $ibzm) or die(mysql_error());
+$delete = mysqli_query($query_delete, $ibzm);
 $query_delete = sprintf("DELETE FROM pages_en WHERE idpage_en = %s", GetSQLValueString($colname_delete, "int"));
 
-$delete = mysql_query($query_delete, $ibzm) or die(mysql_error());
+$delete = mysqli_query($query_delete, $ibzm);
 $query_delete = sprintf("DELETE FROM pages_es WHERE idpage_es = %s", GetSQLValueString($colname_delete, "int"));
 
-$delete = mysql_query($query_delete, $ibzm) or die(mysql_error());
+$delete = mysqli_query($query_delete, $ibzm);
 $query_delete = sprintf("DELETE FROM image_order WHERE marker_id = %s", GetSQLValueString($colname_delete, "int"));
 
-$delete = mysql_query($query_delete, $ibzm) or die(mysql_error());
+$delete = mysqli_query($query_delete, $ibzm);
 
 
 
  $deleteGoTo = "main.php";
-  
+
   header(sprintf("Location: %s", $deleteGoTo));
 
-mysql_free_result($delete);
+mysqli_free_result($delete);
 
-mysql_free_result($imagesDelete);
+mysqli_free_result($imagesDelete);
 ?>

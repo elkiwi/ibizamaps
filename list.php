@@ -122,8 +122,8 @@ if($row_List['pool'] == 1){
                   echo $html->listPriceButtons();
                 }
                 ;?>
-                <?php if (!in_array($row_List['type'], $accomarray)) {                                                          
-                    echo '<a href="/' . $lang . '/' . $muni . '/' . $type . '/' . $id . '.html"><div class="right"><button class="tiny green">' . $translate['More'][''.$lang.''] .'</button></div></a>'; 
+                <?php if (!in_array($row_List['type'], $accomarray)) {
+                    echo '<a href="/' . $lang . '/' . $muni . '/' . $type . '/' . $id . '.html"><div class="right"><button class="tiny green">' . $translate['More'][''.$lang.''] .'</button></div></a>';
                 }
                   ?>
                 </div>
@@ -141,7 +141,7 @@ if($row_List['pool'] == 1){
 </section>
 </article>
 
-<?php } while ($row_List = mysql_fetch_assoc($List));
+<?php } while ($row_List = mysqli_fetch_assoc($List));
 
 }
 
@@ -162,5 +162,5 @@ if($row_List['pool'] == 1){
 <?php
 require '_aside_first.php';
 require '_bottom.php';
-mysql_free_result($row_List);
+mysqli_free_result($row_List);
 ?>

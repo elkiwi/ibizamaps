@@ -90,14 +90,14 @@
 [11-Jun-2013 15:51:43] PHP Warning:  unlink(/home/wwwibiz/public_htmlimages/pages/252/image800_right_EdenVIPBARJPEG.JPG) [<a href='function.unlink'>function.unlink</a>]: No such file or directory in /home/wwwibiz/public_html/im-admin/image_delete.php on line 64
 [11-Jun-2013 15:51:43] PHP Warning:  unlink(/home/wwwibiz/public_htmlimages/pages/252/image300_right_EdenVIPBARJPEG.JPG) [<a href='function.unlink'>function.unlink</a>]: No such file or directory in /home/wwwibiz/public_html/im-admin/image_delete.php on line 67
 [11-Jun-2013 15:51:43] PHP Warning:  unlink(/home/wwwibiz/public_htmlimages/pages/252/right_EdenVIPBARJPEG.JPG) [<a href='function.unlink'>function.unlink</a>]: No such file or directory in /home/wwwibiz/public_html/im-admin/image_delete.php on line 70
-[12-Jun-2013 09:49:00] PHP Warning:  mysql_free_result(): supplied argument is not a valid MySQL result resource in /home/wwwibiz/public_html/im-admin/delete.php on line 130
-[12-Jun-2013 09:49:00] PHP Warning:  mysql_free_result(): supplied argument is not a valid MySQL result resource in /home/wwwibiz/public_html/im-admin/delete.php on line 132
-[12-Jun-2013 09:49:14] PHP Warning:  mysql_free_result(): supplied argument is not a valid MySQL result resource in /home/wwwibiz/public_html/im-admin/delete.php on line 130
-[12-Jun-2013 09:49:14] PHP Warning:  mysql_free_result(): supplied argument is not a valid MySQL result resource in /home/wwwibiz/public_html/im-admin/delete.php on line 132
-[14-Jun-2013 11:37:59] PHP Warning:  mysql_free_result(): supplied argument is not a valid MySQL result resource in /home/wwwibiz/public_html/im-admin/delete.php on line 130
-[14-Jun-2013 11:37:59] PHP Warning:  mysql_free_result(): supplied argument is not a valid MySQL result resource in /home/wwwibiz/public_html/im-admin/delete.php on line 132
-[15-Jun-2013 17:20:52] PHP Warning:  mysql_free_result(): supplied argument is not a valid MySQL result resource in /home/wwwibiz/public_html/im-admin/delete.php on line 130
-[15-Jun-2013 17:20:52] PHP Warning:  mysql_free_result(): supplied argument is not a valid MySQL result resource in /home/wwwibiz/public_html/im-admin/delete.php on line 132
+[12-Jun-2013 09:49:00] PHP Warning:  mysqli_free_result(): supplied argument is not a valid MySQL result resource in /home/wwwibiz/public_html/im-admin/delete.php on line 130
+[12-Jun-2013 09:49:00] PHP Warning:  mysqli_free_result(): supplied argument is not a valid MySQL result resource in /home/wwwibiz/public_html/im-admin/delete.php on line 132
+[12-Jun-2013 09:49:14] PHP Warning:  mysqli_free_result(): supplied argument is not a valid MySQL result resource in /home/wwwibiz/public_html/im-admin/delete.php on line 130
+[12-Jun-2013 09:49:14] PHP Warning:  mysqli_free_result(): supplied argument is not a valid MySQL result resource in /home/wwwibiz/public_html/im-admin/delete.php on line 132
+[14-Jun-2013 11:37:59] PHP Warning:  mysqli_free_result(): supplied argument is not a valid MySQL result resource in /home/wwwibiz/public_html/im-admin/delete.php on line 130
+[14-Jun-2013 11:37:59] PHP Warning:  mysqli_free_result(): supplied argument is not a valid MySQL result resource in /home/wwwibiz/public_html/im-admin/delete.php on line 132
+[15-Jun-2013 17:20:52] PHP Warning:  mysqli_free_result(): supplied argument is not a valid MySQL result resource in /home/wwwibiz/public_html/im-admin/delete.php on line 130
+[15-Jun-2013 17:20:52] PHP Warning:  mysqli_free_result(): supplied argument is not a valid MySQL result resource in /home/wwwibiz/public_html/im-admin/delete.php on line 132
 [04-Jan-2014 15:54:14 Europe/London] PHP Fatal error:  Call to undefined function session_register() in /home/wwwibiz/public_html/im-admin/index.php on line 30
 [04-Jan-2014 15:55:28 Europe/London] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/wwwibiz/public_html/im-admin/index.php:5) in /home/wwwibiz/public_html/im-admin/index.php on line 63
 [04-Jan-2014 15:55:30 Europe/London] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/wwwibiz/public_html/im-admin/index.php:5) in /home/wwwibiz/public_html/im-admin/index.php on line 63
@@ -139,5 +139,5 @@
 [11-Jan-2014 13:38:59 Europe/London] PHP Warning:  unlink(/home/wwwibiz/public_htmlimages/pages/88/km5_2.jpg): No such file or directory in /home/wwwibiz/public_html/im-admin/image_delete.php on line 70
 [17-Dec-2014 12:41:42 Europe/London] PHP Warning:  You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's clear and uncontaminated coastal waters provide a revitalizing physical enviro' at line 1 in /home/wwwibiz/public_html/includes/ez_sql_mysql.php on line 233
 [17-Dec-2014 12:41:42 Europe/London] PHP Warning:  You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's clear and uncontaminated coastal waters provide a revitalizing physical enviro' at line 1 in /home/wwwibiz/public_html/includes/ez_sql_mysql.php on line 233
-[20-Apr-2016 23:01:47 Europe/London] PHP Warning:  mysql_free_result() expects parameter 1 to be resource, boolean given in /home/wwwibiz/public_html/im-admin/delete.php on line 130
-[20-Apr-2016 23:01:47 Europe/London] PHP Warning:  mysql_free_result() expects parameter 1 to be resource, null given in /home/wwwibiz/public_html/im-admin/delete.php on line 132
+[20-Apr-2016 23:01:47 Europe/London] PHP Warning:  mysqli_free_result() expects parameter 1 to be resource, boolean given in /home/wwwibiz/public_html/im-admin/delete.php on line 130
+[20-Apr-2016 23:01:47 Europe/London] PHP Warning:  mysqli_free_result() expects parameter 1 to be resource, null given in /home/wwwibiz/public_html/im-admin/delete.php on line 132

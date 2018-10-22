@@ -1,7 +1,7 @@
-<?php require_once('../Connections/ibzm.php'); 
+<?php require_once('../Connections/ibzm.php');
 session_cache_expire(180);
 $cache_expire = session_cache_expire();
-session_start(); 
+session_start();
 
 if(!isset($_SESSION['user'])){
 header("Location: index.php");
@@ -9,18 +9,18 @@ header("Location: index.php");
 ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "")
 {
   if (PHP_VERSION < 6) {
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
       $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
+      break;
     case "long":
     case "int":
       $theValue = ($theValue != "") ? intval($theValue) : "NULL";
@@ -39,17 +39,17 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
-mysql_select_db($database_ibzm, $ibzm);
+mysqli_select_db($database_ibzm, $ibzm);
 $query_typelist = "SELECT * FROM type";
-$typelist = mysql_query($query_typelist, $ibzm) or die(mysql_error());
-$row_typelist = mysql_fetch_assoc($typelist);
-$totalRows_typelist = mysql_num_rows($typelist);
+$typelist = mysqli_query($query_typelist, $ibzm);
+$row_typelist = mysqli_fetch_assoc($typelist);
+$totalRows_typelist = mysqli_num_rows($typelist);
 
-mysql_select_db($database_ibzm, $ibzm);
+mysqli_select_db($database_ibzm, $ibzm);
 $query_nextmarkerid = "SHOW TABLE STATUS LIKE 'markers'";
-$nextmarkerid = mysql_query($query_nextmarkerid, $ibzm) or die(mysql_error());
-$row_nextmarkerid = mysql_fetch_assoc($nextmarkerid);
-$totalRows_nextmarkerid = mysql_num_rows($nextmarkerid);
+$nextmarkerid = mysqli_query($query_nextmarkerid, $ibzm);
+$row_nextmarkerid = mysqli_fetch_assoc($nextmarkerid);
+$totalRows_nextmarkerid = mysqli_num_rows($nextmarkerid);
 
 
 ?>
@@ -144,18 +144,18 @@ function initialize() {
       	map.addControl(new GMapTypeControl());
 		map.addControl(new GOverviewMapControl(new GSize(175,100)));
         map.setCenter(new GLatLng(0, 0), 1);
-        
+
 		GEvent.addListener(map, "moveend", function() {
           var lat = map.getCenter().lat();
-		  var lng = map.getCenter().lng(); 
-    document.getElementById("lat1").innerHTML = lat.toString();                 
+		  var lng = map.getCenter().lng();
+    document.getElementById("lat1").innerHTML = lat.toString();
 		  document.getElementById("lng1").innerHTML = lng.toString();
 		  document.getElementById("lat").value = lat;
 		  document.getElementById("lng").value = lng;
 		  xhair.setPoint(map.getCenter());
 	  	  xhair.redraw(true);
 		   });
-		   
+
 		var Icon = new GIcon();
       	Icon.image = "/images/maps/crosshair.png";
       	Icon.iconSize = new GSize(15, 15);
@@ -163,16 +163,16 @@ function initialize() {
      	Icon.iconAnchor = new GPoint(7, 7);
      	Icon.infoWindowAnchor = new GPoint(7, 7);
      	Icon.infoShadowAnchor = new GPoint(7, 7);
-		
-		var xhair = new GMarker(map.getCenter(), Icon);            
-      	map.addOverlay(xhair);
-       
-      }
-    }  
 
-	
-	
-	    //]]>	
+		var xhair = new GMarker(map.getCenter(), Icon);
+      	map.addOverlay(xhair);
+
+      }
+    }
+
+
+
+	    //]]>
     </script>
 </head>
  <body onLoad="initialize()" onUnload="GUnload()">
@@ -219,7 +219,7 @@ function initialize() {
 <nav>
 	<ul id="nav">
 		<?php include('mainnav.php');?>
-		
+
 	</ul>
 </nav>
 <!--<div id="pageoptions">
@@ -238,26 +238,26 @@ function initialize() {
 <div class="g12">
 <div class="g4">
 <form id="marker" name="marker" method="POST" action="resort_add_2.php" data-ajax="false">
-						
-						
-<fieldset>						
+
+
+<fieldset>
 <label>Title</label>
 <input name="title" type="text" id="title" size="20" required />
-						
+
 <label>Type</label>
 
 <select name="type" id="type" required >
 <option value="">Select</option>
 <?php
-do {  
+do {
 ?>
 <option value="<?php echo $row_typelist['idtype']?>"><?php echo $row_typelist['markertype']?></option>
 <?php
-} while ($row_typelist = mysql_fetch_assoc($typelist));
-  $rows = mysql_num_rows($typelist);
+} while ($row_typelist = mysqli_fetch_assoc($typelist));
+  $rows = mysqli_num_rows($typelist);
   if($rows > 0) {
-      mysql_data_seek($typelist, 0);
-	  $row_typelist = mysql_fetch_assoc($typelist);
+      mysqli_data_seek($typelist, 0);
+	  $row_typelist = mysqli_fetch_assoc($typelist);
   }
 ?>
 </select>

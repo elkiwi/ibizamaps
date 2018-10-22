@@ -9,24 +9,24 @@
     $thepage = 'detail';
 	include '_top.php';
 	require '_nav.php';
-	
+
 
 ?>
 
 <!-- Content -->
 
-<section id="content" class="alpha"> 
-  
+<section id="content" class="alpha">
+
   <!-- Credits -->
   <article class="post default">
     <section class="main clear">
       <h1 class="title"><?php echo $html->h1Title();?></h1>
       <div style="float:right; padding: 0 20px 20px 20px;" class="content"><?php echo $html->affilliateLink();?></div>
       <?php if ($row_detailpage['typeurl'] == 'beaches') {
-						$beaches = new details(); 
-						echo 
+						$beaches = new details();
+						echo
 						$beaches->beach("blueflag", $row_Beaches['blueflag'], $translate['Blue Flag'][''.$lang.'']).
-						//$beaches->crowds("crowds", $row_Beaches['crowds'], $lang, $translate['Crowds'][''.$lang.''] ).  
+						//$beaches->crowds("crowds", $row_Beaches['crowds'], $lang, $translate['Crowds'][''.$lang.''] ).
 						$beaches->beach("parking", $row_Beaches['parking'], $translate['Parking'][''.$lang.'']).
 						$beaches->beach("bus", $row_Beaches['bus'], $translate['Bus'][''.$lang.'']).
 						$beaches->beach("toilets", $row_Beaches['toilets'], $translate['Toilets'][''.$lang.'']).
@@ -40,11 +40,11 @@
 						$beaches->beach("snorkeling", $row_Beaches['snorkeling'], $translate['Snorkeling'][''.$lang.'']).
 						$beaches->beach("disabled", $row_Beaches['disabled'], $translate['Disabled'][''.$lang.'']).
 						$beaches->beach("nudist", $row_Beaches['nudist'], $translate['Nudist'][''.$lang.''])
-						; 
+						;
 			};
 						if ($row_detailpage['typeurl'] == 'hotels') {
-						$accommodation = new details(); 
-						echo 
+						$accommodation = new details();
+						echo
 						$accommodation->accommodation("restaurant", $row_Accom['restaurant'], $translate['Restaurant'][''.$lang.'']).
 						$accommodation->accommodation("bar", $row_Accom['bar'], $translate['Bar'][''.$lang.'']).
 						$accommodation->accommodation("aircon", $row_Accom['aircon'], $translate['Aircon'][''.$lang.'']).
@@ -87,16 +87,16 @@
 											<img src="/" data-src="/images/pages/' . $row_detailpage['id'] . '/' . $row_image_order['filename'] . '" class="responsive"   /></a>
 											<figcaption>' . $row_detailpage['title'] . '</figcaption>
 											';
-											 } while ($row_image_order = mysql_fetch_assoc($image_order));
-																					
+											 } while ($row_image_order = mysqli_fetch_assoc($image_order));
+
 																				?>
             </figure>
             <?php } ?>
             <?php echo $row_detailpage['html_'.$lang.''];?> <br />
 												<div class="content"><?php echo $html->affilliateLink();?></div>
-            
-            
-            
+
+
+
             </div>
           <div>
             <div id="distance"  style="width:400px; float:right;"></div>
@@ -105,15 +105,15 @@
               <select id="end" onchange="calcRoute();">
                 <option selected="selected">pls select</option>
                 <?php
-                            do {  
+                            do {
                             ?>
                 <option value="<?php echo $row_directions['lat']?>,<?php echo $row_directions['lng']?>"><?php echo $row_directions['name_en']?></option>
                 <?php
-                            } while ($row_directions = mysql_fetch_assoc($directions));
-                              $rows = mysql_num_rows($directions);
+                            } while ($row_directions = mysqli_fetch_assoc($directions));
+                              $rows = mysqli_num_rows($directions);
                               if($rows > 0) {
-                                  mysql_data_seek($directions, 0);
-                                  $row_directions = mysql_fetch_assoc($directions);
+                                  mysqli_data_seek($directions, 0);
+                                  $row_directions = mysqli_fetch_assoc($directions);
                               }
                             ?>
               </select>
@@ -133,12 +133,12 @@
               fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));</script>
               <div class="fb-comments" data-href="<?php echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>" data-width="700" data-num-posts="10"></div>
-              
+
             </div>
           </div>
           <?php if($row_image_gallery != 0) { ?>
-          <div> 
-            
+          <div>
+
             <!-- Gallery tiny -->
             <section class="items tiny clear">
               <?php do { ?>
@@ -146,14 +146,14 @@
                 <article class="item">
                   <div class="image"> <a href="<?php echo '/images/pages/' . $row_detailpage['id'] . '/' . str_replace('image300_' , '', $filename) ;?>"  class="fancybox" rel="gallery" title=""><img src="/" data-src="<?php echo '/images/pages/' . $row_detailpage['id'] . '/' . $filename  ;?>"  class="responsive" alt="" > <span class="hover"></span></a> </div>
                 </article>
-                <?php } while ($row_image_gallery = mysql_fetch_assoc($image_gallery)); ?>
+                <?php } while ($row_image_gallery = mysqli_fetch_assoc($image_gallery)); ?>
             </section>
           </div>
           <?php } ?>
-          
+
         </div>
-        <!-- close tabs --> 
-        
+        <!-- close tabs -->
+
       </div>
     </section>
     <ul class="social clear">
@@ -166,8 +166,8 @@
       </li>
     </ul>
   </article>
-  <!-- // Credits --> 
-  
+  <!-- // Credits -->
+
 </section>
 <!-- // Content -->
 

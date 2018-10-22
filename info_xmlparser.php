@@ -1,4 +1,4 @@
-<?php  
+<?php
 require_once('Connections/ibzm.php');
 
 // Get parameters from URL
@@ -15,15 +15,15 @@ $node = $dom->createElement("markers");
 $parnode = $dom->appendChild($node);
 
 // Opens a connection to a mySQL server
-$connection=mysql_connect ($hostname_ibzm, $username_ibzm, $password_ibzm);
+$connection=mysqli_connect ($hostname_ibzm, $username_ibzm, $password_ibzm);
 if (!$connection) {
-  die("Not connected : " . mysql_error());
+  die("Not connected : " . mysqli_error());
 }
 
 // Set the active mySQL database
-$db_selected = mysql_select_db($database_ibzm, $connection);
+$db_selected = mysqli_select_db($database_ibzm, $connection);
 if (!$db_selected) {
-  die ("Can\'t use db : " . mysql_error());
+  die ("Can\'t use db : " . mysqli_error());
 }
 
 // Search the rows in the markers table
@@ -31,48 +31,48 @@ if (!$db_selected) {
 $query = "SELECT markers.id, markers.name_$lang,
 markers.`type`,
 markers.lat,
-markers.lng,  
-contact.http, 
-contact.address, 
-contact.email, 
-contact.telephone, 
-contact.impage, 
+markers.lng,
+contact.http,
+contact.address,
+contact.email,
+contact.telephone,
+contact.impage,
 contact.positiononly,
-type.idtype, 
+type.idtype,
 type.typeurl,
 municipal.muniurl
-FROM markers 
+FROM markers
 Left Join contact ON contact.idcontact = markers.id
 Left Join `type` ON `type`.idtype = markers.`type`
 Left Join municipal ON municipal.idmunicipal = contact.municipal " ;
 
 
 switch ($type) {
-	 
-		case "accommodation": 
+
+		case "accommodation":
 		   $query .= " WHERE `type`.idtype IN (1,2,3,4,5,23) ORDER BY municipal.name_ca ASC";
-				
+
 		break;
-		
-		case "hotels": 
-		
-				$query .= " WHERE `type`.idtype IN (1) AND markers.online = 1 ORDER BY municipal.name_ca ASC";	
-				
-					
+
+		case "hotels":
+
+				$query .= " WHERE `type`.idtype IN (1) AND markers.online = 1 ORDER BY municipal.name_ca ASC";
+
+
 		break;
-		
-		case "activities": 
+
+		case "activities":
 				$query .= " WHERE `type`.idtype IN (12,28) AND markers.online = 1  GROUP BY markers.id ORDER BY municipal.name_ca ASC";
 		break;
-		
-		case "transport": 
+
+		case "transport":
 				$query .= " WHERE `type`.idtype IN (18,24) AND markers.online = 1  GROUP BY markers.id ORDER BY municipal.name_ca ASC";
 		break;
-		
+
 		case "nightlife":
 				$query .= " WHERE `type`.idtype IN (15,19) AND markers.online = 1  GROUP BY markers.id ORDER BY municipal.name_ca ASC";
 		break;
-		
+
 		case "restaurants":
 		if (isset($muni)) {
 				$query .= " WHERE `type`.idtype IN (16,21) AND muniurl = '$muni' AND markers.online = 1 GROUP BY markers.id ORDER BY municipal.name_ca ASC";
@@ -80,7 +80,7 @@ switch ($type) {
 					$query .= " WHERE `type`.idtype IN (16,21) AND markers.online = 1  GROUP BY markers.id ORDER BY municipal.name_ca ASC";
 				}
 		break;
-		
+
 		default:
 				$query .= "
 		WHERE
@@ -89,16 +89,16 @@ switch ($type) {
 		}
 
 
-$result = mysql_query($query);
+$result = mysqli_query($query);
 if (!$result) {
-  die("Invalid query: " . mysql_error());
+  die("Invalid query: " . mysqli_error());
 }
 
 //exit ($query);
 header("Content-type: text/xml");
 
 // Iterate through the rows, adding XML nodes for each
-while ($row = @mysql_fetch_assoc($result)){
+while ($row = @mysqli_fetch_assoc($result)){
   $node = $dom->createElement("marker");
   $newnode = $parnode->appendChild($node);
   $newnode->setAttribute("name", $row['name_'.$lang.'']);
@@ -109,7 +109,7 @@ while ($row = @mysql_fetch_assoc($result)){
   $newnode->setAttribute("http", $row['http']);
   $newnode->setAttribute("type", $row['type']);
   $newnode->setAttribute("typeurl", $row['typeurl']);
-  $newnode->setAttribute("muniurl", $row['muniurl']);   
+  $newnode->setAttribute("muniurl", $row['muniurl']);
   $newnode->setAttribute("impage", $row['impage']);
   $newnode->setAttribute("positiononly", $row['positiononly']);
   $newnode->setAttribute("lat", $row['lat']);
@@ -118,5 +118,5 @@ while ($row = @mysql_fetch_assoc($result)){
 }
 
 echo $dom->saveXML();
-mysql_free_result($result);
+mysqli_free_result($result);
 ?>

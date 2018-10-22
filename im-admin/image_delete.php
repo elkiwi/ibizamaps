@@ -1,18 +1,18 @@
 <?php require_once('../Connections/ibzm.php'); ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "")
 {
   if (PHP_VERSION < 6) {
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
       $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
+      break;
     case "long":
     case "int":
       $theValue = ($theValue != "") ? intval($theValue) : "NULL";
@@ -36,14 +36,14 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 $colname_delete = "-1";
 if (isset($_GET['photoid'])) {
 $colname_delete = str_replace('item_' , '', $_GET['photoid']);
- 
+
 }
 
 if (!isset($colname_delete)){
-exit('No ID set!'); 
+exit('No ID set!');
 }
 
-mysql_select_db($database_ibzm, $ibzm);
+mysqli_select_db($database_ibzm, $ibzm);
 $query_imagesDelete = "SELECT
 image_order.filename,
 markers.id AS marker_id,
@@ -52,9 +52,9 @@ FROM
 image_order
 INNER JOIN markers ON markers.id = image_order.marker_id
 WHERE image_order.id = '$colname_delete'";
-$imagesDelete = mysql_query($query_imagesDelete, $ibzm) or die(mysql_error());
-$row_imagesDelete = mysql_fetch_assoc($imagesDelete);
-$totalRows_imagesDelete = mysql_num_rows($imagesDelete);
+$imagesDelete = mysqli_query($query_imagesDelete, $ibzm);
+$row_imagesDelete = mysqli_fetch_assoc($imagesDelete);
+$totalRows_imagesDelete = mysqli_num_rows($imagesDelete);
 
 //exit($query_imagesDelete);
 
@@ -77,7 +77,7 @@ unlink($deletefile);*/
 
 $query_delete = "DELETE FROM image_order WHERE id = $colname_delete";
 
-$delete = mysql_query($query_delete, $ibzm) or die(mysql_error());
+$delete = mysqli_query($query_delete, $ibzm);
 
 echo 'success';
 

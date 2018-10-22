@@ -1,10 +1,10 @@
-<?php require_once('../Connections/ibzm.php'); 
+<?php require_once('../Connections/ibzm.php');
 include ('./functions/functions.php');
 
 
 session_cache_expire(180);
 $cache_expire = session_cache_expire();
-session_start(); 
+session_start();
 
 if(!isset($_SESSION['user'])){
 header("Location: index.php");
@@ -16,18 +16,18 @@ $id = $_GET['id'];
 
 
 if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "")
 {
   if (PHP_VERSION < 6) {
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
       $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
+      break;
     case "long":
     case "int":
       $theValue = ($theValue != "") ? intval($theValue) : "NULL";
@@ -42,7 +42,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
       $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
 	  break;
   }
-  
+
   return $theValue;
 }
 }
@@ -63,7 +63,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
 
 
 if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "marker2")) {
-	
+
 	$updateSQL = sprintf("UPDATE markers SET name_en=%s, name_es=%s, type=%s, online=%s, date_modified=%s WHERE id=%s",
         GetSQLValueString($_POST['title_en'], "text"),
 								GetSQLValueString($_POST['title_es'], "text"),
@@ -71,11 +71,11 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "marker2")) {
 								GetSQLValueString($_POST['online'], "int"),
 					   GetSQLValueString($_POST['date_modified'], "date"),
         GetSQLValueString($_POST['id'], "int"));
-	
 
-  mysql_select_db($database_ibzm, $ibzm);
-  $Result1 = mysql_query($updateSQL, $ibzm) or die(mysql_error());
-		
+
+  mysqli_select_db($database_ibzm, $ibzm);
+  $Result1 = mysqli_query($updateSQL, $ibzm);
+
 		$updateSQL = sprintf("UPDATE contact SET address=%s, telephone=%s, http=%s, displayurl=%s, email=%s WHERE idcontact=%s",
         GetSQLValueString($_POST['address'], "text"),
 								GetSQLValueString($_POST['telephone'], "text"),
@@ -83,38 +83,38 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "marker2")) {
 								GetSQLValueString($_POST['displayurl'], "int"),
 					   GetSQLValueString($_POST['email'], "text"),
         GetSQLValueString($_POST['id'], "int"));
-	
-		
-  mysql_select_db($database_ibzm, $ibzm);
-  $Result1 = mysql_query($updateSQL, $ibzm) or die(mysql_error());
-		
-		
+
+
+  mysqli_select_db($database_ibzm, $ibzm);
+  $Result1 = mysqli_query($updateSQL, $ibzm);
+
+
 		$updateSQL = sprintf("UPDATE pages_en SET metadesc_en=%s, keywords_en=%s, summary_en=%s, html_en=%s WHERE idpage_en=%s",
-        
-								
+
+
 					   GetSQLValueString($_POST['metadesc_en'], "text"),
 								GetSQLValueString($_POST['keywords_en'], "text"),
 								GetSQLValueString($_POST['summary_en'], "text"),
 								GetSQLValueString($_POST['html_en'], "text"),
         GetSQLValueString($_POST['id'], "int"));
-	
 
-  mysql_select_db($database_ibzm, $ibzm);
-  $Result1 = mysql_query($updateSQL, $ibzm) or die(mysql_error());
-		
+
+  mysqli_select_db($database_ibzm, $ibzm);
+  $Result1 = mysqli_query($updateSQL, $ibzm);
+
 		$updateSQL = sprintf("UPDATE pages_es SET metadesc_es=%s, keywords_es=%s, summary_es=%s, html_es=%s WHERE idpage_es=%s",
-        
-								
+
+
 					   GetSQLValueString($_POST['metadesc_es'], "text"),
 								GetSQLValueString($_POST['keywords_es'], "text"),
 								GetSQLValueString($_POST['summary_es'], "text"),
 								GetSQLValueString($_POST['html_es'], "text"),
         GetSQLValueString($_POST['id'], "int"));
-	
 
-  mysql_select_db($database_ibzm, $ibzm);
-  $Result1 = mysql_query($updateSQL, $ibzm) or die(mysql_error());
-		
+
+  mysqli_select_db($database_ibzm, $ibzm);
+  $Result1 = mysqli_query($updateSQL, $ibzm);
+
 		if ( ($_POST["type"] == "1")  | ($_POST["type"] == "2")  | ($_POST["type"] == "3")  | ($_POST["type"] == "4")  | ($_POST["type"] == "5") | ($_POST["type"] == "23") ) {
   $updateSQL = sprintf("UPDATE accom SET stars=%s, pool=%s, gym=%s, spa=%s, wifi_lobby=%s, central=%s, rural=%s, beach=%s, sattv=%s, restaurant=%s, bar=%s, entertainment=%s, aircon=%s, internet=%s, wifi_room=%s, minibar=%s, kitchenette=%s, kettle=%s, hairdryer=%s,  pricelow=%s, pricehigh=%s, affspot=%s, affurl=%s, affurl2=%s, affurl3=%s, affurl4=%s, affurl5=%s WHERE idaccom=%s",
                        GetSQLValueString($_POST['stars'], "int"),
@@ -146,48 +146,48 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "marker2")) {
 																							GetSQLValueString($_POST['affurl5'], "text"),
                        GetSQLValueString($_POST['id'], "int"));
 																							//exit ($updateSQL);
-																							mysql_select_db($database_ibzm, $ibzm);
-  																					$Result1 = mysql_query($updateSQL, $ibzm) or die(mysql_error());
-  
+																							mysqli_select_db($database_ibzm, $ibzm);
+  																					$Result1 = mysqli_query($updateSQL, $ibzm);
+
 
 		}
- 
-  
-  
+
+
+
  $updateGoTo = $_SERVER['PHP_SELF'];
-  
+
    if (isset($_SERVER['QUERY_STRING'])) {
     $updateGoTo .= (strpos($updateGoTo, '?')) ? "&" : "?";
     $updateGoTo .= $_SERVER['QUERY_STRING'];
   }
-  
+
   header(sprintf("Location: %s", $updateGoTo));
 }
 
 
 
 
-mysql_select_db($database_ibzm, $ibzm);
+mysqli_select_db($database_ibzm, $ibzm);
 $query_type = "SELECT * FROM type ORDER BY markertype ASC";
-$type = mysql_query($query_type, $ibzm) or die(mysql_error());
-$row_type = mysql_fetch_assoc($type);
-$totalRows_type = mysql_num_rows($type);
+$type = mysqli_query($query_type, $ibzm);
+$row_type = mysqli_fetch_assoc($type);
+$totalRows_type = mysqli_num_rows($type);
 
-mysql_select_db($database_ibzm, $ibzm);
+mysqli_select_db($database_ibzm, $ibzm);
 $query_Muni = "SELECT * FROM municipal";
-$Muni = mysql_query($query_Muni, $ibzm) or die(mysql_error());
-$row_Muni = mysql_fetch_assoc($Muni);
-$totalRows_Muni = mysql_num_rows($Muni);
+$Muni = mysqli_query($query_Muni, $ibzm);
+$row_Muni = mysqli_fetch_assoc($Muni);
+$totalRows_Muni = mysqli_num_rows($Muni);
 
-mysql_select_db($database_ibzm, $ibzm);
+mysqli_select_db($database_ibzm, $ibzm);
 $query_Area = "SELECT * FROM area";
-$Area = mysql_query($query_Area, $ibzm) or die(mysql_error());
-$row_Area = mysql_fetch_assoc($Area);
-$totalRows_Area = mysql_num_rows($Area);
+$Area = mysqli_query($query_Area, $ibzm);
+$row_Area = mysqli_fetch_assoc($Area);
+$totalRows_Area = mysqli_num_rows($Area);
 
-				   
 
-mysql_select_db($database_ibzm, $ibzm);
+
+mysqli_select_db($database_ibzm, $ibzm);
 $query_edit = "SELECT
 markers.id,
 markers.name_en AS title_en,
@@ -276,42 +276,42 @@ LEFT JOIN type ON type.idtype = markers.type
 LEFT JOIN pages_es ON pages_es.idpage_es = pages_en.idpage_en
 WHERE
 markers.id =  $id";
-$edit = mysql_query($query_edit, $ibzm) or die(mysql_error());
-$row_edit = mysql_fetch_assoc($edit);
-$totalRows_edit = mysql_num_rows($edit);
+$edit = mysqli_query($query_edit, $ibzm);
+$row_edit = mysqli_fetch_assoc($edit);
+$totalRows_edit = mysqli_num_rows($edit);
 
 
 
 // query to find if images have an order in the DB
-mysql_select_db($database_ibzm, $ibzm);
+mysqli_select_db($database_ibzm, $ibzm);
 $query_image_order = "SELECT * FROM image_order WHERE marker_id = $id ORDER BY position ASC";
-$image_order = mysql_query($query_image_order, $ibzm) or die(mysql_error());
-$row_image_order = mysql_fetch_assoc($image_order);
-$totalRows_image_order = mysql_num_rows($image_order);
+$image_order = mysqli_query($query_image_order, $ibzm);
+$row_image_order = mysqli_fetch_assoc($image_order);
+$totalRows_image_order = mysqli_num_rows($image_order);
 
 //if there is no order for this id insert them into db with no order
 if ($totalRows_image_order == 0) {
-	
+
 	//if (file_exists('/images/pages/' . $row_edit['typeurl_es'] . '/' . $id . '')) {
-		
-		$thumbs =  getImageThumb('/images/pages/' . $id . '/');	
+
+		$thumbs =  getImageThumb('/images/pages/' . $id . '/');
 		//echo '/images/pages/' . $row_edit['typeurl_es'] . '/' . $id ;
 		//aDump ($thumbs);
-	
-	
-			foreach($thumbs as $img) { 
-			
+
+
+			foreach($thumbs as $img) {
+
 			$sql = "INSERT INTO `image_order` (`marker_id`,`filename`,`alt`,`position`) VALUES ('" . $id . "','" . $img['fileName'] . "','','')";
-			$image_order = mysql_query($sql, $ibzm) or die(mysql_error());
+			$image_order = mysqli_query($sql, $ibzm);
 
 	//	}
 	}
-	
-mysql_select_db($database_ibzm, $ibzm);
+
+mysqli_select_db($database_ibzm, $ibzm);
 $query_image_order = "SELECT * FROM image_order WHERE marker_id = $id ORDER BY position ASC";
-$image_order = mysql_query($query_image_order, $ibzm) or die(mysql_error());
-$row_image_order = mysql_fetch_assoc($image_order);
-$totalRows_image_order = mysql_num_rows($image_order);
+$image_order = mysqli_query($query_image_order, $ibzm);
+$row_image_order = mysqli_fetch_assoc($image_order);
+$totalRows_image_order = mysqli_num_rows($image_order);
 
 
 }
@@ -369,18 +369,18 @@ $totalRows_image_order = mysql_num_rows($image_order);
 <!-- some basic functions -->
 <script src="js/functions.js"></script>
 <script type="text/javascript">
- 
+
 $(document).ready(function(){
- 
+
         $(".image_uploader").hide();
         $(".show_hide").show();
- 
+
     $('.show_hide').click(function(){
     $(".image_uploader").slideToggle();
     });
- 
+
 });
- 
+
 </script>
 <script type="text/javascript" src="tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript">
@@ -435,7 +435,7 @@ $(document).ready(function(){
       <li>
         <ul>
           <li><a href="main.php">Inicio</a><span>Inicio</span></li>
-          
+
           <li><a href="#detalles">Detalles</a><span>Saltar</span></li>
         </ul>
       </li>
@@ -453,32 +453,32 @@ $(document).ready(function(){
 
   <ul class="gallery">
 
-  <?php 
-  do { 
+  <?php
+  do {
 
 echo '<li id="item_' . $row_image_order['id'] . '"><a href="/images/pages/' . $id . '/' . str_replace('300_','800_',$row_image_order['filename']) . '" title=""><img src="/images/pages/' . $id . '/' . $row_image_order['filename'] . '" height="95" width="140" alt="" /></a></li>' ;
 
-} while ($row_image_order  = mysql_fetch_assoc($image_order));
+} while ($row_image_order  = mysqli_fetch_assoc($image_order));
 
   ?>
-				
-				
+
+
 		</ul>
 		<div class="alert i_speech_bubble blue"><div id="msg">Drag images to chage their order or click "delete" to remove.</div></div>
-<button class="show_hide green i_camera" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add Images</button>	  
+<button class="show_hide green i_camera" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add Images</button>
 	<br />
 <br />
-  
+
 <div class="image_uploader">
 		<form method="post" action="">
-	
+
 <br />
 
 	<h3>Select Images</h3><br />
 
 <!--	<textarea id="log" style="width: 100%; height: 150px; font-size: 11px" spellcheck="false" wrap="off"></textarea>-->
 	<div id="uploader" style="width: 800px; height: 450px;">You browser doesn't support upload.</div>
-	
+
 </form>
 <div class="alert i_speech_bubble ">Before saving Images, make sure they have all finished uploading in the queue</div><br />
 <br />
@@ -522,7 +522,7 @@ $(function() {
 				});
 
 				str += row + " ";
-			} else { 
+			} else {
 				str += arg + " ";
 			}
 		});
@@ -567,8 +567,8 @@ $(function() {
 				// up.settings.multipart_params = {param1: 'value1', param2: 'value2'};
 			}
 		},
-		
-		
+
+
 
 		// Post init events, bound after the internal events
 		init: {
@@ -614,8 +614,8 @@ $(function() {
 				// Called when a file has finished uploading
 				log('[FileUploaded] File:', file, "Info:", info);
 			},
-			
-			
+
+
 
 			ChunkUploaded: function(up, file, info) {
 				// Called when a file chunk has finished uploading
@@ -643,30 +643,30 @@ $(function() {
 });
 </script>
 	</div>
-	  
-	       
+
+
     <?php if ($totalRows_edit <> 0) { ?>
     <form id="marker2" name="marker2" method="post" action="<?php echo $editFormAction; ?>" data-ajax="false" >
       <input type="hidden" name="id" value="<?php echo $id; ?>" />
       <button class="submit green" name="ir" value="submit">SAVE CHANGES</button>
-      
-      
+
+
       <fieldset>
         <label>Activate Online </label>
         <section>
           <label>Online</label>
-          <div> 
+          <div>
             <input name="online" id="online" type="checkbox" <?php if (!(strcmp($row_edit['online'],1))) {echo " checked ";} ?>  />
             <label for="online" style="padding-right: 20px;" ></label>
-           
+
           </div>
         </section>
       </fieldset>
-      
-      
+
+
       <fieldset>
-      
-      
+
+
         <label>Titles</label>
         <section>
           <label><img src="../images/ui/flag_en.gif" /></label>
@@ -674,19 +674,19 @@ $(function() {
             <input type="text"  name="title_en" value="<?php echo $row_edit['title_en'] ?>" />
           </div>
         </section>
-        
-        
+
+
         <section>
            <label><img src="../images/ui/flag_es.gif" /></label>
           <div>
             <input type="text"  name="title_es" value="<?php echo $row_edit['title_es'] ?>" />
           </div>
         </section>
-       
+
       </fieldset>
-      
+
         <fieldset>
-            <label>Position</label> 
+            <label>Position</label>
             <section><label for="textarea">Lat</label>
                 <div><input type="text" id="lat" name="lat" value="<?php echo $row_edit['lat'] ?>" ></div>
             </section>
@@ -694,18 +694,18 @@ $(function() {
                <div><input type="text" id="lng" name="lng" value="<?php echo $row_edit['lng'] ?>" ></div>
             </section>
 		</fieldset>
-        
-        
+
+
         <fieldset>
             <label>Meta Description <br />
-            <span>(This text is what appears in Googles results)</span></label> 
+            <span>(This text is what appears in Googles results)</span></label>
             <section><label for="textarea"><img src="../images/ui/flag_en.gif" /></label>
                 <div><textarea name="metadesc_en"  id="metadesc_en" data-autogrow="true" /><?php echo $row_edit['metadesc_en'] ?></textarea></div>
             </section>
              <section><label for="textarea"><img src="../images/ui/flag_es.gif" /></label>
                 <div><textarea name="metadesc_es"  id="metadesc_es" data-autogrow="true" /><?php echo $row_edit['metadesc_es'] ?></textarea></div>
             </section>
-            
+
             <label>Keywords</label>
         <section>
           <label><img src="../images/ui/flag_en.gif" /></label>
@@ -713,7 +713,7 @@ $(function() {
             <input type="text"  name="keywords_en" value="<?php echo $row_edit['keywords_en'] ?>" />
           </div>
         </section>
-        
+
          <section>
           <label><img src="../images/ui/flag_es.gif" /></label>
           <div>
@@ -721,9 +721,9 @@ $(function() {
           </div>
         </section>
 		</fieldset>
-  
+
    <fieldset>
-            <label>Summary </label> 
+            <label>Summary </label>
             <section><label for="textarea"><img src="../images/ui/flag_en.gif" /></label>
                 <div><textarea name="summary_en"  id="summary_en" class="description" data-autogrow="true" /><?php echo $row_edit['summary_en'] ?></textarea></div>
             </section>
@@ -731,9 +731,9 @@ $(function() {
                 <div><textarea name="summary_es"  id="summary_es" class="description" data-autogrow="true" /><?php echo $row_edit['summary_es'] ?></textarea></div>
             </section>
 		</fieldset>
-        
+
          <fieldset>
-            <label>HTML Description </label> 
+            <label>HTML Description </label>
             <section><label for="textarea"><img src="../images/ui/flag_en.gif" /></label>
                 <div><textarea name="html_en" class="description"  id="html_en" data-autogrow="true" /><?php echo $row_edit['html_en'] ?></textarea></div>
             </section>
@@ -741,14 +741,14 @@ $(function() {
                 <div><textarea name="html_es" class="description"  id="html_es" data-autogrow="true" /><?php echo $row_edit['html_es'] ?></textarea></div>
             </section>
 		</fieldset>
-        
-       
-                    
-                    
-                     
-                    
+
+
+
+
+
+
                   <fieldset>
-                  <label>Detalles <a name="detalles"></a></label> 
+                  <label>Detalles <a name="detalles"></a></label>
 				  												<section>
                   <label>Website</label>
                   <div>
@@ -762,7 +762,7 @@ $(function() {
                		 </div>
                   </section>
                   <section>
-                                   
+
                    <label>Address</label>
                   <div>
                   <input type="text"  name="address" value="<?php echo $row_edit['address'] ?>" />
@@ -779,52 +779,52 @@ $(function() {
                   <div>
                   <input type="text"  name="email" value="<?php echo $row_edit['email'] ?>" />
                		 </div>
-                        
-                  
+
+
                   </section>
-				 
-				  
-				 
-				  
-				 
-				  
-				  
+
+
+
+
+
+
+
 				   <section>
 				 <label>Type</label>
 				  <div> <select name="type" id="type" />
                   <option value="">Select</option>
 <?php
-do {  
+do {
 ?>
 <option value="<?php echo $row_type['idtype']?>"<?php if (!(strcmp($row_type['idtype'], $row_edit['type']))) {echo "selected=\"selected\"";} ?>><?php echo $row_type['markertype']?></option>
 <?php
-} while ($row_type = mysql_fetch_assoc($type));
-  $rows = mysql_num_rows($type);
+} while ($row_type = mysqli_fetch_assoc($type));
+  $rows = mysqli_num_rows($type);
   if($rows > 0) {
-      mysql_data_seek($type, 0);
-	  $row_type = mysql_fetch_assoc($type);
+      mysqli_data_seek($type, 0);
+	  $row_type = mysqli_fetch_assoc($type);
   }
 ?>
 </select></div>
 				  </section>
-<?php if ($row_edit['type'] == 14) include('includes/form.beach.html'); ?>			  
-<?php if ($row_edit['type'] == 1 | $row_edit['type'] == 2 | $row_edit['type'] == 3 | $row_edit['type'] == 4 | $row_edit['type'] == 5 | $row_edit['type'] == 23)  include('includes/form.accom.html'); ?>		   
-				  
-				
-				  
+<?php if ($row_edit['type'] == 14) include('includes/form.beach.html'); ?>
+<?php if ($row_edit['type'] == 1 | $row_edit['type'] == 2 | $row_edit['type'] == 3 | $row_edit['type'] == 4 | $row_edit['type'] == 5 | $row_edit['type'] == 23)  include('includes/form.accom.html'); ?>
+
+
+
 				     <section>
             <label></label>
             <div>
               <button class="submit green" name="ir" value="submit">SAVE CHANGES</button>
             </div>
           </section>
-				  
+
 				  </fieldset>
-     
+
       <input type="hidden" name="date_modified" id="date_modified" value="<?php echo date("Y-m-d H:i:s"); ?>" />
       <input type="hidden" name="MM_update" value="marker2" />
     </form>
-    
+
     <?php } else echo '<br/><br/><br/><br/><h2 align="center">Not Found...<a href="main.php">volver</a></h2><br/><br/><br/><br/><br/>'; ?>
 </div>
 </section>
@@ -832,32 +832,32 @@ do {
 <!--<script>
   $(document).ready(function () {
   $.getJSON('client_get_json.php?id=<?php echo $row_edit['clientid']; ?>' , function(data) {
-				$("#testdiv").html(data.company);					   
+				$("#testdiv").html(data.company);
 	});
 });
   </script>-->
  <!-- <script type='text/javascript'>
- 
+
 $(document).ready(function(){
- 
+
 $("#client").live('change',function(){
 //alert(this+"option:selected");
 alert($(this+"option:selected").val());
 });
- 
- 
+
+
 });
- 
- 
+
+
 </script>-->
 
 
-  
+
 
 </body>
 </html>
 <?php
 
 
-mysql_free_result($edit);
+mysqli_free_result($edit);
 ?>

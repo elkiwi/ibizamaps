@@ -1,4 +1,4 @@
-<?php  
+<?php
 require_once('Connections/ibzm.php');
 
 // Get parameters from URL
@@ -14,15 +14,15 @@ $node = $dom->createElement("markers");
 $parnode = $dom->appendChild($node);
 
 // Opens a connection to a mySQL server
-$connection=mysql_connect ($hostname_ibzm, $username_ibzm, $password_ibzm);
+$connection=mysqli_connect ($hostname_ibzm, $username_ibzm, $password_ibzm);
 if (!$connection) {
-  die("Not connected : " . mysql_error());
+  die("Not connected : " . mysqli_error());
 }
 
 // Set the active mySQL database
-$db_selected = mysql_select_db($database_ibzm, $connection);
+$db_selected = mysqli_select_db($database_ibzm, $connection);
 if (!$db_selected) {
-  die ("Can\'t use db : " . mysql_error());
+  die ("Can\'t use db : " . mysqli_error());
 }
 
 // Search the rows in the markers table
@@ -31,26 +31,26 @@ $query = "SELECT markers.id, markers.name_$lang,
 markers.`type`,
 markers.lat,
 markers.lng,
-image_order.filename, 
-contact.http, 
-contact.address, 
-contact.email, 
-contact.telephone, 
-contact.impage, 
+image_order.filename,
+contact.http,
+contact.address,
+contact.email,
+contact.telephone,
+contact.impage,
 contact.positiononly,
-type.idtype, 
+type.idtype,
 type.typeurl,
 municipal.muniurl
-FROM markers 
+FROM markers
 Left Join contact ON contact.idcontact = markers.id
 Left Join `type` ON `type`.idtype = markers.`type`
 Left Join municipal ON municipal.idmunicipal = contact.municipal
 Left Join image_order ON image_order.marker_id = markers.id
 WHERE markers.online = 1 GROUP BY markers.id";
 
-$result = mysql_query($query);
+$result = mysqli_query($query);
 if (!$result) {
-  die("Invalid query: " . mysql_error());
+  die("Invalid query: " . mysqli_error());
 }
 
 
@@ -59,17 +59,17 @@ if (!$result) {
 header("Content-type: text/xml");
 
 // Iterate through the rows, adding XML nodes for each
-while ($row = @mysql_fetch_assoc($result)){
-	
-		if (isset($row['filename'])) 
+while ($row = @mysqli_fetch_assoc($result)){
+
+		if (isset($row['filename']))
 		{
 			$row['filename'] = str_replace('image300', 'image120', $row['filename']);
 		}
-		else 
+		else
 		{
 			$row['filename'] = 'th_image.jpg';
 		}
-		
+
 		$node = $dom->createElement("marker");
 		$newnode = $parnode->appendChild($node);
 		$newnode->setAttribute("name", $row['name_'.$lang.'']);
@@ -80,7 +80,7 @@ while ($row = @mysql_fetch_assoc($result)){
 		$newnode->setAttribute("http", $row['http']);
 		$newnode->setAttribute("type", $row['type']);
 		$newnode->setAttribute("typeurl", $row['typeurl']);
-		$newnode->setAttribute("muniurl", $row['muniurl']);   
+		$newnode->setAttribute("muniurl", $row['muniurl']);
 		$newnode->setAttribute("filename", $row['filename']);
 		$newnode->setAttribute("positiononly", $row['positiononly']);
 		$newnode->setAttribute("lat", $row['lat']);
@@ -89,5 +89,5 @@ while ($row = @mysql_fetch_assoc($result)){
 }
 
 echo $dom->saveXML();
-mysql_free_result($result);
+mysqli_free_result($result);
 ?>

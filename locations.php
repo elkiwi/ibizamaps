@@ -6,7 +6,7 @@
 
 // -----------------------------------------------------------------------------
 	$thepage = 'locations';
-		
+
 
 	require '_top.php';
 	require '_nav.php';
@@ -25,7 +25,7 @@ $pageTitle = $translate['Map of'][''.$lang.''].' '. $row_location['name_'.$lang.
 ?>
 <!-- Content -->
 <div id="map_canvas" style="margin-left:5px; width: 100%; height: 450px;"></div>
-    
+
 <section id="content" class="alpha">
 
 	<!-- Right sidebar -->
@@ -46,34 +46,34 @@ $pageTitle = $translate['Map of'][''.$lang.''].' '. $row_location['name_'.$lang.
   <a href="#san-jose">San José</a>
   <a href="#santa-eulalia">Santa Eulalia</a>
   <a href="#san-jaun">San Jaun</a>
-		
+
 	</section>
  <?php } ?>
 	<!-- // Filter -->
- 
- 
+
+
   	<section class="items small clear">
-  <?php 
-			
-			 do { 
-		
-		 
-  
+  <?php
+
+			 do {
+
+
+
   $type = $row_List['typeurl'];
 		$muni = $row_List['muniurl'];
 		$onrequest = $row_List['onrequest'];
 		$number = $row_List['price'];
 		$english_format_number = number_format($number, 0, '', '.') ;
 		$price = '';
-		
+
 		$image = $row_List['filename'];
-		
+
 		if ($image == '') $image = 'image_1.jpg';
-		
-		
+
+
 		//exit ( $query_List );
-	
-		
+
+
 		$id = $row_List['id'];?>
 
 		<article class="item" data-category="<?php echo $muni;?>">
@@ -90,26 +90,26 @@ $pageTitle = $translate['Map of'][''.$lang.''].' '. $row_location['name_'.$lang.
                 if($row_List['pool'] == 1){
 																	echo '<img src="/images/icons/pool.png" alt="'.$translate.'" />';
 																	};
-																	
+
 																	if($row_List['sattv'] == 1){
 																	echo '<img src="/images/icons/sattv.png" alt="'.$translate.'" />';
 																	};
-																	
+
 																	if($row_List['aircon'] == 1){
 																	echo '<img src="/images/icons/aircon.png" title="'.$translate.'" />';
 																	};
-																	
+
 																	if($row_List['minibar'] == 1){
 																	echo '<img src="/images/icons/minibar.png" alt="'.$translate.'" />';
 																	};
-																	
+
 																	if($row_List['internet'] == 1){
 																	echo '<img src="/images/icons/internet.png" alt="'.$translate.'" />';
 																	};
-																	
-																
-																	
-																	
+
+
+
+
 																	?>
                 <p><?php echo $row_List['summary_' . $lang .''];?></p>
 <?php $accom_array = array('hotels','hostels','apartments','villas','rural-hotels','accommodation');
@@ -119,7 +119,7 @@ $pageTitle = $translate['Map of'][''.$lang.''].' '. $row_location['name_'.$lang.
 																	<?php if ($row_List['type'] == 4) echo $translate['Week'][''.$lang.'']; else echo $translate['Night'][''.$lang.''];?>
                  <?php  echo ' <strong>' . round($row_List['pricelow'] + $row_List['pricehigh'])/2 . '€</strong>'; ?>
 																	</p>
-																	
+
 																	<?php $accomarray = array(1,2,3,4,5,23);
 																	if (in_array($row_List['type'], $accomarray)) {
 																		echo $html->listPriceButtons();
@@ -127,10 +127,10 @@ $pageTitle = $translate['Map of'][''.$lang.''].' '. $row_location['name_'.$lang.
 																	;?>
 																	</div>
 																	<?php } ?>
-                
-                
-				
-				
+
+
+
+
 					<!--<p class="tags">
 						<a href="#_">tag one</a>
 						<a href="#_">another tag</a>
@@ -139,11 +139,11 @@ $pageTitle = $translate['Map of'][''.$lang.''].' '. $row_location['name_'.$lang.
 				</div>
 			</section>
 		</article>
-		
-		<?php } while ($row_List = mysql_fetch_assoc($List)); 
-		
-		
-		
+
+		<?php } while ($row_List = mysqli_fetch_assoc($List));
+
+
+
 		;?>
         </section>
 		<ul class="social clear">
@@ -159,7 +159,7 @@ $pageTitle = $translate['Map of'][''.$lang.''].' '. $row_location['name_'.$lang.
 
 
 <?php
-	require '_aside_first.php';	
+	require '_aside_first.php';
 	require '_bottom.php';
-	mysql_free_result($List);
+	mysqli_free_result($List);
 ?>

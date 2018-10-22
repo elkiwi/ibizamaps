@@ -12,7 +12,7 @@
 	*  ezSQL error strings - mySQL
 	*/
 
-	$ezsql_mysql_str = array
+	$ezsql_mysqli_str = array
 	(
 		1 => 'Require $dbuser and $dbpassword to connect to a database server',
 		2 => 'Error establishing mySQL database connection. Correct user/password? Correct hostname? Database server running?',
@@ -25,7 +25,7 @@
 	*  ezSQL Database specific class - mySQL
 	*/
 
-	if ( ! function_exists ('mysql_connect') ) die('<b>Fatal Error:</b> ezSQL_mysql requires mySQL Lib to be compiled and or linked in to the PHP engine');
+	if ( ! function_exists ('mysqli_connect') ) die('<b>Fatal Error:</b> ezSQL_mysql requires mySQL Lib to be compiled and or linked in to the PHP engine');
 	if ( ! class_exists ('ezSQLcore') ) die('<b>Fatal Error:</b> ezSQL_mysql requires ezSQLcore (ez_sql_core.php) to be included/loaded before it can be used');
 
 	class ezSQL_mysql extends ezSQLcore
@@ -69,22 +69,22 @@
 
 		function connect($dbuser='', $dbpassword='', $dbhost='localhost')
 		{
-			global $ezsql_mysql_str; $return_val = false;
-			
+			global $ezsql_mysqli_str; $return_val = false;
+
 			// Keep track of how long the DB takes to connect
 			$this->timer_start('db_connect_time');
 
 			// Must have a user and a password
 			if ( ! $dbuser )
 			{
-				$this->register_error($ezsql_mysql_str[1].' in '.__FILE__.' on line '.__LINE__);
-				$this->show_errors ? trigger_error($ezsql_mysql_str[1],E_USER_WARNING) : null;
+				$this->register_error($ezsql_mysqli_str[1].' in '.__FILE__.' on line '.__LINE__);
+				$this->show_errors ? trigger_error($ezsql_mysqli_str[1],E_USER_WARNING) : null;
 			}
 			// Try to establish the server database handle
-			else if ( ! $this->dbh = @mysql_connect($dbhost,$dbuser,$dbpassword,true,131074) )
+			else if ( ! $this->dbh = @mysqli_connect($dbhost,$dbuser,$dbpassword,true,131074) )
 			{
-				$this->register_error($ezsql_mysql_str[2].' in '.__FILE__.' on line '.__LINE__);
-				$this->show_errors ? trigger_error($ezsql_mysql_str[2],E_USER_WARNING) : null;
+				$this->register_error($ezsql_mysqli_str[2].' in '.__FILE__.' on line '.__LINE__);
+				$this->show_errors ? trigger_error($ezsql_mysqli_str[2],E_USER_WARNING) : null;
 			}
 			else
 			{
@@ -103,28 +103,28 @@
 
 		function select($dbname='')
 		{
-			global $ezsql_mysql_str; $return_val = false;
+			global $ezsql_mysqli_str; $return_val = false;
 
 			// Must have a database name
 			if ( ! $dbname )
 			{
-				$this->register_error($ezsql_mysql_str[3].' in '.__FILE__.' on line '.__LINE__);
-				$this->show_errors ? trigger_error($ezsql_mysql_str[3],E_USER_WARNING) : null;
+				$this->register_error($ezsql_mysqli_str[3].' in '.__FILE__.' on line '.__LINE__);
+				$this->show_errors ? trigger_error($ezsql_mysqli_str[3],E_USER_WARNING) : null;
 			}
 
 			// Must have an active database connection
 			else if ( ! $this->dbh )
 			{
-				$this->register_error($ezsql_mysql_str[4].' in '.__FILE__.' on line '.__LINE__);
-				$this->show_errors ? trigger_error($ezsql_mysql_str[4],E_USER_WARNING) : null;
+				$this->register_error($ezsql_mysqli_str[4].' in '.__FILE__.' on line '.__LINE__);
+				$this->show_errors ? trigger_error($ezsql_mysqli_str[4],E_USER_WARNING) : null;
 			}
 
 			// Try to connect to the database
-			else if ( !@mysql_select_db($dbname,$this->dbh) )
+			else if ( !@mysqli_select_db($dbname,$this->dbh) )
 			{
 				// Try to get error supplied by mysql if not use our own
-				if ( !$str = @mysql_error($this->dbh))
-					  $str = $ezsql_mysql_str[5];
+				if ( !$str = @mysqli_error()($this->dbh))
+					  $str = $ezsql_mysqli_str[5];
 
 				$this->register_error($str.' in '.__FILE__.' on line '.__LINE__);
 				$this->show_errors ? trigger_error($str,E_USER_WARNING) : null;
@@ -152,7 +152,7 @@
 				$this->select($this->dbname);
 			}
 
-			return mysql_real_escape_string(stripslashes($str));
+			return mysqli_real_escape_string(stripslashes($str));
 		}
 
 		/**********************************************************************
@@ -196,7 +196,7 @@
 
 			// Count how many queries there have been
 			$this->num_queries++;
-			
+
 			// Start timer
 			$this->timer_start($this->num_queries);
 
@@ -211,7 +211,7 @@
 				{
 					$this->trace_log[] = $this->debug(false);
 				}
-				
+
 				return $cache;
 			}
 
@@ -222,11 +222,11 @@
 				$this->select($this->dbname);
 			}
 
-			// Perform the query via std mysql_query function..
-			$this->result = @mysql_query($query,$this->dbh);
+			// Perform the query via std mysqli_query function..
+			$this->result = @mysqli_query($query,$this->dbh);
 
 			// If there is an error then take note of it..
-			if ( $str = @mysql_error($this->dbh) )
+			if ( $str = @mysqli_error()($this->dbh) )
 			{
 				$is_insert = true;
 				$this->register_error($str);
@@ -238,12 +238,12 @@
 			$is_insert = false;
 			if ( preg_match("/^(insert|delete|update|replace|truncate|drop|create|alter)\s+/i",$query) )
 			{
-				$this->rows_affected = @mysql_affected_rows($this->dbh);
+				$this->rows_affected = @mysqli_affected_rows($this->dbh);
 
 				// Take note of the insert_id
 				if ( preg_match("/^(insert|replace)\s+/i",$query) )
 				{
-					$this->insert_id = @mysql_insert_id($this->dbh);
+					$this->insert_id = @mysqli_insert_id($this->dbh);
 				}
 
 				// Return number fo rows affected
@@ -255,22 +255,22 @@
 
 				// Take note of column info
 				$i=0;
-				while ($i < @mysql_num_fields($this->result))
+				while ($i < @mysqli_num_fields($this->result))
 				{
-					$this->col_info[$i] = @mysql_fetch_field($this->result);
+					$this->col_info[$i] = @mysqli_fetch_field($this->result);
 					$i++;
 				}
 
 				// Store Query Results
 				$num_rows=0;
-				while ( $row = @mysql_fetch_object($this->result) )
+				while ( $row = @mysqli_fetch_object($this->result) )
 				{
 					// Store relults as an objects within main array
 					$this->last_result[$num_rows] = $row;
 					$num_rows++;
 				}
 
-				@mysql_free_result($this->result);
+				@mysqli_free_result($this->result);
 
 				// Log number of rows the query returned
 				$this->num_rows = $num_rows;
@@ -297,14 +297,14 @@
 			return $return_val;
 
 		}
-		
+
 		/**********************************************************************
 		*  Close the active mySQL connection
 		*/
 
 		function disconnect()
 		{
-			@mysql_close($this->dbh);	
+			@mysqli_close($this->dbh);
 		}
 
 	}

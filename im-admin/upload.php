@@ -2,16 +2,16 @@
 <?php
 
 if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "")
 {
   $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
       $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
+      break;
     case "long":
     case "int":
       $theValue = ($theValue != "") ? intval($theValue) : "NULL";
@@ -36,7 +36,7 @@ $colname_marker = "-1";
 if (isset($_POST['id'])) {
   $colname_marker = $_POST['id'];
 }
-mysql_select_db($database_ibzm, $ibzm);
+mysqli_select_db($database_ibzm, $ibzm);
 $query_marker = sprintf("SELECT
 `type`.typeurl_es
 FROM
@@ -44,9 +44,9 @@ FROM
 Inner Join property ON `type`.typeid = property.`type`
 WHERE
 property.propid = %s", GetSQLValueString($colname_marker, "int"));
-$marker = mysql_query($query_marker, $ibzm) or die(mysql_error());
-$row_marker = mysql_fetch_assoc($marker);
-$totalRows_marker = mysql_num_rows($marker);
+$marker = mysqli_query($query_marker, $ibzm);
+$row_marker = mysqli_fetch_assoc($marker);
+$totalRows_marker = mysqli_num_rows($marker);
 
 $typeurl = $row_marker['typeurl_es'];
 
@@ -74,7 +74,7 @@ $typeurl = $row_marker['typeurl_es'];
 <p>
 <?php
 
-error_reporting(E_ALL); 
+error_reporting(E_ALL);
 
 
 // if no ref set, use dir called error
@@ -91,7 +91,7 @@ include('classes/class.upload.php');
 
 
 if ($_POST['action'] == 'multiple') {
-	
+
 
     // ---------- MULTIPLE UPLOADS ----------
 
@@ -99,7 +99,7 @@ if ($_POST['action'] == 'multiple') {
     $files = array();
     foreach ($_FILES['my_field'] as $k => $l) {
         foreach ($l as $i => $v) {
-            if (!array_key_exists($i, $files)) 
+            if (!array_key_exists($i, $files))
                 $files[$i] = array();
             $files[$i][$k] = $v;
         }
@@ -107,11 +107,11 @@ if ($_POST['action'] == 'multiple') {
 
     // now we can loop through $files, and feed each element to the class
     foreach ($files as $file) {
-    
+
         // we instanciate the class for each element of $file
         $handle = new Upload($file);
-	
-        
+
+
         // then we check if the file has been uploaded properly
         // in its *temporary* location in the server (often, it is /tmp)
         if ($handle->uploaded) {
@@ -126,22 +126,22 @@ if ($_POST['action'] == 'multiple') {
       		$handle->image_ratio_fill      = true;
 			$handle->image_background_color = '#000000';
 			$handle->Process($_SERVER['DOCUMENT_ROOT']."/images/pages/".$typeurl."/".$colname_marker."/");
-			
+
 			$handle->file_new_name_body   = 'image115';
             $handle->image_resize         = true;
       		$handle->image_x              = 140;
 			$handle->image_y              = 95;
-			
+
 			$handle->Process($_SERVER['DOCUMENT_ROOT']."/images/pages/".$typeurl."/".$colname_marker."/");
 
             // we check if everything went OK
             if ($handle->processed) {
                 // everything was fine !
-				
+
                 echo '<div class="main_body"><fieldset>';
                 echo '  <legend>file uploaded with success</legend>';
                 echo '  <p>' . round(filesize($handle->file_dst_pathname)/256)/4 . 'KB</p>';
-                
+
                 echo '</fieldset></div>';
             } else {
                 // one error occured
@@ -150,7 +150,7 @@ if ($_POST['action'] == 'multiple') {
                 echo '  Error: ' . $handle->error . '';
                 echo '</fieldset></div>';
             }
-            
+
         } else {
             // if we're here, the upload file failed for some reasons
             // i.e. the server didn't receive the file
@@ -160,13 +160,13 @@ if ($_POST['action'] == 'multiple') {
             echo '</fieldset></div>';
         }
     }
-    
+
 
 
  $files = array();
     foreach ($_FILES['banner'] as $k => $l) {
         foreach ($l as $i => $v) {
-            if (!array_key_exists($i, $files)) 
+            if (!array_key_exists($i, $files))
                 $files[$i] = array();
             $files[$i][$k] = $v;
         }
@@ -174,11 +174,11 @@ if ($_POST['action'] == 'multiple') {
 
     // now we can loop through $files, and feed each element to the class
     foreach ($files as $file) {
-    
+
         // we instanciate the class for each element of $file
         $handle = new Upload($file);
-	
-        
+
+
         // then we check if the file has been uploaded properly
         // in its *temporary* location in the server (often, it is /tmp)
         if ($handle->uploaded) {
@@ -190,19 +190,19 @@ if ($_POST['action'] == 'multiple') {
             $handle->image_resize         = false;
       		$handle->image_x              = 400;
 			$handle->image_y              = 90;
-      		
+
 			$handle->Process($_SERVER['DOCUMENT_ROOT']."/images/pages/".$typeurl."/".$colname_marker."/");
-			
-			
+
+
 
             // we check if everything went OK
             if ($handle->processed) {
                 // everything was fine !
-				
+
                 echo '<div class="main_body"><fieldset>';
                 echo '  <legend>banner uploaded with success</legend>';
                 echo '  <p>' . round(filesize($handle->file_dst_pathname)/256)/4 . 'KB</p>';
-                
+
                 echo '</fieldset></div>';
             } else {
                 // one error occured
@@ -211,7 +211,7 @@ if ($_POST['action'] == 'multiple') {
                 echo '  Error: ' . $handle->error . '';
                 echo '</fieldset></div>';
             }
-            
+
         } else {
             // if we're here, the upload file failed for some reasons
             // i.e. the server didn't receive the file
@@ -221,8 +221,8 @@ if ($_POST['action'] == 'multiple') {
             echo '</fieldset></div>';
         }
     }
-    
-} 
+
+}
 
 
 ?>

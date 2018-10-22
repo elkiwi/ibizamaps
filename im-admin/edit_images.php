@@ -1,7 +1,7 @@
-<?php require_once('../Connections/ibzm.php'); 
+<?php require_once('../Connections/ibzm.php');
 session_cache_expire(180);
 $cache_expire = session_cache_expire();
-session_start(); 
+session_start();
 
 if(!isset($_SESSION['user'])){
 header("Location: index.php");
@@ -14,7 +14,7 @@ header("Location: index.php");
 if (isset($_GET['id'])) {
   $id = $_GET['id'];
 
-} 
+}
 
 
 if (isset($_GET['type'])) {
@@ -24,7 +24,7 @@ if (isset($_GET['type'])) {
 
 
 
-mysql_select_db($database_ibzm, $ibzm);
+mysqli_select_db($database_ibzm, $ibzm);
 $query_imagesDelete = "SELECT
 `type`.typeurl_es,
 property.propid
@@ -32,9 +32,9 @@ FROM
 property
 Inner Join `type` ON `type`.typeid = property.`type`
 WHERE property.propid =  $id";
-$imagesDelete = mysql_query($query_imagesDelete, $ibzm) or die(mysql_error());
-$row_imagesDelete = mysql_fetch_assoc($imagesDelete);
-$totalRows_imagesDelete = mysql_num_rows($imagesDelete);
+$imagesDelete = mysqli_query($query_imagesDelete, $ibzm);
+$row_imagesDelete = mysqli_fetch_assoc($imagesDelete);
+$totalRows_imagesDelete = mysqli_num_rows($imagesDelete);
 
 
 $path = $_SERVER['DOCUMENT_ROOT'] . '/images/pages/'.$row_imagesDelete['typeurl_es'].'/'.$row_imagesDelete['propid'].'';
@@ -43,7 +43,7 @@ $path = $_SERVER['DOCUMENT_ROOT'] . '/images/pages/'.$row_imagesDelete['typeurl_
 if(isset($_POST['file']) && is_array($_POST['file']))
 {
 	foreach($_POST['file'] as $file)
-	{	
+	{
 		unlink($path . "/" . $file) or die("Failed to delete file");
 	}
 }
@@ -78,7 +78,7 @@ if(isset($_POST['file']) && is_array($_POST['file']))
 <p align="center">&nbsp;</p>
 <table width="30%" border="0" align="left" cellpadding="0" cellspacing="0">
 <tr>
-<td width="70%"><input type="file" size="15" name="my_field[]" value="" /> 
+<td width="70%"><input type="file" size="15" name="my_field[]" value="" />
 <span class="red">** </span></td>
 </tr>
 <tr>
@@ -127,7 +127,7 @@ sort($files);
 
 
 foreach ($files as $file) {
-	
+
 if ($file== '.' || $file == '..' || $file == '' || substr("$file", -9, 3) == "600")  {
             continue;
         }
@@ -151,7 +151,7 @@ sort($files);
 
 
 foreach ($files as $file) {
-	
+
 if ($file== '.' || $file == '..' || $file == '' || substr("$file", -9, 3) == "115"  || substr("$file", -9, 3) == "ner")  {
             continue;
         }

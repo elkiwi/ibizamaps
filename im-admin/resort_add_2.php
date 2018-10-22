@@ -1,14 +1,14 @@
-<?php 
+<?php
 
 require_once('../Connections/ibzm.php');
 require_once('../includes/ez_sql_core.php');
 require_once('../includes/ez_sql_mysql.php');
 
 ?>
-<?php 
+<?php
 session_cache_expire(180);
 $cache_expire = session_cache_expire();
-session_start(); 
+session_start();
 
 if(!isset($_SESSION['user'])){
 header("Location: index.php");
@@ -21,42 +21,42 @@ $lng = $_POST['lng'];
 $title = $_POST['title'];
 $id = $_POST['id'];
 
-$arr_accept_marker_fields = 
+$arr_accept_marker_fields =
 	array(
 	'id', 'online', 'displayurl', 'nofollow', 'name_en', 'name_es', 'type', 'lat', 'lng', 'date_added', 'data_modified'
 	);
-	
-$arr_accept_contact_fields = 
+
+$arr_accept_contact_fields =
 	array(
 	'idcontact', 'address', 'telephone', 'http', 'email', 'area', 'municipal', 'impage', 'positiononly', 'notes_en', 'notes_es'
 	);
-	
-$arr_accept_accom_fields = 
+
+$arr_accept_accom_fields =
 	array(
 	'idaccom', 'affspot', 'stars', 'pool', 'gym', 'spa', 'wifi_lobby', 'rural', 'central', 'beach', 'sattv', 'restaurant', 'bar', 'entertainment', 'aircon', 'kitchenette', 'kettle', 'hairdryer', 'wifi_room', 'minibar', 'pricelow', 'pricehigh'
 	);
-	
-$arr_accept_beach_fields = 
+
+$arr_accept_beach_fields =
 	array(
 	'idbeach', 'blueflag', 'crowds', 'lifeguard', 'rubbishbins', 'showers', 'toilets', 'snorkeling', 'nudist', 'parking', 'beachbar', 'bar', 'restaurant', 'shop', 'sunbeds', 'length', 'width', 'bus', 'access', 'sand'
 	);
-	
-$arr_accept_pages_en_fields = 
+
+$arr_accept_pages_en_fields =
 	array(
 	'idpage_en', 'metadesc_en', 'keywords_en', 'summary_en', 'html_en'
 	);
-	
-$arr_accept_pages_es_fields = 
+
+$arr_accept_pages_es_fields =
 	array(
 	'idpage_es', 'metadesc_es', 'keywords_es', 'summary_es', 'html_es'
 	);
-	
-$arr_accept_info_en_fields = 
+
+$arr_accept_info_en_fields =
 	array(
 	'idinfo_en', 'title_en', 'metadesc_en', 'keywords_en', 'summary_en', 'html_en', 'infourl_en', 'menuname_en'
 	);
-	
-$arr_accept_info_es_fields = 
+
+$arr_accept_info_es_fields =
 	array(
 	'idinfo_es', 'title_es',  'metadesc_es', 'keywords_es', 'summary_es', 'html_es', 'infourl_es', 'menuname_es'
 	);
@@ -72,87 +72,87 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "marker2")) {
-	
+
 	if (isset($_REQUEST['MM_insert']))
 {
-	
-	// now create arrays to insert data 
+
+	// now create arrays to insert data
 	$arr_insert_keys = '';
 	$arr_insert_values = '';
-	foreach($_REQUEST as $key => $value) 
-	{ 
+	foreach($_REQUEST as $key => $value)
+	{
 		if (in_array($key, $arr_accept_marker_fields) && !empty($value))
 		{
-			
+
 			$arr_insert_marker_keys .= $key . ', ';
 			$arr_insert_marker_values .= '\'' . trim($value) . '\', ';
-		}	
-		
+		}
+
 		if (in_array($key, $arr_accept_contact_fields) && !empty($value))
 		{
-			
+
 			$arr_insert_contact_keys .= $key . ', ';
 			$arr_insert_contact_values .= '\'' . trim($value) . '\', ';
-		}	
-		
+		}
+
 		if (in_array($key, $arr_accept_accom_fields) && !empty($value))
 		{
-			
+
 			$arr_insert_accom_keys .= $key . ', ';
 			$arr_insert_accom_values .= '\'' . trim($value) . '\', ';
 		}
-		
+
 		if (in_array($key, $arr_accept_beach_fields) && !empty($value))
 		{
-			
+
 			$arr_insert_beach_keys .= $key . ', ';
 			$arr_insert_beach_values .= '\'' . trim($value) . '\', ';
-		}	
-		
+		}
+
 		if (in_array($key, $arr_accept_pages_en_fields) && !empty($value))
 		{
-			
+
 			$arr_insert_pages_en_keys .= $key . ', ';
 			$arr_insert_pages_en_values .= '\'' . trim($value) . '\', ';
-		}	
-		
+		}
+
 		if (in_array($key, $arr_accept_pages_es_fields) && !empty($value))
 		{
-			
+
 			$arr_insert_pages_es_keys .= $key . ', ';
 			$arr_insert_pages_es_values .= '\'' . trim($value) . '\', ';
-		}	
-		
+		}
+
 		if (in_array($key, $arr_accept_info_en_fields) && !empty($value))
 		{
-			
+
 			$arr_insert_info_en_keys .= $key . ', ';
 			$arr_insert_info_en_values .= '\'' . trim($value) . '\', ';
-		}		
-		
-			 
-	} 
+		}
+
+
+	}
 	$arr_insert_marker_keys = substr($arr_insert_marker_keys, 0, -2);
 	$arr_insert_marker_values = substr($arr_insert_marker_values, 0, -2);
-	
+
 	$arr_insert_contact_keys = substr($arr_insert_contact_keys, 0, -2);
 	$arr_insert_contact_values = substr($arr_insert_contact_values, 0, -2);
-	
+
 	$arr_insert_accom_keys = substr($arr_insert_accom_keys, 0, -2);
 	$arr_insert_accom_values = substr($arr_insert_accom_values, 0, -2);
-	
+
 	$arr_insert_beach_keys = substr($arr_insert_beach_keys, 0, -2);
 	$arr_insert_beach_values = substr($arr_insert_beach_values, 0, -2);
-	
+
 	$arr_insert_pages_en_keys = substr($arr_insert_pages_en_keys, 0, -2);
 	$arr_insert_pages_en_values = substr($arr_insert_pages_en_values, 0, -2);
-	
+
 	$arr_insert_pages_es_keys = substr($arr_insert_pages_es_keys, 0, -2);
 	$arr_insert_pages_es_values = substr($arr_insert_pages_es_values, 0, -2);
-	
+
 	$arr_insert_info_en_keys = substr($arr_insert_info_en_keys, 0, -2);
 	$arr_insert_info_en_values = substr($arr_insert_info_en_values, 0, -2);
-	
+
 	$arr_insert_info_es_keys = substr($arr_insert_info_es_keys, 0, -2);
 	$arr_insert_info_es_values = substr($arr_insert_info_es_values, 0, -2);
 
@@ -160,55 +160,55 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "marker2")) {
 	//exit($sql);
 	$db->query($sql);
 	$ID = $ezdb->insert_id;
-	
-	
+
+
 	$sql = "INSERT INTO contact ($arr_insert_contact_keys) VALUES ($arr_insert_contact_values)";
 	//exit($sql);
 	$db->query($sql);
-	
+
 	$sql = "INSERT INTO accom ($arr_insert_accom_keys) VALUES ($arr_insert_accom_values)";
 	//exit($sql);
 	$db->query($sql);
-	
+
 	$sql = "INSERT INTO beaches ($arr_insert_beach_keys) VALUES ($arr_insert_beach_values)";
 	//exit($sql);
 	$db->query($sql);
-	
+
 	$sql = "INSERT INTO pages_en ($arr_insert_pages_en_keys) VALUES ($arr_insert_pages_en_values)";
 	//exit($sql);
 	$db->query($sql);
-	
+
 	$sql = "INSERT INTO pages_es ($arr_insert_pages_es_keys) VALUES ($arr_insert_pages_es_values)";
 	//exit($sql);
 	$db->query($sql);
-	
+
 	$sql = "INSERT INTO infopages_en ($arr_insert_info_en_keys) VALUES ($arr_insert_info_en_values)";
 	//exit($sql);
 	$db->query($sql);
-	
+
 	$sql = "INSERT INTO infopages_es ($arr_insert_info_es_keys) VALUES ($arr_insert_info_es_values)";
 	//exit($sql);
 	$db->query($sql);
-	
-	
-	//$db->debug();
-	
-	
 
-	
-	
-	
+
+	//$db->debug();
+
+
+
+
+
+
 	header ('Location: add_images.php?id=' . $_POST['id']);
 	exit();
 }
 
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
 	}
 
 
@@ -216,23 +216,23 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "marker2")) {
 
 
 
-mysql_select_db($database_ibzm, $ibzm);
+mysqli_select_db($database_ibzm, $ibzm);
 $query_type = "SELECT idtype, markertype FROM type ORDER BY markertype ASC";
-$type = mysql_query($query_type, $ibzm) or die(mysql_error());
-$row_type = mysql_fetch_assoc($type);
-$totalRows_type = mysql_num_rows($type);
+$type = mysqli_query($query_type, $ibzm);
+$row_type = mysqli_fetch_assoc($type);
+$totalRows_type = mysqli_num_rows($type);
 
-mysql_select_db($database_ibzm, $ibzm);
+mysqli_select_db($database_ibzm, $ibzm);
 $query_munilist = "SELECT DISTINCT * FROM municipal";
-$munilist = mysql_query($query_munilist, $ibzm) or die(mysql_error());
-$row_munilist = mysql_fetch_assoc($munilist);
-$totalRows_munilist = mysql_num_rows($munilist);
+$munilist = mysqli_query($query_munilist, $ibzm);
+$row_munilist = mysqli_fetch_assoc($munilist);
+$totalRows_munilist = mysqli_num_rows($munilist);
 
-mysql_select_db($database_ibzm, $ibzm);
+mysqli_select_db($database_ibzm, $ibzm);
 $query_arealist = "SELECT DISTINCT * FROM area";
-$arealist = mysql_query($query_arealist, $ibzm) or die(mysql_error());
-$row_arealist = mysql_fetch_assoc($arealist);
-$totalRows_arealist = mysql_num_rows($arealist);
+$arealist = mysqli_query($query_arealist, $ibzm);
+$row_arealist = mysqli_fetch_assoc($arealist);
+$totalRows_arealist = mysqli_num_rows($arealist);
 
 
 
@@ -314,237 +314,237 @@ $totalRows_arealist = mysql_num_rows($arealist);
 	<div><br />
 		<h2 style="padding-left: 20px; color: red;" class="red">Add resort</h2>
 	</div>
-	
+
 </header>
 
 <nav>
 	<ul id="nav">
 		<?php include('mainnav.php');?>
-		
+
 	</ul>
 </nav>
 
 <section id="content">
 	<div class="g12 nodrop">
 	  <div class="textcontentadmin">
-	    
-	   
+
+
 	    <form id="marker2" name="marker2" method="post" action="<?php echo $editFormAction; ?>" data-ajax="false" >
 	      <input type="hidden" name="id" id="id" value="<?php echo $id; ?>" />
-          
-         
+
+
 	     	<fieldset>
 						<label>Destination title</label>
 						<section><label for="text_field"><img src="../images/ui/flag_en.gif" /></label>
 							<div><input type="text" name="name_en" value="<?php echo $title; ?>" ></div>
 						</section>
-                        
+
                         <section><label for="text_field"><img src="../images/ui/flag_es.gif" /></label>
 							<div><input type="text" name="name_es" value="<?php echo $title; ?>" ></div>
 						</section>
-                        
+
                         <section>
                         <label>Online?</label>
                         <div><input type="radio" name="online" value="1" id="online_0" checked /><label>Yes</label>
                         <input type="radio" name="online" value="0" id="online_1" /><label>No</label>
                         </div>
                         </section>
-                        
+
                          <section>
                         <label>Display url?</label>
                         <div><input type="radio" name="displayurl" value="1" id="displayurl_0" /><label>Yes</label>
                         <input type="radio" name="displayurl" value="0" id="displayurl_1" checked /><label>No</label>
                         </div>
                         </section>
-                        
+
                          <section>
                         <label>Apply Nofollow?</label>
                         <div><input type="radio" name="nofollow" value="1" id="nofollow_0" checked /><label>Yes</label>
                         <input type="radio" name="nofollow" value="0" id="nofollow_1" /><label>No</label>
                         </div>
                         </section>
-                        
-                        
-                      
-                        
-             </fieldset>  
-             
+
+
+
+
+             </fieldset>
+
              <fieldset>
-             
+
               <section><label for="text_field"> Address </label>
 							<div><textarea name="address" id="address" cols="45" rows="5"></textarea></div>
 						</section>
-                        
+
                          <section><label for="text_field"> Telephone </label>
 							<div><input type="text" name="telephone" id="telephone" /></div>
 						</section>
-                        
+
                           <section><label for="text_field"> Email </label>
 							<div><input type="text" name="email" id="email" /></div>
 						</section>
-                        
+
                          <section><label for="text_field"> Website </label>
                         <div><input name="http" type="text" id="http" value="http://" size="50" /></div>
 				  		</section>
-                        
+
                          <section><label for="text_field"> Notes EN</label>
                         <div><textarea name="notes_en" id="notes" cols="45" rows="5"></textarea></div>
 				  		</section>
-                        
+
                         <section><label for="text_field"> Notes ES</label>
                         <div><textarea name="notes_es" id="notes" cols="45" rows="5"></textarea></div>
 				  		</section>
-                        
+
 				     <section>
-                     
-                     </fieldset>      
-               
+
+                     </fieldset>
+
                   <fieldset>
                   <label>Meta Description <br />
-<span>(This text is what appears in Googles results ~ 160 characters)</span></label> 
+<span>(This text is what appears in Googles results ~ 160 characters)</span></label>
 						<section><label for="textarea"> <img src="../images/ui/flag_en.gif" /></label>
 							<div><textarea name="metadesc_en"   data-autogrow="true" /></textarea></div>
 						</section>
-                        
+
                         <section><label for="textarea"> <img src="../images/ui/flag_es.gif" /></label>
 							<div><textarea name="metadesc_es"   data-autogrow="true" /></textarea></div>
 						</section>
-						
-					
-						
-						
-				  
-						
-						
+
+
+
+
+
+
+
 					</fieldset>
-                    
-                    
+
+
                     <fieldset>
-                  <label>Summary</label> 
-                 
-                        
+                  <label>Summary</label>
+
+
 					 <section><label for="textarea_auto"><img src="../images/ui/flag_en.gif" /></label>
 							<div><textarea name="summary_en" class="description" rows="12" ></textarea>
 							</div>
 						</section>
-                        
+
                          <section><label for="textarea_auto"><img src="../images/ui/flag_es.gif" /></label>
 							<div><textarea name="summary_es" class="description" rows="12" ></textarea>
 							</div>
 						</section>
 					</fieldset>
-                    
-                    
+
+
                      <fieldset>
-                  <label>HTML</label> 
-                 
-                        
+                  <label>HTML</label>
+
+
 					 <section><label for="textarea_auto"><img src="../images/ui/flag_en.gif" /></label>
 							<div><textarea name="html_en" class="description" rows="12" ></textarea>
 							</div>
 						</section>
-                        
+
                          <section><label for="textarea_auto"><img src="../images/ui/flag_es.gif" /></label>
 							<div><textarea name="html_es" class="description" rows="12" ></textarea>
 							</div>
 						</section>
 					</fieldset>
-                    
-                     
-                    
+
+
+
                   <fieldset>
-                  <label>Detalles <a name="detalles"></a></label> 
-				  
-				 
-				  
-				 
-				  
-				  
-				  
-				  
+                  <label>Detalles <a name="detalles"></a></label>
+
+
+
+
+
+
+
+
 				   <section>
 				 <label>Type</label>
 				  <div> <select name="type" id="type" required />
                   <option value="">Select</option>
 					<?php
-                    do {  
+                    do {
                     ?>
                     <option value="<?php echo $row_type['idtype']?>"<?php if (!(strcmp($row_type['idtype'], $typeid))) {echo "selected=\"selected\"";} ?>><?php echo $row_type['markertype']?></option>
                     <?php
-                    } while ($row_type = mysql_fetch_assoc($type));
-                      $rows = mysql_num_rows($type);
+                    } while ($row_type = mysqli_fetch_assoc($type));
+                      $rows = mysqli_num_rows($type);
                       if($rows > 0) {
-                          mysql_data_seek($type, 0);
-                          $row_type = mysql_fetch_assoc($type);
+                          mysqli_data_seek($type, 0);
+                          $row_type = mysqli_fetch_assoc($type);
                       }
                     ?>
                     </select></div>
 				  </section>
-				  
+
 				   <section>
-                   
+
 				 <label>Municipal</label>
 				  <div><select name="municipal" id="municipal">
 					<?php
-                    do {  
+                    do {
                     ?>
                     <option value="<?php echo $row_munilist['idmunicipal']?>"><?php echo $row_munilist['name_ca']?></option>
                     <?php
-                    } while ($row_munilist = mysql_fetch_assoc($munilist));
-                      $rows = mysql_num_rows($munilist);
+                    } while ($row_munilist = mysqli_fetch_assoc($munilist));
+                      $rows = mysqli_num_rows($munilist);
                       if($rows > 0) {
-                          mysql_data_seek($munilist, 0);
-                          $row_munilist = mysql_fetch_assoc($munilist);
+                          mysqli_data_seek($munilist, 0);
+                          $row_munilist = mysqli_fetch_assoc($munilist);
                       }
                     ;?>
                     </select></div>
-                    
+
                     </section>
                     <section>
-				 
-                  
-                   
+
+
+
                     <label>Area</label>
                         <div><select name="area" id="area">
                         <?php
-                        do {  
+                        do {
                         ?>
                         <option value="<?php echo $row_arealist['idarea']?>"><?php echo $row_arealist['area_es']?></option>
                         <?php
-                        } while ($row_arealist = mysql_fetch_assoc($arealist));
-                          $rows = mysql_num_rows($arealist);
+                        } while ($row_arealist = mysqli_fetch_assoc($arealist));
+                          $rows = mysqli_num_rows($arealist);
                           if($rows > 0) {
-                              mysql_data_seek($arealist, 0);
-                              $row_arealist = mysql_fetch_assoc($arealist);
+                              mysqli_data_seek($arealist, 0);
+                              $row_arealist = mysqli_fetch_assoc($arealist);
                           }
                         ;?>
                         </select></div>
-                   
-                   
-				
+
+
+
 				  </section>
                   </fieldset>
-                 
+
                   <?php if ($typeid == 14) { include('includes/form.beach.html'); } ?>
-                  
+
 					<?php if ($typeid == 1 | $typeid == 2 | $typeid == 3 | $typeid == 4 | $typeid == 5 | $typeid == 23) { include('includes/form.accom.html'); } ?>
                     <?php // if ($typeid == 27) { include('includes/form.property.html'); } ?>
-                   
-				  
-				 
+
+
+
             <label></label>
             <div>
               <button class="submit green" name="ir" value="submit">Next -></button>
             </div>
           </section>
-				  
-				 
-                   
 
-              
-                   
-                    
-	    
+
+
+
+
+
+
+
 <input type="hidden" name="lat" id="lat" value="<?php echo $lat;?>" />
 <input type="hidden" name="lng" id="lng" value="<?php echo $lng;?>" />
 <input type="hidden" name="id" id="id" value="<?php echo $id;?>" />
@@ -557,13 +557,13 @@ $totalRows_arealist = mysql_num_rows($arealist);
 <input type="hidden" name="idinfo_es" id="id" value="<?php echo $id;?>" />
 <input type="hidden" name="type" id="type" value="<?php echo $typeid;?>" />
 <input type="hidden" name="date_added" id="date_added" value="<?php echo date("Y-m-d H:i:s"); ?>" />
-<input type="hidden" name="positiononly" id="positiononly" value="<?php echo $positiononly;?>" />   
+<input type="hidden" name="positiononly" id="positiononly" value="<?php echo $positiononly;?>" />
 
 
 <input type="hidden" name="MM_insert" value="marker2" />
         </form>
 	    <p></p>
-	   
+
       </div>
 	</div>
 </section>

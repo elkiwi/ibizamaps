@@ -8,7 +8,7 @@
 			</div>
 		</div>
 		<!-- // Main section -->
-		
+
 		<!-- Bottom section -->
 		<footer id="bottom">
 			<div class="container">
@@ -22,7 +22,7 @@
 								<h2>Unfolding to new<br />Discoveries</h2>
 							</hgroup>
 						</li>
-						
+
 						<li class="small widget widget-twitter" data-username="ibizamaps" data-count="2" data-retweets="true">
 							<h1>Latest tweets</h1>
 							<div class="tweets"></div>
@@ -31,8 +31,8 @@
 							<h1>Address</h1>
 							<p>
 								email: <a href="mailto:info@ibizamaps.net">info@ibizamaps.net</a><br />
-								
-								
+
+
 							</p>
 							<p>
 								Apdo Correos 25<br />
@@ -45,8 +45,8 @@
 							<h1>New Pages</h1>
         <?php do { ?>
  <p><a href="/en/<?php echo $row_newpages['muniurl']; ?>/<?php echo $row_newpages['typeurl']; ?>/<?php echo $row_newpages['id']; ?>.html"><?php echo $row_newpages['name_en']; ?></a></p>
-<?php } while ($row_newpages = mysql_fetch_assoc($newpages)); ?>
-							
+<?php } while ($row_newpages = mysqli_fetch_assoc($newpages)); ?>
+
 						</li>
 					</ul>
 				</aside>
@@ -55,7 +55,7 @@
 				<!-- Footer -->
 				<section id="footer" class="clear">
 					<p class="alpha">&copy; Copyright, <?php echo date("Y"); ?><br /><a href="http://www.kiwi-designed.com">Kiwi Designed - Ibiza Web Design</a></p>
-					
+
 				</section>
 				<!-- // Footer -->
 
@@ -63,7 +63,7 @@
 		</footer>
 		<!-- // Bottom section -->
 
-        
+
 
 		<script type="text/javascript">
 
@@ -73,18 +73,18 @@
 			_gaq.push(['_require', 'inpage_linkid', pluginUrl]);
 		  _gaq.push(['_setAccount', 'UA-289128-8']);
 		  _gaq.push(['_trackPageview']);
-		
+
 		  (function() {
 			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
 			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 		  })();
-		
+
 		</script>
-		
 
 
-		
+
+
 
 	</body>
 </html>

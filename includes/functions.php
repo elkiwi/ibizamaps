@@ -1,63 +1,63 @@
-<?php 
- # image types to display 
- 
+<?php
+ # image types to display
+
 $imagetypes = array("image/jpeg", "image/gif", "image/jpg");
 
 
 
-# Original PHP code by Chirp Internet: www.chirp.com.au 
-# Please acknowledge use of this code by including this header. 
+# Original PHP code by Chirp Internet: www.chirp.com.au
+# Please acknowledge use of this code by including this header.
 
-/*function getImages($dir) { 
+/*function getImages($dir) {
 
-global $imagetypes; 
+global $imagetypes;
 
-# array to hold return value 
+# array to hold return value
 
-$retval = array(); 
+$retval = array();
 
-# add trailing slash if missing 
+# add trailing slash if missing
 
-if(substr($dir, -1) != "/") $dir .= "/"; 
+if(substr($dir, -1) != "/") $dir .= "/";
 
-# full server path to directory 
+# full server path to directory
 
-$fulldir = "{$_SERVER['DOCUMENT_ROOT']}/$dir"; 
-$d = @dir($fulldir) or die("getImages: Failed opening directory $dir for reading"); 
-while(false !== ($entry = $d->read())) { 
+$fulldir = "{$_SERVER['DOCUMENT_ROOT']}/$dir";
+$d = @dir($fulldir) or die("getImages: Failed opening directory $dir for reading");
+while(false !== ($entry = $d->read())) {
 
-# skip hidden files 
+# skip hidden files
 
-if($entry[0] == ".") continue; 
+if($entry[0] == ".") continue;
 
-# check for image files 
+# check for image files
 
-if(strpos($fulldir.$entry, "medium"))  { 
-$retval[] = array( "file" => "/$dir$entry", "size" => getimagesize("$fulldir$entry") ); 
+if(strpos($fulldir.$entry, "medium"))  {
+$retval[] = array( "file" => "/$dir$entry", "size" => getimagesize("$fulldir$entry") );
 
-} 
+}
 
- 
 
-} 
 
-$d->close(); 
+}
 
-return $retval; 
+$d->close();
+
+return $retval;
 
 }*/
 
 if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "")
 {
   $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
       $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
+      break;
     case "long":
     case "int":
       $theValue = ($theValue != "") ? intval($theValue) : "NULL";
@@ -106,7 +106,7 @@ function langFlags($page) {
 global $type, $lang, $salerent, $zone, $id;
 
 switch ($page) {
-	
+
 /*case 'home':
 
 $flags = '<table border="0" cellspacing="5" cellpadding="5">
@@ -152,7 +152,7 @@ $flags = '<div class="langflags">
  <a href="/es/"><img src="/images/ui/flag_es.gif" width="20" height="14" border="0" alt="Espa&ntilde;ol" /></a>
     <a href="/"><img src="/images/ui/flag_en.gif" width="20" height="14" border="0" alt="English" /></a>
 
-  
+
 
 </div>';
 
@@ -177,7 +177,7 @@ function make_url( $x )
 	  {
 	  $x = trim($x);
 	  $x = html_entity_decode( $x);
-	  $r = array( '/[ÂÀÁÄÃ]/'=>'a','/[âãàáä]/'=>'a','/[ÊÈÉË]/' =>'e','/[êèéë]/' =>'e', '/[ñ]/' =>'n', '/[ÎÍÌÏ]/' =>'i','/[îíìï]/' =>'i','/[ÔÕÒÓÖ]/'=>'o','/[ôõòóö]/'=>'o','/[ÛÙÚÜ]/' =>'u','/[ûúùü]/' =>'u','/ç/' =>'c','/Ç/' => 'c');
+	  $r = array( '/[ï¿½ï¿½ï¿½ï¿½ï¿½]/'=>'a','/[ï¿½ï¿½ï¿½ï¿½ï¿½]/'=>'a','/[ï¿½ï¿½ï¿½ï¿½]/' =>'e','/[ï¿½ï¿½ï¿½ï¿½]/' =>'e', '/[ï¿½]/' =>'n', '/[ï¿½ï¿½ï¿½ï¿½]/' =>'i','/[ï¿½ï¿½ï¿½ï¿½]/' =>'i','/[ï¿½ï¿½ï¿½ï¿½ï¿½]/'=>'o','/[ï¿½ï¿½ï¿½ï¿½ï¿½]/'=>'o','/[ï¿½ï¿½ï¿½ï¿½]/' =>'u','/[ï¿½ï¿½ï¿½ï¿½]/' =>'u','/ï¿½/' =>'c','/ï¿½/' => 'c');
 	  $x = preg_replace( array_keys( $r ), array_values( $r ), $x);
 	  $x = preg_replace( '/\s|\'|\"/', '-', $x);
 	  preg_match_all('/[a-z]|\-[a-z]|[0-9]/i',$x, $R);

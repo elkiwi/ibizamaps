@@ -2,9 +2,9 @@
 
 $carhire="http://www.ibiza-spotlight.com/101-20.html";
 $motos ="http://www.ibiza-spotlight.com/101-21.html";
-} 
-else 
-{ 
+}
+else
+{
 $carhire="http://www.ibiza-spotlight.com/aff/idevaffiliate.php?id=101&amp;url=35";
 $motos="http://www.ibiza-spotlight.com/aff/idevaffiliate.php?id=101&amp;url=37";
 }
@@ -19,7 +19,7 @@ $motos="http://www.ibiza-spotlight.com/aff/idevaffiliate.php?id=101&amp;url=37";
 <?php do { ?>
 <p><a href="/<?php echo $lang; ?>/<?php echo $row_munilinks['muniurl'];?>/<?php echo $row_munilinks['typeurl']?>/<?php echo $row_munilinks['idmunicipal']?>.html"><?php echo $row_munilinks['name_'.$lang.'']; ?><br />
 </a></p>
-<?php } while ($row_munilinks = mysql_fetch_assoc($munilinks)); ?>
+<?php } while ($row_munilinks = mysqli_fetch_assoc($munilinks)); ?>
 <br />
 
 

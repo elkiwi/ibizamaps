@@ -1,23 +1,23 @@
-<?php require_once('../Connections/ibzm.php'); 
+<?php require_once('../Connections/ibzm.php');
 session_cache_expire(180);
 $cache_expire = session_cache_expire();
-session_start(); 
+session_start();
 
 if(!isset($_SESSION['user'])){
 header("Location: index.php");
 }
 
 if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "")
 {
   $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
       $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
+      break;
     case "long":
     case "int":
       $theValue = ($theValue != "") ? intval($theValue) : "NULL";
@@ -92,16 +92,16 @@ if (isset($_GET['id'])) {
 	</div>
 	<div id="header">
 
-	
 
-		
+
+
 	</div>
 </header>
 
 <nav>
 	<ul id="nav">
-		
-		
+
+
         	<?php include('mainnav.php');?>
 	</ul>
 </nav>
@@ -128,7 +128,7 @@ if (isset($_GET['id'])) {
 
 	<h3>Seleccionar Imganenes</h3>
 	<div id="uploader" style="width: 800px; height: 450px;">You browser doesn't support upload.</div>
-	
+
 </form>
 <div class="alert i_speech_bubble blue">Antes de continuar espera que están subidas todas las fotos</div><br />
 <br />
@@ -172,7 +172,7 @@ $(function() {
 				});
 
 				str += row + " ";
-			} else { 
+			} else {
 				str += arg + " ";
 			}
 		});
@@ -217,8 +217,8 @@ $(function() {
 				// up.settings.multipart_params = {param1: 'value1', param2: 'value2'};
 			}
 		},
-		
-		
+
+
 
 		// Post init events, bound after the internal events
 		init: {
@@ -264,8 +264,8 @@ $(function() {
 				// Called when a file has finished uploading
 				log('[FileUploaded] File:', file, "Info:", info);
 			},
-			
-			
+
+
 
 			ChunkUploaded: function(up, file, info) {
 				// Called when a file chunk has finished uploading

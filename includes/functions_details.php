@@ -44,38 +44,38 @@ case "activities":
 	break;
 case "beaches":
 	$navselect = "3";
-mysql_select_db($database_ibzm, $ibzm);
+mysqli_select_db($database_ibzm, $ibzm);
 $query_Beaches = "SELECT * FROM beaches WHERE idbeach = $id";
-$Beaches = mysql_query($query_Beaches, $ibzm) or die(mysql_error());
-$row_Beaches = mysql_fetch_assoc($Beaches);
-$totalRows_Beaches = mysql_num_rows($Beaches);
+$Beaches = mysqli_query($query_Beaches, $ibzm);
+$row_Beaches = mysqli_fetch_assoc($Beaches);
+$totalRows_Beaches = mysqli_num_rows($Beaches);
 
 	break;
 
-	
+
 case "transport":
 	$navselect = "2";
 	break;
-	
+
 case "hotels";
 case "apartments";
 case "hostels";
 case "villas";
 case "rural-hotels";
 
-mysql_select_db($database_ibzm, $ibzm);
+mysqli_select_db($database_ibzm, $ibzm);
 $query_Accom = "SELECT * FROM accom WHERE idaccom = $id";
-$Accom = mysql_query($query_Accom, $ibzm) or die(mysql_error());
-$row_Accom = mysql_fetch_assoc($Accom);
-$totalRows_Accom = mysql_num_rows($Accom);
+$Accom = mysqli_query($query_Accom, $ibzm);
+$row_Accom = mysqli_fetch_assoc($Accom);
+$totalRows_Accom = mysqli_num_rows($Accom);
 //exit();
 break;
-	
 
-	
+
+
 case "ibiza":
 	$navselect = "0";
-	break;	
+	break;
 default:
 $navselect = "0";
 }

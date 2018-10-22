@@ -27,7 +27,7 @@ $Ccommax = new Ccommax();
 
 /* PROCESS POST ACTIONS (saves and stuff) */
 if(isset($_POST["post_action"])) {
-	
+
 	if ($_POST["post_action"] == "save_cfg") {
 		$Ccommax->saveConfiguration("maxnumchars", $_POST["maxnumchars"]);
 		$Ccommax->saveConfiguration("Replymaxnumchars", $_POST["Replymaxnumchars"]);
@@ -40,31 +40,31 @@ if(isset($_POST["post_action"])) {
 		$Ccommax->saveConfiguration("display_order", $_POST["display_order"]);
 		$Ccommax->saveConfiguration("captcha_enabled", $_POST["captcha_enabled"]);
 		$Ccommax->saveConfiguration("captcha_width", $_POST["captcha_width"]);
-		
+
 		$Ccommax->saveConfiguration("captcha_color1", $_POST["captcha_color1"]);
 		$Ccommax->saveConfiguration("captcha_color2", $_POST["captcha_color2"]);
 		$Ccommax->saveConfiguration("captcha_color3", $_POST["captcha_color3"]);
 		$Ccommax->saveConfiguration("captcha_colorbg", $_POST["captcha_colorbg"]);
-		
-		
-		
+
+
+
 		$Ccommax->saveConfiguration("reg_users_only", $_POST["reg_users_only"]);
 		$Ccommax->saveConfiguration("karma_on", $_POST["karma_on"]);
 		$Ccommax->saveConfiguration("karma_type", $_POST["karma_type"]);
-		
+
 	}
-	
-	
+
+
 	if ($_POST["post_action"] == "app_comm") {
 		$Ccommax->admin_approveComment($_POST["comm_app_id"]);
 	}
-	
-	
+
+
 	if ($_POST["post_action"] == "rem_comm") {
 		$Ccommax->admin_removeComment($_POST["comm_rem_id"]);
 	}
-	
-	
+
+
 }
 
 
@@ -84,9 +84,9 @@ if(isset($_POST["post_action"])) {
 	<h2>ADMIN AREA</h2>
 	<div id="commax_admin_container">
 		<a href="?area=comments">Comments</a> | <a href="?area=config">Configurations</a>
-		
+
 		<?php
-			
+
 			if ($area == "config") {
 				$configurations = $Ccommax->getConfigurations();
 				?>
@@ -430,16 +430,16 @@ if(isset($_POST["post_action"])) {
 									<small>&nbsp;</small>
 								</td>
 							</tr>
-							
-							
-							
-							
+
+
+
+
 							<tr>
 								<td colspan="2">
 									<br/>
 									<input type="submit" method="post" value="save configurations" />
 								</td>
-							</tr>	
+							</tr>
 						</table>
 					</form>
 				</div>
@@ -453,36 +453,36 @@ if(isset($_POST["post_action"])) {
 							?>
 							<h3>Comments - Show all</h3>
 							<?php echo $comments; ?>
-							
-							
+
+
 							<?php
-							
-							
-							
+
+
+
 						} else if ($subarea == "showunreviewed") {
 							$comments = $Ccommax->admin_build_unreviewed_comment_system($_GET["id"]);
 							?>
 							<h3>Comments - Show unreviewed</h3>
 							<?php echo $comments; ?>
-							
-							
+
+
 							<?php
-							
-							
-							
+
+
+
 						} else {
 							?>
 							<h3>Comments</h3>
 							<ul class="commax_list">
 								<?php
 								$mainComments = $Ccommax->adminGetMainComments();
-								while($row = mysql_fetch_assoc($mainComments)) {
+								while($row = mysqli_fetch_assoc($mainComments)) {
 									$uncomments = $Ccommax->adminGetUnreviewdTotalComments($row["ref_id"]);
 									?>
 									<li>
 										<span>There are <?php echo $row["total"]; ?> comments in page (<?php echo $row["ref_id"]; ?>)</span>
 										<div>
-											<a href="?area=comments&subarea=showall&id=<?php echo $row["ref_id"] ?>">Show all comments</a> | 
+											<a href="?area=comments&subarea=showall&id=<?php echo $row["ref_id"] ?>">Show all comments</a> |
 											<?php
 											if ($uncomments > 0) {
 												?>
@@ -508,7 +508,7 @@ if(isset($_POST["post_action"])) {
 				<?php
 			}
 		?>
-		
+
 	</div>
 </body>
 </html>

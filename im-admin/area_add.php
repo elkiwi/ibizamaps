@@ -3,26 +3,26 @@
 
 session_cache_expire(180);
 $cache_expire = session_cache_expire();
-session_start(); 
+session_start();
 
 if(!isset($_SESSION['user'])){
 header("Location: index.php");
 }
 
 if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "")
 {
   if (PHP_VERSION < 6) {
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
       $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
 	  $theValue = htmlspecialchars($theValue);
-      break;    
+      break;
     case "long":
     case "int":
       $theValue = ($theValue != "") ? intval($theValue) : "NULL";
@@ -48,32 +48,32 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
-	
+
 
 	  function normalise ($string){
 		  $a = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞ
 	  ßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿŔŕ ';
 		  $b = 'aaaaaaaceeeeiiiidnoooooouuuuy
 	  bsaaaaaaaceeeeiiiidnoooooouuuyybyRr-';
-		  $string = utf8_decode($string);    
+		  $string = utf8_decode($string);
 		  $string = strtr($string, utf8_decode($a), $b);
 		  $string = strtolower($string);
 		  return utf8_encode($string);
 	  }
 
    $data = normalise ( $_POST['area']);
-   
+
 
   $insertSQL = sprintf("INSERT INTO area (area_es, areaurl, area_en) VALUES (%s, %s, %s)",
                        GetSQLValueString($_POST['area'], "text"),
                        GetSQLValueString($data, "text"),
                        GetSQLValueString($_POST['area'], "text"));
 
-  mysql_select_db($database_ibzm, $ibzm);
-  $Result1 = mysql_query($insertSQL, $ibzm) or die(mysql_error());
+  mysqli_select_db($database_ibzm, $ibzm);
+  $Result1 = mysqli_query($insertSQL, $ibzm);
 
   $insertGoTo = "main.php";
- 
+
   header(sprintf("Location: %s", $insertGoTo));
 }
 
@@ -97,7 +97,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 <div id="container" align="center">
 <div id="content" align="left">
 <div class="top">
-<img src="../images/ui/top.jpg" width="900" height="193" /> 
+<img src="../images/ui/top.jpg" width="900" height="193" />
 </div>
 <div class="textcontentadmin">
 <form id="form1" name="form1" method="POST" action="<?php echo $editFormAction; ?>">

@@ -6,7 +6,7 @@
 
 // -----------------------------------------------------------------------------
 	$thepage = 'islandmap';
-		
+
 
 	require '_top.php';
 	require '_nav.php';
@@ -27,7 +27,7 @@ $pageTitle = 'Ibiza ' . $row_infopages['title_' . $lang . ''];
 
 <div id="map_canvas" style="margin-left:5px; width: 100%; height: 450px;"></div>
 
-    
+
 <section id="content" class="alpha">
 
 	<!-- Right sidebar -->
@@ -39,11 +39,11 @@ $pageTitle = 'Ibiza ' . $row_infopages['title_' . $lang . ''];
 
 			</div>
 		</section>
- 
- 
- 
+
+
+
   	<section class="items small clear">
- 
+
         </section>
 		<ul class="social clear">
 			<li><a href="https://twitter.com/share" class="twitter-share-button" data-url="<?php echo 'http://www.ibizamaps.net' . $_SERVER['REQUEST_URI'];?>" data-text="<?php echo $pageTitle; ?>" data-count="horizontal">Tweet</a></li>
@@ -58,7 +58,7 @@ $pageTitle = 'Ibiza ' . $row_infopages['title_' . $lang . ''];
 
 
 <?php
-	require '_aside_first.php';	
+	require '_aside_first.php';
 	require '_bottom.php';
-	mysql_free_result($List);
+	mysqli_free_result($List);
 ?>

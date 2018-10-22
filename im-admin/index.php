@@ -18,11 +18,11 @@ if (isset($_POST['pass'])) {
 // Verify Login is correct
 
 
-mysql_select_db($database_ibzm, $ibzm);
+mysqli_select_db($database_ibzm, $ibzm);
 $query_rsLogin = sprintf("SELECT user, pass FROM users WHERE user = '%s' AND pass = '%s'", $myUsername_rsLogin,$myPassword_rsLogin);
-$rsLogin = mysql_query($query_rsLogin, $ibzm) or die(mysql_error());
-$row_rsLogin = mysql_fetch_assoc($rsLogin);
-$totalRows_rsLogin = mysql_num_rows($rsLogin);
+$rsLogin = mysqli_query($query_rsLogin, $ibzm);
+$row_rsLogin = mysqli_fetch_assoc($rsLogin);
+$totalRows_rsLogin = mysqli_num_rows($rsLogin);
 
 
 
@@ -34,9 +34,9 @@ if($_POST['action']=="login"){
 	if($totalRows_rsLogin==0)
 	{
 		$errorMessage = "Error con tu nombre o contraseña";
-		mysql_free_result($rsLogin);
-	} 
-	else 
+		mysqli_free_result($rsLogin);
+	}
+	else
 	{
 			$_SESSION['user'] = $_POST['user'];
 			header("Location: main.php");
@@ -53,19 +53,19 @@ if($_POST['action']=="login"){
 
 	<meta charset="utf-8">
 
-	
+
 
 	<title>White Label | Login</title>
 
-	
+
 
 	<meta name="description" content="">
 
 	<meta name="author" content="revaxarts.com">
 
-	
 
-	
+
+
 
 	<!-- Apple iOS and Android stuff -->
 
@@ -79,7 +79,7 @@ if($_POST['action']=="login"){
 
 	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,maximum-scale=1">
 
-	
+
 
 	<!-- Google Font and style definitions -->
 
@@ -87,7 +87,7 @@ if($_POST['action']=="login"){
 
 	<link rel="stylesheet" href="css/style.css">
 
-	
+
 
 	<!-- include the skins (change to dark if you like) -->
 
@@ -95,7 +95,7 @@ if($_POST['action']=="login"){
 
 	<!-- <link rel="stylesheet" href="css/dark/theme.css" id="themestyle"> -->
 
-	
+
 
 	<!--[if lt IE 9]>
 
@@ -105,7 +105,7 @@ if($_POST['action']=="login"){
 
 	<![endif]-->
 
-	
+
 
 	<!-- Use Google CDN for jQuery and jQuery UI -->
 
@@ -113,23 +113,23 @@ if($_POST['action']=="login"){
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js"></script>
 
-	
+
 
 	<!-- Loading JS Files this way is not recommended! Merge them but keep their order -->
 
-	
+
 
 	<!-- some basic functions -->
 
 	<script src="js/functions.js"></script>
 
-		
+
 
 	<!-- all Third Party Plugins -->
 
 	<script src="js/plugins.js"></script>
 
-		
+
 
 	<!-- Whitelabel Plugins -->
 
@@ -139,17 +139,17 @@ if($_POST['action']=="login"){
 
 	<script src="js/wl_Form.js"></script>
 
-		
+
 
 	<!-- configuration to overwrite settings -->
 
 	<script src="js/config.js"></script>
 
-		
+
 
 	<!-- the script which handles all the access to plugins etc... -->
 
-	
+
 
 </head>
 
@@ -217,17 +217,17 @@ if($_POST['action']=="login"){
 
 
 
-</form>	
+</form>
 
 
 
-</section>	
+</section>
 
 
 
 <footer>Copyright by Kiwi Designed</footer>
 
-		
+
 
 </body>
 

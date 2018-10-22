@@ -1,10 +1,10 @@
-<?php require_once('../Connections/ibzm.php'); 
+<?php require_once('../Connections/ibzm.php');
 
 session_cache_expire(180);
 
 $cache_expire = session_cache_expire();
 
-session_start(); 
+session_start();
 
 // Authenication
 $mcImageManagerConfig['authenticator'] = "SessionAuthenticator"; // Tell it to use the session authenticator
@@ -32,7 +32,7 @@ header("Location: index.php");
 
 if (!function_exists("GetSQLValueString")) {
 
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "")
 
 {
 
@@ -44,7 +44,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 
 
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
 
 
@@ -54,7 +54,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 
       $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
 
-      break;    
+      break;
 
     case "long":
 
@@ -110,9 +110,9 @@ $updateSQL = sprintf("UPDATE infopages_en SET title_en=%s, menuname_en=%s, metad
 		GetSQLValueString($_POST['metadesc_en'], "text"),
 		GetSQLValueString($_POST['html_en'], "text"),
 		GetSQLValueString($_POST['page_id'], "int"));
-mysql_select_db($database_ibzm, $ibzm);
+mysqli_select_db($database_ibzm, $ibzm);
 
-$Result1 = mysql_query($updateSQL, $ibzm) or die(mysql_error());
+$Result1 = mysqli_query($updateSQL, $ibzm);
 
 $updateSQL = sprintf("UPDATE infopages_es SET title_es=%s, menuname_es=%s, metadesc_es=%s, html_es=%s WHERE idinfo_es=%s",
 		GetSQLValueString($_POST['title_es'], "text"),
@@ -120,13 +120,13 @@ $updateSQL = sprintf("UPDATE infopages_es SET title_es=%s, menuname_es=%s, metad
 		GetSQLValueString($_POST['metadesc_es'], "text"),
 		GetSQLValueString($_POST['html_es'], "text"),
 		GetSQLValueString($_POST['page_id'], "int"));
-mysql_select_db($database_ibzm, $ibzm);
+mysqli_select_db($database_ibzm, $ibzm);
 
-$Result1 = mysql_query($updateSQL, $ibzm) or die(mysql_error());
+$Result1 = mysqli_query($updateSQL, $ibzm);
 
 $updateGoTo = "page_edit.php";
 
-if (isset($_SERVER['QUERY_STRING'])) 
+if (isset($_SERVER['QUERY_STRING']))
 		{
     $updateGoTo .= (strpos($updateGoTo, '?')) ? "&" : "?";
     $updateGoTo .= $_SERVER['QUERY_STRING'];
@@ -156,7 +156,7 @@ if(!isset($colname_edit)){
 
 
 
-mysql_select_db($database_ibzm, $ibzm);
+mysqli_select_db($database_ibzm, $ibzm);
 
 $query_edit = "SELECT
 infopages_en.title_en,
@@ -179,11 +179,11 @@ infopages_en.idinfo_en = $colname_edit";
 
 
 
-$edit = mysql_query($query_edit, $ibzm) or die(mysql_error());
+$edit = mysqli_query($query_edit, $ibzm);
 
-$row_edit = mysql_fetch_assoc($edit);
+$row_edit = mysqli_fetch_assoc($edit);
 
-$totalRows_edit = mysql_num_rows($edit);
+$totalRows_edit = mysqli_num_rows($edit);
 
 ?>
 
@@ -300,7 +300,7 @@ $totalRows_edit = mysql_num_rows($edit);
 
 
 
-		
+
 
 		plugins : "media,style,advhr,advimage,imagemanager,advlink,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,inlinepopups",
 
@@ -348,7 +348,7 @@ $totalRows_edit = mysql_num_rows($edit);
 
 	});
 
-	
+
 
 </script>
 
@@ -474,4 +474,4 @@ $totalRows_edit = mysql_num_rows($edit);
 <footer>Copyright by kiwi-designed.com 2011</footer>
 </body>
 </html>
-<?php mysql_free_result($edit);?>
+<?php mysqli_free_result($edit);?>

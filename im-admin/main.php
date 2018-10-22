@@ -1,7 +1,7 @@
 <?php require_once('../Connections/ibzm.php');
 
 session_cache_expire(180);
-session_start(); 
+session_start();
 
 /*if(!isset($_SESSION['user'])){
 header("Location: index.php");
@@ -17,18 +17,18 @@ $_SESSION['imagemanager.filesystem.rootpath'] = "/home/wwwibiz/public_html/image
 
 
 if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "")
 {
   if (PHP_VERSION < 6) {
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
       $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
+      break;
     case "long":
     case "int":
       $theValue = ($theValue != "") ? intval($theValue) : "NULL";
@@ -48,7 +48,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 
 
-mysql_select_db($database_ibzm, $ibzm);
+mysqli_select_db($database_ibzm, $ibzm);
 $query_list = "SELECT
 markers.id,
 markers.`online`,
@@ -75,9 +75,9 @@ ORDER BY markertype, name_en ASC";
 
 
 
-$list = mysql_query($query_list, $ibzm) or die(mysql_error());
-$row_list = mysql_fetch_assoc($list);
-$totalRows_list = mysql_num_rows($list);
+$list = mysqli_query($query_list, $ibzm);
+$row_list = mysqli_fetch_assoc($list);
+$totalRows_list = mysqli_num_rows($list);
 
 
 
@@ -168,7 +168,7 @@ $totalRows_list = mysql_num_rows($list);
 <nav>
 	<ul id="nav">
 		<?php include('mainnav.php');?>
-		
+
 	</ul>
 </nav>
 <!--<div id="pageoptions">
@@ -183,7 +183,7 @@ $totalRows_list = mysql_num_rows($list);
 	</div>
 </div>-->
 <section id="content">
-	
+
 	<div class="g12">
 	<table width="800" border="0" align="center" cellpadding="5" cellspacing="0" class="datatable" >
 <thead>
@@ -193,7 +193,7 @@ $totalRows_list = mysql_num_rows($list);
 				</thead>
 
 
-  <?php do { ?>  
+  <?php do { ?>
 <tr>
 <td><?php echo $row_list['date_added']; ?></td>
 <td><?php echo $row_list['name_en']; ?></td>
@@ -206,15 +206,15 @@ $totalRows_list = mysql_num_rows($list);
 <td><?php echo ($row_list['online'] == 0) ? '<span class="red">OFFLINE</span>' : '<span class="green">ONLINE</span>';?></td>
 <td width="16" align="right"><a href="delete.php?id=<?php echo $row_list['id'];?>" class="red" onClick="javascript:return confirm('Estas seguro que\nquieres borrar?\n \n <?php echo $row_list['name_en']; ?>');">X</a></td>
 </tr>
-<?php } while ($row_list = mysql_fetch_assoc($list)); ?>
+<?php } while ($row_list = mysqli_fetch_assoc($list)); ?>
 </table>
-		
+
 	</div>
-	
+
 <footer>Copyright by kiwi-designed.com 2011</footer>
 </body>
 </html>
 <?php
-mysql_free_result($list);
-mysql_free_result($pages);
+mysqli_free_result($list);
+mysqli_free_result($pages);
 ?>

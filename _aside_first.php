@@ -36,33 +36,33 @@
 </div>
 </div> <!-- close columns-->
 <ul>
-  
+
 <!--  <li><a href="http://www.facebook.com/IbizaMaps" title="Like Us" style="background-image: url(/data/img/<?php echo $website_config['scheme']; ?>/social/facebook.png);">Like Us</a></li>
-  
+
   <li><a href="https://twitter.com/#!/ibizamaps" title="Follow Us" style="background-image: url(/data/img/<?php echo $website_config['scheme']; ?>/social/twitter.png);">Follow Us</a></li>
-  
+
 </ul>
 		<ul>-->
 		<!--<li class="widget widget-search">
 		<form action="http://www.ibizamaps.net/results.php" id="cse-search-box">
-      
+
         <input type="hidden" name="cx" value="partner-pub-8283575214062599:k9cucu-1kig" />
         <input type="hidden" name="cof" value="FORID:10" />
         <input type="hidden" name="ie" value="UTF-8" />
         <div class="input"><input name="s" type="text" placeholder="search" /> </div>
-        
-     
+
+
     </form>
 		</li>-->
 
-     
+
 <br />
 <p class="head"><strong>Ibiza Towns &amp; Locations</strong></p>
 <?php do { ?>
   <p><a href="/en/<?php echo $row_places['muniurl']; ?>/<?php echo $row_places['typeurl']; ?>/<?php echo $row_places['id']; ?>.html"><?php echo $row_places['place_name']; ?></a></p>
-  <?php } while ($row_places = mysql_fetch_assoc($places)); ?>
-     
-		
+  <?php } while ($row_places = mysqli_fetch_assoc($places)); ?>
+
+
 </ul><br />
 
 <div id ="directionsPanel"></div>

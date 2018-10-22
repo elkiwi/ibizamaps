@@ -16,18 +16,18 @@ header("Cache-Control: no-store, no-cache, must-revalidate");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 require_once($_SERVER['DOCUMENT_ROOT'].'/Connections/ibzm.php');
- 
+
 if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "")
 {
   $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
       $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
+      break;
     case "long":
     case "int":
       $theValue = ($theValue != "") ? intval($theValue) : "NULL";
@@ -108,7 +108,7 @@ if ($chunks < 2 && file_exists($targetDir . DIRECTORY_SEPARATOR . $fileName)) {
 
 // Remove old temp files
 /* this doesn't really work by now
-	
+
 if (is_dir($targetDir) && ($dir = opendir($targetDir))) {
 	while (($file = readdir($dir)) !== false) {
 		$filePath = $targetDir . DIRECTORY_SEPARATOR . $file;
@@ -130,7 +130,7 @@ if (isset($_SERVER["HTTP_CONTENT_TYPE"]))
 if (isset($_SERVER["CONTENT_TYPE"]))
 	$contentType = $_SERVER["CONTENT_TYPE"];
 
-		
+
 
 // Handle non multipart uploads older WebKit versions didn't support multipart in HTML5
 if (strpos($contentType, "multipart") !== false) {
@@ -184,9 +184,9 @@ $thumb->save($targetDir . '/image300_' . $fileName);
 $thumb->resize(120, 120);
 $thumb->save($targetDir . '/image120_' . $fileName);
 
-mysql_select_db($database_ibzm, $ibzm);
+mysqli_select_db($database_ibzm, $ibzm);
 $sql = "INSERT INTO `image_order` (`marker_id`,`filename`,`alt`,`position`) VALUES ('$colname_marker','image300_$fileName','','')";
-mysql_query($sql, $ibzm) or die(mysql_error());
+mysqli_query($sql, $ibzm);
 
 
 

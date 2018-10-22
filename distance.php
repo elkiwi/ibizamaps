@@ -1,6 +1,6 @@
-<?php require_once('Connections/newmaps.php'); 
+<?php require_once('Connections/newmaps.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/includes/functions_details.php');?>
-<?php 
+<?php
 
 
 if (isset($_GET['lang'])) {
@@ -15,8 +15,8 @@ if (isset($_GET['type'])) {
   $colname_infopages = $_GET['type'];
 }
 
-mysql_select_db($database_newmaps, $newmaps);
-$query_places = "SELECT 
+mysqli_select_db($database_newmaps, $newmaps);
+$query_places = "SELECT
 `markers`.`name_$lang`,
 `municipal`.`muniurl`,
 `type`.`typeurl`,
@@ -28,12 +28,12 @@ Inner Join `municipal` ON `municipal`.`idmunicipal` = `contact`.`municipal`
 Inner Join `type` ON `type`.`idtype` = `markers`.`type`
 WHERE
 `markers`.`type` =  '22'";
-$places = mysql_query($query_places, $newmaps) or die(mysql_error());
-$row_places = mysql_fetch_assoc($places);
-$totalRows_places = mysql_num_rows($places);
+$places = mysqli_query($query_places, $newmaps);
+$row_places = mysqli_fetch_assoc($places);
+$totalRows_places = mysqli_num_rows($places);
 
 
-mysql_select_db($database_newmaps, $newmaps);
+mysqli_select_db($database_newmaps, $newmaps);
 $query_munilinks = "SELECT
 municipal.idmunicipal,
 municipal.name_ca,
@@ -47,11 +47,11 @@ Inner Join contact ON contact.idcontact = markers.id
 Inner Join municipal ON municipal.idmunicipal = contact.idcontact
 Inner Join `type` ON `type`.idtype = markers.`type`";
 
-$munilinks = mysql_query($query_munilinks, $newmaps) or die(mysql_error());
-$row_munilinks = mysql_fetch_assoc($munilinks);
-$totalRows_munilinks = mysql_num_rows($munilinks);
+$munilinks = mysqli_query($query_munilinks, $newmaps);
+$row_munilinks = mysqli_fetch_assoc($munilinks);
+$totalRows_munilinks = mysqli_num_rows($munilinks);
 
-mysql_select_db($database_newmaps, $newmaps);
+mysqli_select_db($database_newmaps, $newmaps);
 $query_List = "SELECT DISTINCT
 markers.name_$lang AS title_$lang,
 markers.type,
@@ -81,9 +81,9 @@ WHERE impage = 1
 ORDER BY municipal.name_ca ASC, markers.type ASC";
 
 
-$List = mysql_query($query_List, $newmaps) or die(mysql_error());
-$row_List = mysql_fetch_assoc($List);
-$totalRows_List = mysql_num_rows($List);
+$List = mysqli_query($query_List, $newmaps);
+$row_List = mysqli_fetch_assoc($List);
+$totalRows_List = mysqli_num_rows($List);
 
 // nested loop vars reset
 $lastTFM_nest = "";
@@ -176,7 +176,7 @@ kms&nbsp;&nbsp;<br /> -->
 	</strong><strong>Radiotaxi</strong><strong> Sant Joan</strong> - tel. 971 33 33 33	</p>
 <p>&nbsp;</p>
 <p>
-	
+
 </p>
 </div>
 <br clear="all" /><br />
@@ -200,6 +200,6 @@ kms&nbsp;&nbsp;<br /> -->
 <?php
 
 
-mysql_free_result($munilinks);
+mysqli_free_result($munilinks);
 
 ?>

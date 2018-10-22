@@ -2,11 +2,11 @@
 @session_start();
 
 if ((!isset($_SESSION["commax_admin_viewing"])) or  ((isset($_SESSION["commax_admin_viewing"])) and ($_SESSION["commax_admin_viewing"] !== true))) {
-	
+
 	header("location: login.php");
-	
+
 } else {
-	
+
 	// Get what area are we in
 	if (isset($_GET["area"])) {
 		$area = $_GET["area"];
@@ -20,7 +20,7 @@ if ((!isset($_SESSION["commax_admin_viewing"])) or  ((isset($_SESSION["commax_ad
 	} else {
 		$subarea = "main";
 	}
-	
+
 	/* Calls comments class */
 	require_once str_replace('\\','/',dirname(__FILE__)) . "/../include/commax.class.php";
 
@@ -36,7 +36,7 @@ if ((!isset($_SESSION["commax_admin_viewing"])) or  ((isset($_SESSION["commax_ad
 		<title>Commax | Commenting AJAX System | Admin</title>
 		<link rel="stylesheet" type="text/css" href="css/admin_style.css" />
 		<link rel="stylesheet" type="text/css" href="css/colorpicker.css" />
-		<link type="text/css" href="css/cupertino/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
+		<link type="text/css" href="css/cupertino/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
 		<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
 		<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
 		<script type="text/javascript" src="js/jquery.wheelcolorpicker.min.js"></script>
@@ -54,11 +54,11 @@ if ((!isset($_SESSION["commax_admin_viewing"])) or  ((isset($_SESSION["commax_ad
 				<a class="<?php if($area == "comments") { echo "current"; } ?>" href="?area=comments">Comments</a> | <a class="<?php if($area == "config") { echo "current"; } ?>" href="?area=config">Configurations</a> | <a class="" href="login.php?logout=now">Log out</a>
 			</div>
 			<?php
-				
+
 				if ($area == "config") {
 					$configurations = $Ccommax->getConfigurations();
 					?>
-					
+
 					<script type="text/javascript">
 						$(function() {
 							// Tabs
@@ -77,15 +77,15 @@ if ((!isset($_SESSION["commax_admin_viewing"])) or  ((isset($_SESSION["commax_ad
 							?>
 						});
 					</script>
-					
+
 					<div class="work_space config_area">
 						<h3>Configurations</h3>
 						<br/>
 						<br/>
-						
-						
+
+
 						<div id="tabs">
-							
+
 							<ul>
 								<li><a href="#tabs-1">Comment System</a></li>
 								<li><a href="#tabs-2">Security</a></li>
@@ -93,7 +93,7 @@ if ((!isset($_SESSION["commax_admin_viewing"])) or  ((isset($_SESSION["commax_ad
 								<li><a href="#tabs-4">Captcha</a></li>
 								<li><a href="#tabs-5">Voting System</a></li>
 							</ul>
-							
+
 							<div id="tabs-1">
 								<form class="form_save_config" method="post" action="">
 									<input type="hidden" name="post_action" value="save_cfg" />
@@ -202,11 +202,11 @@ if ((!isset($_SESSION["commax_admin_viewing"])) or  ((isset($_SESSION["commax_ad
 												<br/>
 												<input type="submit" method="post" value="save configurations" />
 											</td>
-										</tr>	
+										</tr>
 									</table>
 								</form>
 							</div>
-							
+
 							<div id="tabs-2">
 								<form class="form_save_config" method="post" action="">
 									<input type="hidden" name="post_action" value="save_cfg" />
@@ -279,11 +279,11 @@ if ((!isset($_SESSION["commax_admin_viewing"])) or  ((isset($_SESSION["commax_ad
 												<br/>
 												<input type="submit" method="post" value="save configurations" />
 											</td>
-										</tr>	
+										</tr>
 									</table>
 								</form>
 							</div>
-							
+
 							<div id="tabs-3">
 								<form class="form_save_config" method="post" action="">
 									<input type="hidden" name="post_action" value="save_cfg" />
@@ -338,11 +338,11 @@ if ((!isset($_SESSION["commax_admin_viewing"])) or  ((isset($_SESSION["commax_ad
 												<br/>
 												<input type="submit" method="post" value="save configurations" />
 											</td>
-										</tr>	
+										</tr>
 									</table>
 								</form>
 							</div>
-							
+
 							<div id="tabs-4">
 								<form class="form_save_config" method="post" action="">
 									<input type="hidden" name="post_action" value="save_cfg" />
@@ -422,11 +422,11 @@ if ((!isset($_SESSION["commax_admin_viewing"])) or  ((isset($_SESSION["commax_ad
 												<br/>
 												<input type="submit" method="post" value="save configurations" />
 											</td>
-										</tr>	
+										</tr>
 									</table>
 								</form>
 							</div>
-							
+
 							<div id="tabs-5">
 								<form class="form_save_config" method="post" action="">
 									<input type="hidden" name="post_action" value="save_cfg" />
@@ -473,7 +473,7 @@ if ((!isset($_SESSION["commax_admin_viewing"])) or  ((isset($_SESSION["commax_ad
 												<br/>
 												<input type="submit" method="post" value="save configurations" />
 											</td>
-										</tr>	
+										</tr>
 									</table>
 								</form>
 							</div>
@@ -500,8 +500,8 @@ if ((!isset($_SESSION["commax_admin_viewing"])) or  ((isset($_SESSION["commax_ad
 								<br/>
 								<?php
 								echo $comments;
-								
-								
+
+
 							} else if ($subarea == "showunreviewed") {
 								$comments = $Ccommax->admin_build_unreviewed_comment_system($_GET["id"]);
 								?>
@@ -510,21 +510,21 @@ if ((!isset($_SESSION["commax_admin_viewing"])) or  ((isset($_SESSION["commax_ad
 								<br/>
 								<?php
 								echo $comments;
-								
-								
+
+
 							} else {
 								?>
 								<h3>Comments</h3>
 								<ul class="commax_list">
 									<?php
 									$mainComments = $Ccommax->adminGetMainComments();
-									while($row = mysql_fetch_assoc($mainComments)) {
+									while($row = mysqli_fetch_assoc($mainComments)) {
 										$uncomments = $Ccommax->adminGetUnreviewdTotalComments($row["ref_id"]);
 										?>
 										<li>
 											<span>There are <?php echo $row["total"]; ?> comments in page (<?php echo $row["ref_id"]; ?>)</span>
 											<div>
-												<a href="?area=comments&subarea=showall&id=<?php echo $row["ref_id"] ?>">Show all comments</a> | 
+												<a href="?area=comments&subarea=showall&id=<?php echo $row["ref_id"] ?>">Show all comments</a> |
 												<?php
 												if ($uncomments > 0) {
 													?>
@@ -550,7 +550,7 @@ if ((!isset($_SESSION["commax_admin_viewing"])) or  ((isset($_SESSION["commax_ad
 					<?php
 				}
 			?>
-			
+
 		</div>
 	</body>
 	</html>

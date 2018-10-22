@@ -1,7 +1,7 @@
-<?php require_once('../Connections/ibzm.php'); 
+<?php require_once('../Connections/ibzm.php');
 session_cache_expire(180);
 $cache_expire = session_cache_expire();
-session_start(); 
+session_start();
 
 if(!isset($_SESSION['user'])){
 header("Location: index.php");
@@ -12,18 +12,18 @@ header("Location: index.php");
 ?>
 <?php
 if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "")
 {
   if (PHP_VERSION < 6) {
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
       $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
-      break;    
+      break;
     case "long":
     case "int":
       $theValue = ($theValue != "") ? intval($theValue) : "NULL";
@@ -42,35 +42,35 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
-mysql_select_db($database_ibzm, $ibzm);
+mysqli_select_db($database_ibzm, $ibzm);
 $query_countries = "SELECT * FROM countries WHERE countries.active =  0 ORDER BY name ASC";
-$countries = mysql_query($query_countries, $ibzm) or die(mysql_error());
-$row_countries = mysql_fetch_assoc($countries);
-$totalRows_countries = mysql_num_rows($countries);
+$countries = mysqli_query($query_countries, $ibzm);
+$row_countries = mysqli_fetch_assoc($countries);
+$totalRows_countries = mysqli_num_rows($countries);
 
 
 session_cache_expire(180);
 $cache_expire = session_cache_expire();
-session_start(); 
+session_start();
 
 if(!isset($_SESSION['user'])){
 header("Location: index.php");
 }
 
 if (!function_exists("GetSQLValueString")) {
-function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "")
 {
   if (PHP_VERSION < 6) {
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($theValue) : mysqli_escape_string($theValue);
 
   switch ($theType) {
     case "text":
       $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
 	  $theValue = htmlspecialchars($theValue);
-      break;    
+      break;
     case "long":
     case "int":
       $theValue = ($theValue != "") ? intval($theValue) : "NULL";
@@ -97,17 +97,17 @@ if (isset($_SERVER['QUERY_STRING'])) {
 }
 
 if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
-	
+
 	$ccode = $_POST['country'];
-	
+
 
   $insertSQL = "UPDATE countries SET `active`='1' WHERE (`code`='$ccode')  ";
 
-  mysql_select_db($database_ibzm, $ibzm);
-  $Result1 = mysql_query($insertSQL, $ibzm) or die(mysql_error());
+  mysqli_select_db($database_ibzm, $ibzm);
+  $Result1 = mysqli_query($insertSQL, $ibzm);
 
   $insertGoTo = "main.php";
- 
+
   header(sprintf("Location: %s", $insertGoTo));
 }
 
@@ -196,7 +196,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 		document_base_url : "http://www.ibizatophouse.com/",
 
 
-		
+
 		plugins : "media,style,advhr,advimage,imagemanager,advlink,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,inlinepopups",
 
 		// Theme options
@@ -224,7 +224,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 			staffid : ""
 		}
 	});
-	
+
 </script>
 <!-- /TinyMCE -->
 
@@ -233,29 +233,29 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 <body>
 <header>
 	<div><br />
-		
+
 	</div>
 	<div id="header">
 
 	<ul id="headernav">
 				<li><ul>
 					<li><a href="javascript:history.back()">Back</a><span><</span></li>
-					
-					
-					
-					
-					
+
+
+
+
+
 				</ul></li>
 			</ul>
 
-		
+
 	</div>
 </header>
 
 <nav>
 	<ul id="nav">
 		<?php include('mainnav.php');?>
-		
+
 	</ul>
 </nav>
 <!--<div id="pageoptions">
@@ -272,7 +272,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 <section id="content">
 <h2 style="padding-left: 20px; color: red;" class="red"><?php echo $row_edit['title'] ;?></h2>
 	<div class="g12 nodrop">
-    
+
 <form id="form1" name="form1" method="POST" action="<?php echo $editFormAction; ?>">
 <h2>Add a new country</h2>
 
@@ -284,15 +284,15 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 <label> Name </label>
 <div><select name="country" id="country">
 <?php
-do {  
+do {
 ?>
 	<option value="<?php echo $row_countries['code']?>"><?php echo  utf8_encode($row_countries['name'])?></option>
 	<?php
-} while ($row_countries = mysql_fetch_assoc($countries));
-  $rows = mysql_num_rows($countries);
+} while ($row_countries = mysqli_fetch_assoc($countries));
+  $rows = mysqli_num_rows($countries);
   if($rows > 0) {
-      mysql_data_seek($countries, 0);
-	  $row_countries = mysql_fetch_assoc($countries);
+      mysqli_data_seek($countries, 0);
+	  $row_countries = mysqli_fetch_assoc($countries);
   }
 ?>
 </select>
@@ -326,5 +326,5 @@ do {
 </body>
 </html>
 <?php
-mysql_free_result($countries);
+mysqli_free_result($countries);
 ?>
