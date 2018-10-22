@@ -1,0 +1,50 @@
+<?php if ($lang=='en'){
+
+$carhire="http://www.ibiza-spotlight.com/101-20.html";
+$motos ="http://www.ibiza-spotlight.com/101-21.html";
+} 
+else 
+{ 
+$carhire="http://www.ibiza-spotlight.com/aff/idevaffiliate.php?id=101&amp;url=35";
+$motos="http://www.ibiza-spotlight.com/aff/idevaffiliate.php?id=101&amp;url=37";
+}
+;?>
+
+<div class="sidenav"><img src="http://www.mallorcamaps.net/ddtabmenufiles/media/bg.sidebar.top.gif" alt="ibiza map navigation" width="121" height="29" />
+<p class="head"><strong><?php echo $translate['Ibiza Maps'][''.$lang.''] ;?></strong></p>
+<p><a href="/<?php echo $lang; ?>/ibizamap.html"><?php echo $translate['Ibiza Map'][''.$lang.''] ;?></a></p>
+<p><a href="/<?php echo $lang; ?>/beaches/"><?php echo $translate['Beach Map'][''.$lang.''] ;?></a></p><br />
+
+
+<?php do { ?>
+<p><a href="/<?php echo $lang; ?>/<?php echo $row_munilinks['muniurl'];?>/<?php echo $row_munilinks['typeurl']?>/<?php echo $row_munilinks['idmunicipal']?>.html"><?php echo $row_munilinks['name_'.$lang.'']; ?><br />
+</a></p>
+<?php } while ($row_munilinks = mysql_fetch_assoc($munilinks)); ?>
+<br />
+
+
+
+<p class="head"><strong>Ibiza Info</strong></p>
+<p><a href="/<?php echo $lang; ?>/weather/index.html"><?php echo $translate['Weather'][''.$lang.''];?></a></p><br />
+
+<p class="head"><strong>Transport</strong></p>
+<p><a href="/<?php echo $lang; ?>/distance.html"><?php echo $translate['Distance calculator'][''.$lang.''];?></a></p><br />
+<p><a href="<?php echo $carhire; ?>" ><?php echo $translate['Car Hire'][''.$lang.''];?></a> <img src="/images/interface/external.png" alt="External" width="10" height="10" hspace="3" /></p>
+<p><a href="<?php echo $motos; ?>" ><?php echo $translate['Scooter Hire'][''.$lang.''];?></a> <img src="/images/interface/external.png" alt="External" width="10" height="10" hspace="3" /></p>
+<br />
+<br />
+
+<p><a href="/ibiza-images/" rel="nofollow" ><span><?php echo $translate['Gallery'][''.$lang.''];?></span></a></p>
+<br />
+<br />
+
+
+<p><a href="mailto:info@ibizamaps.net">Contact Us</a><br />
+  <a href="/sitemap.html">Site Map</a></p>
+<br />
+<br />
+<br />
+
+
+<img src="http://www.mallorcamaps.net/ddtabmenufiles/media/bg.sidebar.btm.gif" alt="ibiza map navigation" width="121" height="29" />
+</div>

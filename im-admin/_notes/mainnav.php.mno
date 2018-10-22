@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_pages" value="name:idinfo_en;datatype:int,name:title_en;datatype:string,name:menuname_en;datatype:string" />
+</info>

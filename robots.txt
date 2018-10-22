@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /Connections/
+Disallow: /im-admin/
+Disallow: /ibiza-images/
+Disallow: /includes/
+Disallow: /Adsense

@@ -1,0 +1,11 @@
+<ul>
+<?php $proplist = new details(); 
+echo 
+$proplist->proplist("pool", $row_property['pool']).  
+$proplist->proplist("aircon", $row_property['aircon']).
+$proplist->proplist("garage", $row_property['garage']).
+$proplist->proplist("terrace", $row_property['terrace']).
+$proplist->proplist("fireplace", $row_property['fireplace'])
+; ?>
+</ul>
+

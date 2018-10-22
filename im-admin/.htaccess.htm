@@ -1,0 +1,58 @@
+
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresByType text/html "access plus 1 seconds"
+ExpiresByType image/gif "access plus 1 years"
+ExpiresByType image/jpeg "access plus 1 years"
+ExpiresByType image/png "access plus 1 years"
+ExpiresByType text/css "access plus 1 years"
+# ExpiresByType text/javascript "access plus 1 years"
+# ExpiresByType application/x-javascript "access plus 1 years"
+</IfModule>
+
+
+RewriteEngine on
+
+RewriteRule ^en/index.html$ / [R,L]
+
+RewriteRule ^index.html$ index.php [L]
+RewriteRule ^es/$ / [R,L]
+
+
+RewriteRule ^en/index.html$ /es/? [R,L]
+RewriteRule ^en/index.html$ index_es.php [L]
+RewriteRule ^en/$ index_en.php [L]
+
+RewriteRule ^de/index.html$ /es/? [R,L]
+RewriteRule ^de/index.html$ index_de.php [L]
+RewriteRule ^de/$ index_de.php [L]
+
+RewriteRule ^it/index.html$ /es/? [R,L]
+RewriteRule ^it/index.html$ index_it.php [L]
+RewriteRule ^it/$ index_it.php [L]
+
+
+
+RewriteCond %{THE_REQUEST} ^GET\ .*/index\.(php|html)\ HTTP
+RewriteRule ^(.*)index\.(html)$ /$1 [R=301,L]
+
+RewriteRule /link.htm /links.php [L]
+RewriteRule ^([a-z]{2})/([0-9]+).pdf /pdf.php?lang=$1&id=$2 [L]
+
+# redirect old list page to new numbered pages
+RewriteRule ^([a-z]{2})/([a-z-]+)/([a-z-]+)/$ /$1/$2/$3/page/1/ [R=301,L]
+
+
+RewriteRule ^index.htm$ / [R=301,L]
+
+
+
+RewriteRule ^([a-z]{2})/([a-z-]+)/?$ /pages.php?lang=$1&page=$2 [L]
+
+RewriteRule ^([a-z]{2})/([a-z]+)/([a-z-]+)/results.html?$ /list_search.php?lang=$1&salerent=$2&muni=$3 [L]
+RewriteRule ^([a-z]{2})/([a-z-]+)/([a-z]+)/([a-z-]+)/?$ /list.php?lang=$1&type=$2&salerent=$3&muni=$4 [L]
+RewriteRule ^([a-z]{2})/([a-z-]+)/([a-z]+)/page/([0-9]+)/?$ /list.php?lang=$1&type=$2&salerent=$3&page=$4 [L]
+
+RewriteRule ^([a-z]{2})/([a-z-]+)/([a-z]+)/?$ /list.php?lang=$1&type=$2&salerent=$3 [L]
+RewriteRule ^([a-z]{2})/([a-z-]+)/([a-z-]+)/([a-z-]+)/([0-9]+).html?$ /detail.php?lang=$1&type=$2&salerent=$3&muni=$4&id=$5 [L]
+

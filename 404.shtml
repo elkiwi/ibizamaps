@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<META HTTP-EQUIV="content-type" CONTENT="text/html;charset=iso-8859-1">
+<title>404 Page not found</title>
+<meta name="DESCRIPTION" content="Map of Ibiza, Spain. Clickable interactive street maps showing Ibiza, Santa Eulalia, San Antonio, San Jose and San Juan.">
+<meta name="KEYWORDS" content="ibiza,ibiza map,detailed map,road map,interactive map ibiza,hostels,hotels,restaurants,beaches">
+<meta name="RATING" content="general">
+<meta name="author" content="Kiwi Designed www.kiwi-designed.com">
+<link rel="shortcut icon" href="favicon.ico" >
+<link href="/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div id="Content">
+<table width="770"  border="0" align="center" cellpadding="0" cellspacing="0" class="content">
+<tr>
+<td align="center" valign="top"><br>
+
+<h1 align="center">Ibiza Maps 404 - Page not found!</h1>
+<p align="center"><!--#echo var="REMOTE_ADDR" --><br>
+Sorry, we have just updated our site and the page you were looking for is not here anymore. <br>
+<br>
+<!--#echo var="REQUEST_URI" --> 
+<br> 
+<a href="http://www.ibizamaps.net">Ibiza Maps Home</a></p>
+<div id="maps"></div>
+</td>
+</tr>
+<tr>
+<td valign="top"><div align="center">
+<p>&nbsp;</p>
+<p>&copy; Ibiza Maps - Navigate Ibiza </p>
+
+</div></td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+
+<map name="Map">
+</map>
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-289128-1";
+urchinTracker();
+</script>
+<img src="track.php" id="outtrack" width="1" height="1" alt="">
+</body>
+</html>
+
+
+

@@ -1,0 +1,20 @@
+<table width="150" border="0" cellspacing="2">
+<?php $beaches = new details(); 
+echo 
+$beaches->beach("blueflag", $row_Beaches['blueflag'], $translate['Blue Flag'][''.$lang.'']).
+$beaches->crowds("crowds", $row_Beaches['crowds'], $lang, $translate['Crowds'][''.$lang.''] ).  
+$beaches->beach("parking", $row_Beaches['parking'], $translate['Parking'][''.$lang.'']).
+$beaches->beach("bus", $row_Beaches['bus'], $translate['Bus'][''.$lang.'']).
+$beaches->beach("toilets", $row_Beaches['toilets'], $translate['Toilets'][''.$lang.'']).
+$beaches->beach("showers", $row_Beaches['showers'], $translate['Showers'][''.$lang.'']).
+$beaches->beach("lifeguard", $row_Beaches['lifeguard'], $translate['Lifeguard'][''.$lang.'']).
+$beaches->beach("sunbeds", $row_Beaches['sunbeds'], $translate['Sunbed Hire'][''.$lang.'']).
+$beaches->beach("shop", $row_Beaches['shop'], $translate['Shop'][''.$lang.'']).
+$beaches->beach("beachbar", $row_Beaches['beachbar'], $translate['Beach Bar'][''.$lang.'']).
+$beaches->beach("restaurant", $row_Beaches['restaurant'], $translate['Restaurant'][''.$lang.'']).
+$beaches->beach("snorkeling", $row_Beaches['snorkeling'], $translate['Snorkeling'][''.$lang.'']).
+$beaches->beach("gay", $row_Beaches['gay'], $translate['Gay'][''.$lang.'']).
+$beaches->beach("nudist", $row_Beaches['nudist'], $translate['Nudist'][''.$lang.''])
+; ?>
+<tr>
+</table>

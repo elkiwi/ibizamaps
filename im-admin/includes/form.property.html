@@ -1,0 +1,103 @@
+
+<form id="accom" name="accom" method="POST" action="<?php echo $editFormAction; ?>">
+<table width="100%" border="0" cellpadding="0">
+<tr>
+<td>idproperty</td>
+<td><input name="idproperty" type="hidden" id="idproperty" value="<?php echo $id;?>" /></td>
+</tr>
+<tr>
+<td>Agent Reference</td>
+<td><input type="text" name="agentref" id="icref" /></td>
+</tr>
+<tr>
+<td>Price</td>
+<td><input type="text" name="price" id="price" /></td>
+</tr>
+<tr>
+<td>Rooms</td>
+<td><input type="text" name="rooms" id="rooms" /></td>
+</tr>
+<tr>
+<td>Bathrooms</td>
+<td><input type="text" name="bathrooms" id="bathrooms" /></td>
+</tr>
+<tr>
+<td>Floor Area</td>
+<td><input type="text" name="floorarea" id="floorarea" /></td>
+</tr>
+<tr>
+<td>Land Area</td>
+<td><input type="text" name="landarea" id="landarea" /></td>
+</tr>
+<tr>
+<td>Pool</td>
+<td><p>
+<label>
+<input type="radio" name="pool" value="1" id="pool_0" />
+Yes</label>
+<label>
+<input type="radio" name="pool" value="0" id="pool_1" />
+No</label>
+<br />
+</p></td>
+</tr>
+<tr>
+<td>Aircon</td>
+<td><p>
+<label>
+<input type="radio" name="aircon" value="1" id="aircon_0" />
+Yes</label>
+<label>
+<input type="radio" name="aircon" value="0" id="aircon_1" />
+No</label>
+<br />
+</p></td>
+</tr>
+<tr>
+<td>Garage</td>
+<td><p>
+<label>
+<input type="radio" name="garage" value="1" id="garage_0" />
+Yes</label>
+<label>
+<input type="radio" name="garage" value="0" id="garage_1" />
+No</label>
+<br />
+</p></td>
+</tr>
+<tr>
+<td>Fire Place</td>
+<td><p>
+<label>
+<input type="radio" name="fireplace" value="1" id="fireplace_0" />
+Yes</label>
+<label>
+<input type="radio" name="fireplace" value="0" id="fireplace_1" />
+No</label>
+<br />
+</p></td>
+</tr>
+<tr>
+<td>Terrace</td>
+<td><p>
+<label>
+<input type="radio" name="terrace" value="1" id="terrace_0" />
+Yes</label>
+<label>
+<input type="radio" name="terrace" value="0" id="terrace_1" />
+No</label>
+<br />
+</p></td>
+</tr>
+</table>
+<p>
+
+</p>
+<?php if ($impage==1) {
+include ('form.page.html');
+}?>
+<input type="hidden" name="MM_insert" value="property" />
+<input type="submit" name="button" id="button" value="Submit" />
+</p>
+<p>&nbsp;</p>
+</form>

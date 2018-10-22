@@ -1,0 +1,86 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+	margin:0;
+	padding:0;
+	background-color:#000;
+	color:#FFF;
+	font-family:Tahoma, Geneva, sans-serif;
+}
+
+#content {
+	width:900px;
+	background-image: url(images/ui/bg.content.gif);
+	background-repeat: repeat-y;
+
+}
+
+#container {
+	width:100%;
+	background-color:#000000;
+	background-image: url(images/ui/bg.gif);
+	background-position: center top;
+	background-repeat: no-repeat;
+}
+
+.textcontent {
+	font-size:14px;
+	width:700px;
+	float:right;
+}
+
+.textcontentadmin {
+	
+	margin: 10px;
+}
+
+.textcontent p {
+width:600px;	
+}
+
+h1, h2, h3, h4 {
+	font-weight:normal;
+	margin-top: 10px;
+}
+
+h1{
+	font-size:18px;
+
+	}
+	
+p{
+	font-size:14px;
+	}
+
+#cleardiv {
+	clear:both;
+}
+
+#sidebar {
+width:200px;
+float:left;
+}
+
+#sidebarcontent {
+	margin: 0 0 0 20px;
+	font-size: 13px;
+}
+
+#sidebarcontent, p  {
+	padding-bottom:0px;
+	margin-bottom: 0px;
+}
+
+a {
+	color:#6666FF;
+	text-decoration:none;
+}
+
+.orange {
+color:#FF6600;
+}
+
+.red {
+	color:#F00;
+}

@@ -1,0 +1,10 @@
+<table width="464" border="0" cellpadding="0" cellspacing="5" bgcolor="#F2F2F2">
+<?php $property = new details(); 
+echo 
+$property->property("rooms", $row_property['rooms'], $translate['Rooms'][''.$lang.'']).
+$property->property("bathrooms", $row_property['bathrooms'], $translate['Bathrooms'][''.$lang.'']).  
+$property->property("floorarea", $row_property['floorarea'], $translate['Floor area'][''.$lang.'']).
+$property->property("landarea", $row_property['landarea'], $translate['Land area'][''.$lang.''])
+; ?>
+<tr>
+</table>

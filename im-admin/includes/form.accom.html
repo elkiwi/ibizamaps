@@ -1,0 +1,227 @@
+<fieldset>
+<label>Accommodation Data</label>
+
+
+<section>
+<label>Restaurant</label>
+<div>
+<input <?php if (!(strcmp($row_edit['acc_restaurant'],"1"))) {echo "checked=\"checked\"";} ?> type="radio" name="restaurant" value="1" id="restaurant_0" /><label> Yes</label> 
+<input <?php if (!(strcmp($row_edit['acc_restaurant'],"0"))) {echo "checked=\"checked\"";} ?> type="radio" name="restaurant" value="0" id="restaurant_1" /><label> No</label>
+</div>
+</section>
+
+
+<section>
+<label>Bar / Cafe</label>
+<div>
+<input <?php if (!(strcmp($row_edit['bar'],"1"))) {echo "checked=\"checked\"";} ?> type="radio" name="bar" value="1" id="bar_0" /><label> Yes</label> 
+<input <?php if (!(strcmp($row_edit['bar'],"0"))) {echo "checked=\"checked\"";} ?> type="radio" name="bar" value="0" id="bar_1" /><label> No</label>
+</div>
+</section>
+
+
+<section>
+<label>Entertainment / Shows</label>
+<div>
+<input <?php if (!(strcmp($row_edit['entertainment'],"1"))) {echo "checked=\"checked\"";} ?> type="radio" name="entertainment" value="1" id="entertainment_0" /><label> Yes</label> 
+<input <?php if (!(strcmp($row_edit['entertainment'],"0"))) {echo "checked=\"checked\"";} ?> type="radio" name="entertainment" value="0" id="entertainment_1" /><label> No</label>
+</div>
+</section>
+
+<section>
+  <label>Stars</label>
+<div>
+
+  
+  <select name="stars" id="stars">
+<option value="1" <?php if (!(strcmp(1, $row_edit['stars']))) {echo "selected=\"selected\"";} ?>>1</option>
+<option value="2" <?php if (!(strcmp(2, $row_edit['stars']))) {echo "selected=\"selected\"";} ?>>2</option>
+<option value="3" <?php if (!(strcmp(3, $row_edit['stars']))) {echo "selected=\"selected\"";} ?>>3</option>
+<option value="4" <?php if (!(strcmp(4, $row_edit['stars']))) {echo "selected=\"selected\"";} ?>>4</option>
+<option value="5" <?php if (!(strcmp(5, $row_edit['stars']))) {echo "selected=\"selected\"";} ?>>5</option>
+    </select>
+</div>
+</section>
+
+
+<section>
+<label>Pool</label>
+<div>
+<label>
+<input <?php if (!(strcmp($row_edit['pool'],"1"))) {echo "checked=\"checked\"";} ?> type="radio" name="pool" value="1" id="pool_0" />
+Yes</label>
+<label>
+<input <?php if (!(strcmp($row_edit['pool'],"0"))) {echo "checked=\"checked\"";} ?> type="radio" name="pool" value="0" id="pool_1" />
+No</label>
+</div>
+</section>
+
+<section>
+<label>Gym</label>
+<div>
+<input <?php if (!(strcmp($row_edit['gym'],"1"))) {echo "checked=\"checked\"";} ?> type="radio" name="gym" value="1" id="gym_0" /><label> Yes</label> 
+<input <?php if (!(strcmp($row_edit['gym'],"0"))) {echo "checked=\"checked\"";} ?> type="radio" name="gym" value="0" id="gym_1" /><label> No</label>
+</div>
+</section>
+
+<section>
+<label>Spa</label>
+<div>
+<input <?php if (!(strcmp($row_edit['spa'],"1"))) {echo "checked=\"checked\"";} ?> type="radio" name="spa" value="1" id="spa_0" /><label> Yes</label> 
+<input <?php if (!(strcmp($row_edit['spa'],"0"))) {echo "checked=\"checked\"";} ?>type="radio" name="spa" value="0" id="spa_1" /><label> No</label>
+</div>
+</section>
+
+<section>
+<label>Near to Beach</label>
+<div>
+<input <?php if (!(strcmp($row_edit['beach'],"1"))) {echo "checked=\"checked\"";} ?> type="radio" name="beach" value="1" id="beach_0" /><label> Yes</label> 
+<input <?php if (!(strcmp($row_edit['beach'],"0"))) {echo "checked=\"checked\"";} ?> type="radio" name="beach" value="0" id="beach_1" /><label> No</label>
+</div>
+</section>
+
+<section>
+<label>Rural Accommodation</label>
+<div>
+<input <?php if (!(strcmp($row_edit['rural'],"1"))) {echo "checked=\"checked\"";} ?> type="radio" name="rural" value="1" id="rural_0" /><label> Yes</label> 
+<input <?php if (!(strcmp($row_edit['rural'],"0"))) {echo "checked=\"checked\"";} ?> type="radio" name="rural" value="0" id="rural_1" /><label> No</label>
+</div>
+</section>
+
+<section>
+<label>Town Center</label>
+<div>
+<input <?php if (!(strcmp($row_edit['central'],"1"))) {echo "checked=\"checked\"";} ?> type="radio" name="central" value="1" id="central_0" /><label> Yes</label> 
+<input <?php if (!(strcmp($row_edit['central'],"0"))) {echo "checked=\"checked\"";} ?> type="radio" name="central" value="0" id="central_1" /><label> No</label>
+</div>
+</section>
+
+<section>
+<label>Lobby Wifi</label>
+<div>
+<input <?php if (!(strcmp($row_edit['wifi_lobby'],"1"))) {echo "checked=\"checked\"";} ?> type="radio" name="wifi_lobby" value="1" id="wifi_lobby_0" /><label> Yes</label> 
+<input <?php if (!(strcmp($row_edit['wifi_lobby'],"0"))) {echo "checked=\"checked\"";} ?> type="radio" name="wifi_lobby" value="0" id="wifi_lobby_1" /><label> No</label>
+</div>
+</section>
+
+
+
+
+</fieldset>
+
+
+<fieldset>
+
+
+<label>Rooms</label>
+
+<section>
+<label>Price double room low season</label>
+<div><input type="text" name="pricelow" id="pricelow" class="integer" value="<?php echo $row_edit['pricelow']; ?>" />€</div>
+</section>
+
+<section>
+<label>Price double room high season</label>
+<div><input type="text" name="pricehigh" id="pricehigh" class="integer" value="<?php echo $row_edit['pricehigh']; ?>" />€</div>
+</section>
+
+
+<section>
+<label>Sat TV?</label>
+<div>
+<input <?php if (!(strcmp($row_edit['sattv'],"1"))) {echo "checked=\"checked\"";} ?> type="radio" name="sattv" value="1" id="sattv_0" /><label> Yes</label> 
+<input <?php if (!(strcmp($row_edit['sattv'],"0"))) {echo "checked=\"checked\"";} ?> type="radio" name="sattv" value="0" id="sattv_1" /><label> No</label>
+</div>
+</section>
+
+<section>
+<label>In Room Air Conditioning?</label>
+<div>
+<input <?php if (!(strcmp($row_edit['aircon'],"1"))) {echo "checked=\"checked\"";} ?> type="radio" name="aircon" value="1" id="aircon_0" /><label> Yes</label> 
+<input <?php if (!(strcmp($row_edit['aircon'],"0"))) {echo "checked=\"checked\"";} ?> type="radio" name="aircon" value="0" id="aircon_1" /><label> No</label>
+</div>
+</section>
+
+
+
+
+<section>
+<label>In Room Wifi?</label>
+<div>
+<input <?php if (!(strcmp($row_edit['wifi_room'],"1"))) {echo "checked=\"checked\"";} ?> type="radio" name="wifi_room" value="1" id="wifi_room_0" /><label> Yes</label> 
+<input <?php if (!(strcmp($row_edit['wifi_room'],"0"))) {echo "checked=\"checked\"";} ?> type="radio" name="wifi_room" value="0" id="wifi_room_1" /><label> No</label>
+</div>
+</section>
+
+
+<section>
+<label>Mini Bar Fridge?</label>
+<div>
+<input <?php if (!(strcmp($row_edit['minibar'],"1"))) {echo "checked=\"checked\"";} ?> type="radio" name="minibar" value="1" id="minibar_0" /><label> Yes</label> 
+<input <?php if (!(strcmp($row_edit['minibar'],"0"))) {echo "checked=\"checked\"";} ?> type="radio" name="minibar" value="0" id="minibar_1" /><label> No</label>
+</div>
+</section>
+
+
+<section>
+<label>Kitchenette?</label>
+<div>
+<input <?php if (!(strcmp($row_edit['kitchenette'],"1"))) {echo "checked=\"checked\"";} ?> type="radio" name="kitchenette" value="1" id="kitchenette_0" /><label> Yes</label> 
+<input <?php if (!(strcmp($row_edit['kitchenette'],"0"))) {echo "checked=\"checked\"";} ?> type="radio" name="kitchenette" value="0" id="kitchenette_1" /><label> No</label>
+</div>
+</section>
+
+<section>
+<label>Kettle?</label>
+<div>
+<input <?php if (!(strcmp($row_edit['kettle'],"1"))) {echo "checked=\"checked\"";} ?> type="radio" name="kettle" value="1" id="kettle_0" /><label> Yes</label> 
+<input <?php if (!(strcmp($row_edit['kettle'],"0"))) {echo "checked=\"checked\"";} ?> type="radio" name="kettle" value="0" id="kettle_1" /><label> No</label>
+</div>
+</section>
+
+
+<section>
+<label>Hair Dryer?</label>
+<div>
+<input <?php if (!(strcmp($row_edit['hairdryer'],"1"))) {echo "checked=\"checked\"";} ?>  type="radio" name="hairdryer" value="1" id="hairdryer_0" /><label> Yes</label> 
+<input <?php if (!(strcmp($row_edit['hairdryer'],"0"))) {echo "checked=\"checked\"";} ?>  type="radio" name="hairdryer" value="0" id="hairdryer_1" /><label> No</label>
+</div>
+</section>
+</fieldset>
+
+<fieldset>
+
+
+<label>Affiliate links</label>
+
+<section>
+<label>Spotlight Page URL</label>
+<div>
+<input name="affspot" type="text" id="affspot" value="<?php echo $row_edit['affspot']; ?>" size="60" />
+</div>
+</section>
+
+<section>
+<label>Booking.com Page URL</label>
+<div>
+<input name="affurl" type="text" id="affurl" value="<?php echo $row_edit['affurl']; ?>" size="60" />
+</div>
+</section>
+
+<section>
+<label>James Villas URL</label>
+<div>
+<input name="affurl5" type="text" id="affurl5" value="<?php echo $row_edit['affurl5']; ?>" size="60" />
+</div>
+</section>
+
+
+<section>
+<label>Trade Doubler URL</label>
+<div>
+<input name="affurl3" type="text" id="affurl3" value="<?php echo $row_edit['affurl3']; ?>" size="60" />
+</div>
+</section>
+
+</fieldset>
+

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_munilist" value="name:idmunicipal;datatype:int,name:name_ca;datatype:string,name:name_es;datatype:string,name:name_en;datatype:string,name:muniurl;datatype:string" />
+	<infoitem key="UD_arealist" value="name:idarea;datatype:int,name:area_es;datatype:string,name:area_ca;datatype:string,name:areaurl;datatype:string,name:area_en;datatype:string" />
+	<infoitem key="UD_type" value="name:idtype;datatype:int,name:markertype;datatype:string" />
+</info>
