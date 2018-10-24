@@ -6,8 +6,8 @@
     @if(count($pages) > 0)
       @foreach($pages as $page)
 
-        <div class="well">
-          <h4>{{$page->name}}</h4>
+        <ul class="list">
+          <li class="item">{{$page->name_en}}</li>
         </div>
 
       @endforeach
