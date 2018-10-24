@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Page;
+    use App\Page;
+    use Illuminate\Http\Request;
+
 
 class PageController extends Controller
 {
@@ -12,11 +13,21 @@ class PageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
+      {
+        //$pages = Page::all()->get();
+        $pages = Markers::where('name_en', true)
+                        ->orderBy('name_en', 'desc')
+                        ->get();
+
+        return $pages->toJson();
+      }
+    /* public function index()
     {
         $pages = Page::all();
         return view('pages.index')->with('pages', $pages);
-    }
+    } */
 
     /**
      * Show the form for creating a new resource.
