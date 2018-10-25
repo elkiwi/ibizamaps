@@ -4,46 +4,29 @@ import axios from 'axios'
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-class PagesList extends Component {
+class Marker extends Component {
   constructor() {
     super()
-    this.state = {
-      pages: []
-    }
+    this.state = {markers: []}
   }
 
   componentDidMount() {
-    axios.get('/').then(response => {
+    axios.get('/api/marker').then(response => {
       this.setState({
-        pages: response.data
-      })
+        markers: response.data
+      });
+    }).catch(errors => {
+        console.log(errors);
     })
   }
 
   render() {
-    console.log(this.props);
-    const { pages } = this.state
     return (
-      <div className='container py-4'>
-        <div className='row justify-content-center'>
-          <div className='col-md-8'>
-            <div className='card'>
-              <div className='card-header'>All projects</div>
-              <div className='card-body'>
-                <Link className='btn btn-primary btn-sm mb-3' to='/'>
-                  Create new project
-                    </Link>
-                <ul className='list-group list-group-flush'>
-                <li className="item">hi!</li>
-
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className="container">
+        {this.state.markers.map(marker => <li key={marker.id}>{marker.name_en}</li>)}
       </div>
     )
   }
 }
 
-export default PagesList
+export default Marker

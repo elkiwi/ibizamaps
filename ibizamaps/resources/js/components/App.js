@@ -4,17 +4,19 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Header from './Header'
-import PagesList from './List'
+import List from './List'
 
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>
-        <div>
-          <Header />
-          <PagesList />
-        </div>
-      </BrowserRouter>
+      <div className="container">
+        <BrowserRouter>
+          <div>
+            <Header />
+            <List />
+          </div>
+        </BrowserRouter>
+      </div>
     )
   }
 }

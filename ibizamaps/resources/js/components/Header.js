@@ -1,14 +1,30 @@
 // resources/assets/js/components/Header.js
 
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { Component } from 'react';
+import { Router, Route, Link } from 'react-router';
 
-const Header = () => (
-  <nav className='navbar navbar-expand-md navbar-light navbar-laravel'>
-    <div className='container'>
-      <Link className='navbar-brand' to='#'>Tasksman</Link>
-    </div>
-  </nav>
-)
-
-export default Header
+class Header extends Component {
+  render() {
+    return (
+      <div className="container">
+        <nav className="navbar navbar-default">
+          <div className="container-fluid">
+            <div className="navbar-header">
+              <a className="navbar-brand" href="#">AppDividend</a>
+            </div>
+            <ul className="nav navbar-nav">
+              <li className="active"><a href="#">Home</a></li>
+              <li><a href="#">Page 1</a></li>
+              <li><a href="#">Page 2</a></li>
+              <li><a href="#">Page 3</a></li>
+            </ul>
+          </div>
+        </nav>
+        <div>
+          {this.props.children}
+        </div>
+      </div>
+    )
+  }
+}
+export default Header;

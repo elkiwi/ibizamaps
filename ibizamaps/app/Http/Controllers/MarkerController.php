@@ -1,35 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Marker;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-    use App\Page;
-    use Illuminate\Http\Request;
-
-
-class PageController extends Controller
+class MarkerController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
     public function index()
-      {
-        //$pages = Page::all()->get();
-        $users = DB::select('select * from users where id = ?', [1]);
-        console.log('hello ' . $users);
-       /*  $pages = Markers::where('name_en', true)
-                        ->orderBy('name_en', 'desc')
-                        ->get(); */
-
-        return $users->toJson();
-      }
-    /* public function index()
     {
-        $pages = Page::all();
-        return view('pages.index')->with('pages', $pages);
-    } */
+      $markers = Marker::all();
+      return response()->Json($markers);
+    }
 
     /**
      * Show the form for creating a new resource.

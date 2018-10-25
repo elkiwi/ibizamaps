@@ -11,4 +11,13 @@
 |
 */
 
-Route::view('/{path?}', 'app');
+/* Route::get('/', function(){
+  $markerList = '<h1>Home</h1>';
+  return $markerList;
+}); */
+Route::get('/', function () {
+    return view('app');
+});
+
+
+//Route::resource('markers', 'MarkerController');
