@@ -17,11 +17,13 @@ class PageController extends Controller
     public function index()
       {
         //$pages = Page::all()->get();
-        $pages = Markers::where('name_en', true)
+        $users = DB::select('select * from users where id = ?', [1]);
+        console.log('hello ' . $users);
+       /*  $pages = Markers::where('name_en', true)
                         ->orderBy('name_en', 'desc')
-                        ->get();
+                        ->get(); */
 
-        return $pages->toJson();
+        return $users->toJson();
       }
     /* public function index()
     {

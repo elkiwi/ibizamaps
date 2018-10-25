@@ -17,4 +17,4 @@ use Illuminate\Http\Request;
     return $request->user();
 }); */
 
-Route::get('/public/pages', 'PageController@index');
+Route::get('/', 'PageController@index');

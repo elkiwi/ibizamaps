@@ -34,6 +34,7 @@ class PagesList extends Component {
                   Create new project
                     </Link>
                 <ul className='list-group list-group-flush'>
+                <li className="item">hi!</li>
 
                 </ul>
               </div>

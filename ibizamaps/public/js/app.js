@@ -62183,7 +62183,15 @@ var PagesList = function (_Component) {
                   { className: 'btn btn-primary btn-sm mb-3', to: '/' },
                   'Create new project'
                 ),
-                __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement('ul', { className: 'list-group list-group-flush' })
+                __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+                  'ul',
+                  { className: 'list-group list-group-flush' },
+                  __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+                    'li',
+                    { className: 'item' },
+                    'hi!'
+                  )
+                )
               )
             )
           )
