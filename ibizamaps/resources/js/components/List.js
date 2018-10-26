@@ -23,7 +23,9 @@ class Marker extends Component {
   render() {
     return (
       <div className="container">
-        {this.state.markers.map(marker => <li key={marker.id}>{marker.name_en}</li>)}
+        {this.state.markers.map(marker => <li key={marker.id}>
+        <Link to={"/marker/" + marker.id } >{marker.name_en}</Link>
+        </li>)}
       </div>
     )
   }
