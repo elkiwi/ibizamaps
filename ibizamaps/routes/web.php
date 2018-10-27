@@ -19,5 +19,13 @@ Route::get('/', function () {
     return view('app');
 });
 
+/* Route::get('/page/{id}', function () {
+  return '<h3>Hleeo</h3>';
+    return view('app');
+}); */
+
+
+ Route::get('/page/{id}', 'MarkerController@show');
+
 
 //Route::resource('markers', 'MarkerController');
