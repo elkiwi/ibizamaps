@@ -25,7 +25,7 @@ Route::get('/', function () {
 }); */
 
 
- Route::get('/page/{id}', 'MarkerController@show');
+ //Route::get('/page/{id}', 'MarkerController@show');
 
 
 //Route::resource('markers', 'MarkerController');
