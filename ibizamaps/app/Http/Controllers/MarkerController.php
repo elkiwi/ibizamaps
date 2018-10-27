@@ -48,7 +48,7 @@ class MarkerController extends Controller
     public function show($id)
     {
       $markers = Marker::find($id);
-      return response()->Json($markers->name);
+      return response()->Json($markers);
     }
 
     /**

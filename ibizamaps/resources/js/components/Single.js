@@ -27,8 +27,6 @@ class Single extends Component {
         <div>
           <h3>{marker.name_en}</h3>
           <p>{marker.date_added}</p>
-
-
         </div>
           )}
       </div>

@@ -1,6 +1,6 @@
 // resources/assets/js/components/ProjectsList.js
 
-import axios from 'axios'
+
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -23,8 +23,9 @@ class Marker extends Component {
   render() {
     return (
       <div className="container">
-        {this.state.markers.map(marker => <li key={marker.id}>
-        <Link to={"/page/" + marker.id } >{marker.name_en}</Link>
+        {this.state.markers.map(marker =>
+				<li key={marker.id}>
+        	<Link to={"/marker/" + marker.id } >{marker.name_en}</Link>
         </li>)}
       </div>
     )
