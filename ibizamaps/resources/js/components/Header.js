@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { Router, Route, Link } from 'react-router';
+import Button from '@material-ui/core/Button';
 
 class Header extends Component {
   render() {
@@ -10,14 +11,11 @@ class Header extends Component {
         <nav className="navbar navbar-default">
           <div className="container-fluid">
             <div className="navbar-header">
-              <a className="navbar-brand" href="#">AppDividend</a>
+							<Button variant="contained" color="primary">
+								Hello World
+    					</Button>
             </div>
-            <ul className="nav navbar-nav">
-              <li className="active"><a href="#">Home</a></li>
-              <li><a href="#">Page 1</a></li>
-              <li><a href="#">Page 2</a></li>
-              <li><a href="#">Page 3</a></li>
-            </ul>
+
           </div>
         </nav>
         <div>

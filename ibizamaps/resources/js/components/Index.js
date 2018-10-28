@@ -4,18 +4,16 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
 import Header from './Header'
-import List from './List'
-import Single from './Single'
+import Blog from './Blog'
 
 class Index extends Component {
   render() {
     return (
       <div className="container">
+						<Header />
         <Router>
-          <div>
-            <Header />
-            <List />
-          </div>
+            <Blog />
+
         </Router>
 
       </div>
