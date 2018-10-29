@@ -19,13 +19,14 @@ Route::get('/', function () {
     return view('app');
 });
 
+
 /* Route::get('/page/{id}', function () {
   return '<h3>Hleeo</h3>';
     return view('app');
 }); */
 
 
- Route::get('/marker/:id', 'MarkerController@show');
+ Route::get('/detail/{id}', 'DetailController@index');
 
 
 //Route::resource('markers', 'MarkerController');

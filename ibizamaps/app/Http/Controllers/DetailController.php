@@ -1,35 +1,30 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Marker;
+use App\Detail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
 
-class MarkerController extends Controller
+class DetailController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-			//$markers = Marker::all();
-			//$markers = DB::table('users')->where('name', 'elkiwi')->first();
-			//var_dump($user->name);
+
 			// get towns
-			 $markers = DB::table('markers')
-				->where('type', '13')
+			 $details = DB::table('markers')
+				->where('id', $id)
 				->leftJoin('pages_en', 'id', '=', 'pages_en.idpage_en')
-				->select('name_en','summary_en', 'id')
+				->select('id', 'name_en','summary_en')
 				->get();
 
-
-
-			//var_dump($markers);
-
-      return response()->Json($markers);
+				//var_dump($detail);
+				return response()->Json($details);
     }
 
     /**
@@ -61,7 +56,7 @@ class MarkerController extends Controller
      */
     public function show($id)
     {
-     /*  $markers = Marker::find($id);
+     /*  $markers = Detail::find($id);
       return response()->Json($markers); */
     }
 
