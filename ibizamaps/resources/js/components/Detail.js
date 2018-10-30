@@ -7,10 +7,12 @@ class Detail extends Component {
   constructor() {
     super()
     this.state = {details: []}
-  }
+	}
+
 
   componentDidMount() {
-    axios.get('/api/detail/1').then(response => {
+		const id = this.props.match.params.id
+		axios.get(`/api/detail/${id}`).then(response => {
       this.setState({
         details: response.data
 			});

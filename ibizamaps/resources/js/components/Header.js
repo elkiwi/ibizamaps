@@ -8,7 +8,7 @@ class Header extends Component {
   render() {
     return (
       <div className="container">
-
+				<h3>Hello Header</h3>
       </div>
     )
   }

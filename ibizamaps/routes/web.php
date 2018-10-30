@@ -15,9 +15,11 @@
   $markerList = '<h1>Home</h1>';
   return $markerList;
 }); */
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('app');
-});
+}); */
+
+Route::view('/{path?}', 'app');
 
 
 /* Route::get('/page/{id}', function () {
@@ -26,7 +28,7 @@ Route::get('/', function () {
 }); */
 
 
- Route::get('/detail/{id}', 'DetailController@index');
+ Route::resource('/detail/{id}', 'DetailController');
 
 
 //Route::resource('markers', 'MarkerController');
