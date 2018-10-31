@@ -1,22 +1,24 @@
 // resources/assets/js/components/List.js
 
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+import ReactHtmlParser from 'react-html-parser';
+
 class Detail extends Component {
-  constructor() {
-    super()
+	constructor() {
+		super()
     this.state = {details: []}
 	}
 
-
   componentDidMount() {
 		const id = this.props.match.params.id
-		axios.get(`/api/detail/${id}`).then(response => {
-      this.setState({
-        details: response.data
+		axios.get(`/api/detail/${id}`).then(
+			console.log('Hello there I\'m Detail')
+
+		/* 	response => {
+			this.setState({
+				details: response.data
 			});
-    }).catch(errors => {
+    } */).catch(errors => {
 			console.log(errors);
     })
   }

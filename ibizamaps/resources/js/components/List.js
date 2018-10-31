@@ -1,11 +1,12 @@
 // resources/assets/js/components/List.js
 
-
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
-import Detail from './Detail';
-class Marker extends Component {
+import Header from './Header';
+
+
+class List extends Component {
   constructor() {
     super()
     this.state = {markers: []}
@@ -23,18 +24,21 @@ class Marker extends Component {
 
   render() {
     return (
+
+
 			<Router>
-      <div>
-        {this.state.markers.map(marker =>
-				<li key={marker.id}>
-        	<Link to={"/detail/" + marker.id } >{marker.name_en}</Link>
-						<Route path="/detail/{marker.id}"  component={Detail} />
+				<div>
+					<Header />
+					<h1>List</h1>
+					{this.state.markers.map(marker =>
+					<li key={marker.id}>
+						<Link to={"/detail/" + marker.id } >{marker.name_en}</Link>
 						<p>{ReactHtmlParser(marker.summary_en)}</p>
-        </li>)}
-      </div>
+					</li>)}
+				</div>
 			</Router>
     )
   }
 }
 
-export default Marker
+export default List

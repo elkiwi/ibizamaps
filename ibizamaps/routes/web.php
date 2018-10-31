@@ -20,15 +20,13 @@
 }); */
 
 Route::view('/{path?}', 'app');
-
+//Route::resource('detail', 'DetailController');
 
 /* Route::get('/page/{id}', function () {
   return '<h3>Hleeo</h3>';
     return view('app');
 }); */
+//Route::get('/detail/{id}', 'DetailController@index');
 
 
- Route::resource('/detail/{id}', 'DetailController');
-
-
-//Route::resource('markers', 'MarkerController');
+Route::resource('markers', 'MarkerController');

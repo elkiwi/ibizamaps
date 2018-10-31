@@ -18,4 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('marker', 'MarkerController');
-//Route::get('detail/{id}', 'DetailController@index');
+Route::get('detail/{id}', 'DetailController@index');

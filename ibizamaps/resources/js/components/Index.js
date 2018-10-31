@@ -4,18 +4,19 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Header from './Header'
-import Blog from './Blog'
 import Detail from './Detail'
+import List from './List'
 
 class Index extends Component {
   render() {
     return (
       <div className="container">
-						<Header />
+			<h1>Ibiza Maps</h1>
 				<Router>
 					<Switch>
-						<Route path='/list' component={Blog} />
-						<Route get='/detail/:id' component={Detail} />
+						<Route exact path='/' component={Header} />
+						<Route exact path="/list" component={List} />
+						<Route exact path="/detail/:id" component={Detail} />
 					</Switch>
 				</Router>
       </div>
