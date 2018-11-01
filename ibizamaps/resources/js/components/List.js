@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 import Header from './Header';
 
 
@@ -25,18 +24,15 @@ class List extends Component {
   render() {
     return (
 
-
-			<Router>
 				<div>
 					<Header />
 					<h1>List</h1>
 					{this.state.markers.map(marker =>
 					<li key={marker.id}>
-						<Link to={"/detail/" + marker.id } >{marker.name_en}</Link>
-						<p>{ReactHtmlParser(marker.summary_en)}</p>
+						<Link to={"detail/" + marker.id } >{marker.name_en}</Link>
 					</li>)}
 				</div>
-			</Router>
+
     )
   }
 }

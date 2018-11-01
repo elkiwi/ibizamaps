@@ -16,7 +16,7 @@ class Index extends Component {
 					<Switch>
 						<Route exact path='/' component={Header} />
 						<Route path="/list" component={List} />
-						<Route exect path="/detail/:id" component={Detail} />
+						<Route path="/detail/:id" component={Detail} />
 					</Switch>
 				</Router>
       </div>

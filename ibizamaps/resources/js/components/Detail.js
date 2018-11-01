@@ -1,7 +1,6 @@
 // resources/assets/js/components/List.js
 
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import ReactHtmlParser from 'react-html-parser';
 import Header from './Header'
 
@@ -25,10 +24,10 @@ class Detail extends Component {
 
   render() {
     return (
-      <div>
+			<div>
+			<Header />
 				{this.state.details.map(detail =>
-				<div className="container">
-				<Header />
+				<div className="container" key="1">
         	<h1>{detail.name_en}</h1>
 					<p>{ReactHtmlParser(detail.summary_en)}</p>
 						<p>Latitude: {detail.lat}</p>
