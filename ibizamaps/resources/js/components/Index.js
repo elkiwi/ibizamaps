@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Header from './Header'
 import Detail from './Detail'
 import List from './List'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 class Index extends Component {
   render() {

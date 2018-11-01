@@ -2,6 +2,10 @@
 
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import {
+	Card, CardImg, CardText, CardBody, Container, Row, Col,
+	CardTitle, CardSubtitle, Button
+} from 'reactstrap';
 import Header from './Header';
 
 
@@ -24,14 +28,26 @@ class List extends Component {
   render() {
     return (
 
-				<div>
-					<Header />
-					<h1>List</h1>
-					{this.state.markers.map(marker =>
-					<li key={marker.id}>
-						<Link to={"detail/" + marker.id } >{marker.name_en}</Link>
-					</li>)}
-				</div>
+			<Container>
+				<Header />
+				<Row>
+				{this.state.markers.map(marker =>
+					<Col>
+						<Card key={marker.id}>
+							<CardImg  src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
+							<CardBody>
+								<CardTitle>{marker.name_en}/</CardTitle>
+								<CardText>{marker.summary_en}</CardText>
+								<Button>
+									<Link to={"detail/" + marker.id} >{marker.name_en}</Link>
+								</Button>
+							</CardBody>
+						</Card>
+					</Col>
+				)}
+
+				</Row>
+				</Container>
 
     )
   }
