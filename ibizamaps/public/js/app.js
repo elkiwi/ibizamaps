@@ -65741,7 +65741,7 @@ var Detail = function (_Component) {
 				this.state.details.map(function (detail) {
 					return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 						'div',
-						{ className: 'container', key: '1' },
+						{ className: 'container', key: detail.id },
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							'h1',
 							null,

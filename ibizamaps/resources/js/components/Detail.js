@@ -27,7 +27,7 @@ class Detail extends Component {
 			<div>
 			<Header />
 				{this.state.details.map(detail =>
-				<div className="container" key="1">
+				<div className="container" key={detail.id}>
         	<h1>{detail.name_en}</h1>
 					<p>{ReactHtmlParser(detail.summary_en)}</p>
 						<p>Latitude: {detail.lat}</p>
