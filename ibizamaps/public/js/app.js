@@ -41409,8 +41409,8 @@ var Index = function (_Component) {
 												__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["d" /* Switch */],
 												null,
 												__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["c" /* Route */], { exact: true, path: '/', component: __WEBPACK_IMPORTED_MODULE_3__Header__["a" /* default */] }),
-												__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["c" /* Route */], { exact: true, path: '/list', component: __WEBPACK_IMPORTED_MODULE_5__List__["a" /* default */] }),
-												__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["c" /* Route */], { exact: true, path: '/detail/:id', component: __WEBPACK_IMPORTED_MODULE_4__Detail__["a" /* default */] })
+												__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["c" /* Route */], { path: '/list', component: __WEBPACK_IMPORTED_MODULE_5__List__["a" /* default */] }),
+												__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["c" /* Route */], { exect: true, path: '/detail/:id', component: __WEBPACK_IMPORTED_MODULE_4__Detail__["a" /* default */] })
 										)
 								)
 						);
@@ -65687,8 +65687,10 @@ module.exports = hoistNonReactStatics;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_html_parser__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_html_parser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_html_parser__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_dom__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_html_parser__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_html_parser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_html_parser__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Header__ = __webpack_require__(38);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -65698,6 +65700,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 // resources/assets/js/components/List.js
+
+
 
 
 
@@ -65717,14 +65721,15 @@ var Detail = function (_Component) {
 	_createClass(Detail, [{
 		key: 'componentDidMount',
 		value: function componentDidMount() {
-			var id = this.props.match.params.id;
-			axios.get('/api/detail/' + id).then(console.log('Hello there I\'m Detail')
+			var _this2 = this;
 
-			/* 	response => {
-   	this.setState({
-   		details: response.data
-   	});
-     } */).catch(function (errors) {
+			var id = this.props.match.params.id;
+			//console.log(id)
+			axios.get('/api/detail/' + id).then(function (response) {
+				_this2.setState({
+					details: response.data
+				});
+			}).catch(function (errors) {
 				console.log(errors);
 			});
 		}
@@ -65738,6 +65743,7 @@ var Detail = function (_Component) {
 					return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 						'div',
 						{ className: 'container' },
+						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Header__["a" /* default */], null),
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							'h1',
 							null,
@@ -65746,7 +65752,7 @@ var Detail = function (_Component) {
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							'p',
 							null,
-							__WEBPACK_IMPORTED_MODULE_1_react_html_parser___default()(detail.summary_en)
+							__WEBPACK_IMPORTED_MODULE_2_react_html_parser___default()(detail.summary_en)
 						),
 						__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 							'p',

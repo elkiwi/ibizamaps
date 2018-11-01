@@ -20,6 +20,7 @@
 }); */
 
 Route::view('/{path?}', 'app');
+Route::view('/{path?}/{id}', 'app');
 //Route::resource('detail', 'DetailController');
 
 /* Route::get('/page/{id}', function () {
