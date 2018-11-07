@@ -74008,9 +74008,10 @@ var Detail = function (_Component) {
 									),
 									__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 										'p',
-										null,
+										{ className: 'lead' },
 										__WEBPACK_IMPORTED_MODULE_2_react_html_parser___default()(detail.summary_en)
 									),
+									__WEBPACK_IMPORTED_MODULE_2_react_html_parser___default()(detail.html_en),
 									__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 										'p',
 										null,
@@ -77087,16 +77088,23 @@ var DetailMap = function (_Component) {
 		key: 'render',
 		value: function render() {
 
-			console.log(this.props);
+			//console.log(this.props)
 			return (
 				// Important! Always set the container height explicitly
 				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'div',
 					{ style: { height: '400px', width: '100%' } },
 					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_google_map_react___default.a, {
-						bootstrapURLKeys: { key: 'AIzaSyAehxcfvdPKYqQHo6U7gK5z_LCefG9VUHg' },
+						bootstrapURLKeys: {
+							key: 'AIzaSyAehxcfvdPKYqQHo6U7gK5z_LCefG9VUHg',
+							styles: [{
+								"featureType": "all",
+								"elementType": "labels",
+								"stylers": [{
+									"visibility": "#on"
+								}]
+							}] },
 						center: this.props.center,
-						defaultCenter: this.props.center,
 						defaultZoom: this.props.zoom
 					})
 				)

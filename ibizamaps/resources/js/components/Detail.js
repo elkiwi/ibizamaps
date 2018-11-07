@@ -10,6 +10,8 @@ import DetailMap from './DetailMap';
 
 
 class Detail extends Component {
+
+
 	constructor() {
 		super()
     this.state = {details: []}
@@ -29,6 +31,7 @@ class Detail extends Component {
     })
 	}
 
+
   render() {
 		{
 			this.state.details.map(detail =>
@@ -44,15 +47,16 @@ class Detail extends Component {
 				<Row>
 					<Col md="4">
 							<DetailMap
-								center={this.center}
-								zoom= {12} />
+								center = {this.center}
+								zoom = {12} />
 					</Col>
 						<Col>
 						{this.state.details.map(detail =>
 
 							<div className="container" key={detail.id}>
 								<h1>{detail.name_en}</h1>
-								<p>{ReactHtmlParser(detail.summary_en)}</p>
+								<p className="lead">{ReactHtmlParser(detail.summary_en)}</p>
+								{ReactHtmlParser(detail.html_en)}
 								<p>Latitude: {detail.lat}</p>
 								<p>Longitude: {detail.lng}</p>
 							</div>

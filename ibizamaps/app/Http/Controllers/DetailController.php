@@ -20,7 +20,7 @@ class DetailController extends Controller
 			 $details = DB::table('markers')
 				->where('id', $id)
 				->leftJoin('pages_en', 'id', '=', 'pages_en.idpage_en')
-				->select('id', 'name_en','summary_en', 'lat', 'lng')
+				->select('id', 'name_en','summary_en', 'html_en', 'lat', 'lng')
 				->get();
 
 				//var_dump($detail);

@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import {
 	Card, CardImg, CardText, CardBody, Container, Row, Col,
-	CardTitle, CardSubtitle, Button
+	CardTitle, Button
 } from 'reactstrap';
 import Header from './Header';
 

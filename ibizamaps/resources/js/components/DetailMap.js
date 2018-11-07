@@ -6,14 +6,21 @@ class DetailMap extends Component {
 
 	render() {
 
-		console.log(this.props)
+		//console.log(this.props)
 		return (
 			// Important! Always set the container height explicitly
 			<div style={{ height: '400px', width: '100%' }}>
 				<GoogleMapReact
-					bootstrapURLKeys={{ key: 'AIzaSyAehxcfvdPKYqQHo6U7gK5z_LCefG9VUHg'}}
+					bootstrapURLKeys={{
+						key: 'AIzaSyAehxcfvdPKYqQHo6U7gK5z_LCefG9VUHg',
+						styles: [{
+									"featureType": "all",
+									"elementType": "labels",
+									"stylers": [{
+										"visibility": "#on"
+									}]
+							}]}}
 					center={this.props.center}
-					defaultCenter={this.props.center}
 					defaultZoom={this.props.zoom}
 				>
 				</GoogleMapReact>
