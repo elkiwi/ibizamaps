@@ -6,6 +6,7 @@ import ReactHtmlParser from 'react-html-parser';
 import {Container, Col, Row} from 'reactstrap';
 import Header from './Header';
 import DetailMap from './DetailMap';
+import List from './TextList';
 
 
 
@@ -25,6 +26,7 @@ class Detail extends Component {
 			this.setState({
 				details: response.data
 			});
+
 
     } ).catch(errors => {
 			console.log(errors);
@@ -49,6 +51,7 @@ class Detail extends Component {
 							<DetailMap
 								center = {this.center}
 								zoom = {12} />
+							<List />
 					</Col>
 						<Col>
 						{this.state.details.map(detail =>
