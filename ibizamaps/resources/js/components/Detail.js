@@ -1,33 +1,12 @@
 // resources/assets/js/components/List.js
 
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactHtmlParser from 'react-html-parser';
 import {Container, Col, Row} from 'reactstrap';
 import Header from './Header';
 import DetailMap from './DetailMap';
 
-class Properties extends Component {
-	constructor() {
-		super();
-		this.properties = [
-			{
-				center: {
-					lat: 38,
-					lng: 1.3
-				},
-				zoom: 5
-			},
-		];
-	}
-	render() {
-		return (
-			<div>
-				<DetailMap center = {this.properties[0].center}
-					zoom = {this.properties[0].zoom}  />
-			</div>
-		);
-	}
-}
 
 
 class Detail extends Component {
@@ -50,27 +29,34 @@ class Detail extends Component {
     })
 	}
 
-
-
   render() {
-		console.log(this.props);
-    return (
+		{
+			this.state.details.map(detail =>
+			{
+				this.center = { lat: detail.lat, lng: detail.lng}
+			}
+			)
+		}
+		return (
 			<div>
 			<Header />
 			<Container>
 				<Row>
 					<Col md="4">
 							<DetailMap
-								/>
+								center={this.center}
+								zoom= {12} />
 					</Col>
 						<Col>
 						{this.state.details.map(detail =>
+
 							<div className="container" key={detail.id}>
 								<h1>{detail.name_en}</h1>
 								<p>{ReactHtmlParser(detail.summary_en)}</p>
 								<p>Latitude: {detail.lat}</p>
 								<p>Longitude: {detail.lng}</p>
 							</div>
+
 						)}
 						</Col>
 					</Row>
@@ -80,13 +66,13 @@ class Detail extends Component {
   }
 }
 
-DetailMap.defaultProps = {
-	center: {
-		lat: 38.9799,
-		lng: 1.306
-	},
-	zoom: 13
-};
+Detail.propTypes = {
+	//center: PropTypes.array.isRequired,
+	//zoom: PropTypes.number.isRequired
+
+}
+
+
 
 
 
