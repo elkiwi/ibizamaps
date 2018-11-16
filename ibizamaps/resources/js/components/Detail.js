@@ -53,19 +53,18 @@ class Detail extends Component {
 								zoom = {12} />
 							<List />
 					</Col>
-						<Col>
+					<Col>
 						{this.state.details.map(detail =>
 
 							<div className="container" key={detail.id}>
 								<h1>{detail.name_en}</h1>
+								<img src={'/images/pages/' + detail.id + '/' + detail.filename + ''} />
 								<p className="lead">{ReactHtmlParser(detail.summary_en)}</p>
 								{ReactHtmlParser(detail.html_en)}
-								<p>Latitude: {detail.lat}</p>
-								<p>Longitude: {detail.lng}</p>
 							</div>
 
 						)}
-						</Col>
+					</Col>
 					</Row>
 				</Container>
 			</div>

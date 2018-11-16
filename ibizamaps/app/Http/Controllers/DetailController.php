@@ -18,12 +18,14 @@ class DetailController extends Controller
 
 			// get towns
 			 $details = DB::table('markers')
-				->where('id', $id)
-				->leftJoin('pages_en', 'id', '=', 'pages_en.idpage_en')
-				->select('id', 'name_en','summary_en', 'html_en', 'lat', 'lng')
-				->get();
+			->leftJoin('pages_en', 'markers.id', '=', 'pages_en.idpage_en')
+			->Join('image_order', 'markers.id', '=', 'image_order.marker_id')
+			->select('markers.id', 'name_en','summary_en', 'html_en', 'lat', 'lng', 'filename', 'position')
+			->where('position', '0')
+			->where('markers.id', $id)
+			->get();
 
-				//var_dump($detail);
+				//dd($details);
 				return response()->Json($details);
     }
 

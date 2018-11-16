@@ -15,8 +15,8 @@ class Header extends Component {
 					<hr className="my-2" />
 					<p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
 					<p className="lead">
-						<Button outline color="primary sm"><a href="/">Home</a></Button>
-						<Button outline color="primary sm"><a href="/list">List</a></Button>
+					<Button outline color="primary sm"><a href="/">Home</a></Button>
+					<Button outline color="primary sm"><a href="/list">List</a></Button>
 					</p>
 				</Jumbotron>
 

@@ -6,7 +6,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Header from './Header'
 import Detail from './Detail'
 import List from './List'
-import TextList from './TextList'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -20,7 +19,6 @@ class Index extends Component {
 						<Route exact path='/' component={Header} />
 						<Route path="/list" component={List} />
 						<Route exact path="/detail/:id" component={Detail} />
-						<Route exact path="/detail/:id" component={TextList} />
 					</Switch>
 				</Router>
       </div>

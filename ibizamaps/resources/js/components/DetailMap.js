@@ -17,7 +17,7 @@ class DetailMap extends Component {
 									"featureType": "all",
 									"elementType": "labels",
 									"stylers": [{
-										"visibility": "#on"
+									"visibility": "#on"
 									}]
 							}]}}
 					center={this.props.center}
