@@ -1,41 +1,61 @@
 import React, { Component } from 'react';
-import GoogleMapReact from 'google-map-react';
+import { Gmaps, Marker, InfoWindow, Circle } from 'react-gmaps';
 
+
+
+const params = { v: '3.exp', key: 'AIzaSyAehxcfvdPKYqQHo6U7gK5z_LCefG9VUHg' };
 
 class DetailMap extends Component {
 
+	onMapCreated(map) {
+		map.setOptions({
+			disableDefaultUI: true
+		});
+	}
+
+	onDragEnd(e) {
+		console.log('onDragEnd', e);
+	}
+
+	onCloseClick() {
+		console.log('onCloseClick');
+	}
+
+	onClick(e) {
+		alert('hello pete');
+		console.log('onClick', e);
+	}
+
 	render() {
 
-		//console.log(this.props)
 		return (
-			// Important! Always set the container height explicitly
-			<div style={{ height: '400px', width: '100%' }}>
-				<GoogleMapReact
-					bootstrapURLKeys={{
-						key: 'AIzaSyAehxcfvdPKYqQHo6U7gK5z_LCefG9VUHg',
-						styles: [{
-									"featureType": "all",
-									"elementType": "labels",
-									"stylers": [{
-									"visibility": "#on"
-									}]
-							}]}}
-					center={this.props.center}
-					defaultZoom={this.props.zoom}
-				>
-				</GoogleMapReact>
-			</div>
+			<Gmaps
+				width={'350px'}
+				height={'250px'}
+				lat={this.props.lat}
+				lng={this.props.lng}
+				zoom={12}
+				loadingMessage={'Be happy'}
+				params={params}
+				onMapCreated={this.onMapCreated}>
+				<Marker
+					lat={this.props.lat}
+					lng={this.props.lng}
+					draggable={false}
+					onDragEnd={this.onDragEnd} />
+				<InfoWindow
+					lat={this.props.lat}
+					lng={this.props.lng}
+					content={'Hello, React :)'}
+					onCloseClick={this.onCloseClick} />
+				{/* <Circle
+					lat={this.props.lat}
+					lng={this.props.lng}
+					radius={500}
+					onClick={this.onClick} /> */}
+			</Gmaps>
 		);
 	}
 }
-
-/* DetailMap.defaultProps = {
-	center: {
-		lat: 59.95,
-		lng: 30.33
-	},
-	zoom: 11
-}; */
-
 
 export default DetailMap;

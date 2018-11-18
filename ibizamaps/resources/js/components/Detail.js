@@ -12,14 +12,15 @@ import List from './TextList';
 
 class Detail extends Component {
 
-
 	constructor() {
 		super()
-    this.state = {details: []}
+		this.state = {details: []}
+		console.log('Constructor Detail')
 	}
 
   componentDidMount() {
 		const id = this.props.match.params.id
+		console.log('Component did mount Detail')
 
 		//console.log(id)
 		axios.get(`/api/detail/${id}`).then(response => {
@@ -27,6 +28,11 @@ class Detail extends Component {
 				details: response.data
 			});
 
+			this.state.details.map(detail =>
+			this.setState({
+					lat:detail.lat,
+					lng:detail.lng
+			}))
 
     } ).catch(errors => {
 			console.log(errors);
@@ -35,24 +41,14 @@ class Detail extends Component {
 
 
   render() {
-		{
-			this.state.details.map(detail =>
-			{
-				this.center = { lat: detail.lat, lng: detail.lng}
-			}
-			)
-		}
+		console.log('Render Detail')
+
+
 		return (
 			<div>
 			<Header />
 			<Container>
 				<Row>
-					<Col md="4">
-							<DetailMap
-								center = {this.center}
-								zoom = {12} />
-							<List />
-					</Col>
 					<Col>
 						{this.state.details.map(detail =>
 
@@ -65,20 +61,20 @@ class Detail extends Component {
 
 						)}
 					</Col>
+					<Col md="4">
+							<DetailMap
+								zoom = {15}
+								lat={this.state.lat}
+								lng={this.state.lng}
+								/>
+							<List />
+					</Col>
 					</Row>
 				</Container>
 			</div>
     )
   }
 }
-
-Detail.propTypes = {
-	//center: PropTypes.array.isRequired,
-	//zoom: PropTypes.number.isRequired
-
-}
-
-
 
 
 
