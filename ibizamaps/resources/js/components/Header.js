@@ -4,9 +4,7 @@ import React, { Component } from 'react';
 import { Jumbotron, Button } from 'reactstrap';
 
 
-
-class Header extends Component {
-  render() {
+const Header = (props) => {
     return (
       <div>
 				<Jumbotron>
@@ -19,9 +17,7 @@ class Header extends Component {
 					<Button outline color="primary sm"><a href="/list">List</a></Button>
 					</p>
 				</Jumbotron>
-
 			</div>
     )
   }
-}
 export default Header;

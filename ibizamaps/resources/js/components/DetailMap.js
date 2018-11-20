@@ -7,6 +7,7 @@ const params = { v: '3.exp', key: 'AIzaSyAehxcfvdPKYqQHo6U7gK5z_LCefG9VUHg' };
 
 class DetailMap extends Component {
 
+
 	onMapCreated(map) {
 		map.setOptions({
 			disableDefaultUI: true
